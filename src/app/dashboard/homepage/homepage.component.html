@@ -1,0 +1,97 @@
+<div class="row  pl-5 pr-5">
+  <div class="col-md-8">
+    <div class="div-block-10">
+
+      <div>
+        <div data-delay="9000" data-animation="fade" class="slider w-slider" data-autoplay="1" data-easing="ease-in"
+          data-hide-arrows="1" data-duration="1000" data-infinite="1">
+          <div class="mask w-slider-mask">
+            <div class="slide-2 w-slide">
+              <div class="w-container">
+                <div class="row w-row">
+                  <div class="column-2 w-col w-col-6"><img src="src/assets/images/banner_image.png" srcset="src/assets/images/banner_image-p-800.png 800w, images/banner_image-p-1080.png 1080w, images/banner_image-p-1600.png 1600w, images/banner_image-p-2000.png 2000w, images/banner_image.png 2481w"
+                      sizes="(max-width: 767px) 58vw, 30vw" class="image-5"></div>
+                  <div class="column-4-copy w-col w-col-6">
+                    <h1 class="heading-4">WE&#x27;RE BUILDING BETTER MODELS</h1>
+                    <h3 class="heading-5">FASTER. EASIER. TOGETHER</h3><a target="_blank" class="link w-button">READ
+                      THIS DOC</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="slide w-slide">
+                    <div class="container w-container">
+                      <div class="row w-row">
+                        <div class="column w-col w-col-6"><img src="src/assets/images/card_img.png" srcset="src/assets/images/card_img-p-500.png 500w, images/card_img-p-800.png 800w, images/card_img-p-1080.png 1080w, images/card_img.png 1229w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 39vw, (max-width: 991px) 16vw, 19vw" class="image-6"></div>
+                        <div class="column-4 w-col w-col-6">
+                          <h1 class="heading-2">WE&#x27;RE BUILDING BETTER MODELS. </h1>
+                          <h1 class="heading-7">STABLE. SMARTER. IMPROVED</h1><a target="_blank" class="read-doc w-button">READ THIS DOC</a></div>
+                      </div>
+                    </div>
+                  </div> -->
+          </div>
+          <div class="w-slider-arrow-left">
+            <div class="icon-2 w-icon-slider-left"></div>
+          </div>
+          <div class="right-arrow w-slider-arrow-right">
+            <div class="icon w-icon-slider-right"></div>
+          </div>
+          <div class="slide-nav w-slider-nav w-round"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+
+
+    <div class="side-dashboard">
+      <!-- <a href="#" class="small-dashboar-link w-inline-block">
+              <h6 class="heading-13">ATM</h6>
+              <h1 class="heading-10">15</h1>
+              <p class="paragraph-3">Requires unload</p><img src="src/assets/images/UpArrow.svg" height="12" class="image-17">
+              <div class="text-block-6">13 Active</div>
+            </a> -->
+      <a href="#" class="small-dashboar-link w-inline-block">
+        <h6 class="heading-13">ATM</h6>
+        <h1 class="heading-10">15</h1>
+        <p class="paragraph-3">Requires unload</p>
+        <i style='color:red' class="fa fa-arrow-up image-17"></i>
+        <div class="text-block-6">13 Active</div>
+      </a>
+      <h1 class="heading-12">Overview</h1>
+      <div class="third-small-dashboard">
+        <h5 class="card-request-text">Cash Management</h5>
+        <h1 class="heading-10">05</h1>
+        <p class="paragraph-3">Awatitng your approval</p>
+      </div>
+      <div class="second-small-dashboar">
+        <h5 class="heading-13">BPS</h5>
+        <h1 class="heading-10">30</h1>
+        <p class="paragraph-3">Transactions are on your queue</p>
+        <i style='color:red' class="fa fa-arrow-up image-17"></i>
+        <div class="text-block-6">30 mins</div>
+      </div>
+      <div class="fourth-small-dashboard">
+        <h5 class="heading-13">iREQUIRE</h5>
+        <h1 class="heading-10">19</h1>
+        <p class="paragraph-3">Requests on your queue</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container-4 w-container">
+      <h4 class="text-center">Enjoy Your Tools. Easier, Quicker &amp; Smarter</h4>
+      <div class="row">
+        <div class=" col-md-2 mb-3" *ngFor="let item of products">
+          <div class="text-center">
+            <a href={{item.url}} target="_blank" class="w-inline-block">
+              <img src={{item.image}} height="60" width="79.5" class="image-7">
+            </a>
+            <a href={{item.url}} target="_blank" class="link-2">{{item.name}}</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>

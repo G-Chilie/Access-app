@@ -1,0 +1,13 @@
+[
+  { "name": "Basis", "url": "https://www.gtbank.com/about", "image": "src/assets/images/Basis.svg" },
+  { "name": "ATM Reconciliation", "url": "https://www.gtbank.com/about", "image": "src/assets/images/ATM-Reconciliation.svg" },
+  { "name": "E-Tracker", "url": "https://www.gtbank.com/about", "image": "src/assets/images/BPS.svg" },
+  { "name": "Cheque Inventory", "url": "https://www.gtbank.com/about", "image": "src/assets/images/Group-217.svg" },
+  { "name": "GT Collection", "url": "https://www.gtbank.com/about", "image": "src/assets/images/Basis.svg" },
+  { "name": "GT Collection", "url": "https://www.gtbank.com/about", "image": "src/assets/images/Group-218.svg" },
+  { "name": "Trade Tracker", "url": "https://www.gtbank.com/about", "image": "src/assets/images/Trade-Tracker.svg" },
+  { "name": "BPS", "url": "https://www.gtbank.com/about", "image": "src/assets/images/BPS_1.svg" },
+  { "name": "Assure Pay", "url": "https://www.gtbank.com/about", "image": "src/assets/images/Assurpay.svg" },
+  { "name": "GTPay", "url": "https://www.gtbank.com/about", "image": "src/assets/images/GTPay.svg" }
+
+]

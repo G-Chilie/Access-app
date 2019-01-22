@@ -1,0 +1,11 @@
+.navbar-brand .custom {
+  padding-top: 0.2rem !important;
+    padding-bottom: 0.1rem  !important;
+}
+.form-control {
+  border-radius: 1.25rem !important;
+}
+
+.btn{
+  background-color: #fff !important;
+}
