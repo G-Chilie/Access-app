@@ -3,3 +3,7 @@ export class Product {
   url: string;
   image: string;
 }
+
+export class Auth {
+  BASE_URl = 'https://gtweb.gtbank.com/osbservice/ValidateAdminUser/api';
+}

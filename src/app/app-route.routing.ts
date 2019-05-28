@@ -10,12 +10,12 @@ const routes: Routes = [
       path: '',
     //   canActivate: [AuthGuard],
       children: [
-        { path: '', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+        { path: '', loadChildren: './dashboard/dashboard.module#DashboardModule'},
      //  ,
       ]
    },
 
-    { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
+    { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
 
 export const AppRouteRoutes = RouterModule.forChild(routes);

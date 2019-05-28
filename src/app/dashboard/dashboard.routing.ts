@@ -7,8 +7,8 @@ const routes: Routes = [
       path: '',
       component: DashboardComponent,
       children: [
-                  { path: '', component: HomepageComponent },
-                  { path: 'home', component: HomepageComponent}
+                  { path: '', pathMatch: 'full', redirectTo: 'home' },
+                  {path: 'home', loadChildren: './homepage/homepage.module#HomepageModule'}
                 ]
   },
   ];

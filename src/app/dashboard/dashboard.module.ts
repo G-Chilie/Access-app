@@ -11,8 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule, UiModule, DashboardRoutes, UiModule, HttpClientModule
   ],
-  declarations: [DashboardComponent, HomepageComponent],
-  exports: [DashboardComponent, HomepageComponent],
+  declarations: [DashboardComponent],
+  exports: [DashboardComponent],
   providers: [DashboardService]
 })
 export class DashboardModule { }
