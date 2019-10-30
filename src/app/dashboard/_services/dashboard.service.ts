@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Product } from './../_model/products.data';
+import { Product } from '../../_model/products.data';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';

@@ -1,9 +1,9 @@
 import { LoginComponent } from './../../auth/login/login.component';
-import { Product } from './../_model/products.data';
-import { UserInfo } from './../_model/userinfo.data';
+import { Product } from '../../_model/products.data';
+import { UserInfo } from '../../_model/userinfo.data';
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../_services/dashboard.service';
-import { User } from '../_model/user';
+import { User } from '../../_model/user';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class HomepageComponent implements OnInit {
   getStaffDetails() {
     const user: User = JSON.parse(localStorage.getItem('staffDetail'));
     const data = {
-      username: user.username,
+      // username: user.username,
       requestinguserid: user.RequestingUserID
     };
 
