@@ -24,24 +24,24 @@ headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  login(body) {
-this.adminUser.username = 'unwana.uforo';
-this.adminUser.RequestingUserID = 'unwana.uforo';
-this.adminUser.requestID = 23343434324;
-this.adminUser.Channel = 'AccessManager';
+// login(body) {
+// this.adminUser.username = 'unwana.uforo';
+// this.adminUser.RequestingUserID = 'unwana.uforo';
+// this.adminUser.requestID = 23343434324;
+// this.adminUser.Channel = 'AccessManager';
 
-    return this.http.post(`${this.postUrl}/Staff/GetStaffWithPicture`, this.adminUser)
-      .pipe(
-        retry(3),
-        catchError(this.errorHandler));
-  }
+//     return this.http.post(`${this.postUrl}/Staff/GetStaffWithPicture`, this.adminUser)
+//       .pipe(
+//         retry(3),
+//         catchError(this.errorHandler));
+//   }
 
-    logout() {
-    localStorage.removeItem('staffDetail');
-    this.router.navigate(['/login']);
-    }
+//     logout() {
+//     localStorage.removeItem('staffDetail');
+//     this.router.navigate(['/login']);
+//     }
 
-    errorHandler(error: HttpErrorResponse) {
-      return Observable.throw(error);
-  }
+//     errorHandler(error: HttpErrorResponse) {
+//       return Observable.throw(error);
+//   }
 }

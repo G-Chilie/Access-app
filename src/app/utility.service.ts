@@ -67,19 +67,20 @@ export class UtilityService {
   addAuthParams(body) {
     // this.user = this.userService.getByUserUsername();
     // console.log(this.user);
-      // body.customerId = this.extEncrypt(this.user.userId);
+    //  const userdetails = this.extEncrypt(localStorage.getItem('FormDetails'));
+     const userdetails = JSON.stringify(localStorage.getItem('userdet')) ;
+     console.log('ewa deolu', userdetails);
       // body.username = this.extEncrypt(body.UserID);
-      // body.password = body.extEncrypt(body.password);
-      body = body + this.extEncrypt(this.generateRequestId());
-      body = body + environment.Channel;
-      body = body + this.extEncrypt(localStorage.getItem('userToken'));
+      // body.username = userdetails.username;
+      // body.password = userdetails.password;
+
     return body;
   }
 
    getUsername() {
     this.res = localStorage.getItem('Form Details');
     // this.res = this.userService.getUserWithPic();
-    this.username = this.res.userId;
+    this.username = this.res.username;
     console.log(this.username);
     return this.username;
    }

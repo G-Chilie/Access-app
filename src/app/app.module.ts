@@ -11,18 +11,19 @@ import { AppRouteRoutes } from './app-route.routing';
 import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OpenurlComponent } from './openurl/openurl.component';
+import { ResetBasisPasswordComponent } from './reset-basis-password/reset-basis-password.component';
 // import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, OpenurlComponent
+    AppComponent, LoginComponent, OpenurlComponent, ResetBasisPasswordComponent
   ],
   imports: [
     BrowserModule, ReactiveFormsModule, FormsModule,
     HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([])
   ],
   exports: [RouterModule],
-  providers: [LoginComponent],
+  providers: [LoginComponent, ResetBasisPasswordComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

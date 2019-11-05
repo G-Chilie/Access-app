@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-
-
+import * as JsEncryptModule from 'jsencrypt';
+import { environment } from '../../../../environments/environment';
+import { UserService } from '../../../_services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -9,15 +9,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  fullName: string ;
+  fullName: any;
   picture: any;
-  constructor() { }
+  branchname: any;
+  lastlogindate: any;
+  constructor(private userserv: UserService) { }
 
   ngOnInit() {
-    const user = JSON.parse(localStorage.getItem('StaffDetails')) ;
-   this.fullName = user.FullName;
-   this.picture = user.Picture;
-   console.log(this.fullName , user.FullName);
+    this.fullName = this.userserv.User;
+    this.picture = this.userserv.userPicture;
+    this.branchname = this.userserv.userBranch;
+    this.lastlogindate = this.userserv.UserLastLoginDate;
+    console.log(this.fullName);
 
+  }
+
+  extEncrypt(data) {
+    // console.log('encrypting: ' + data);
+    const encrypt = new JsEncryptModule.JSEncrypt();
+    encrypt.setPublicKey(environment.PUB_AM_ENC_KEY);
+    const hash = encrypt.encrypt(data);
+    return hash;
   }
 }

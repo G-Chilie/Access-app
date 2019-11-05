@@ -4,10 +4,11 @@
 
 export const environment = {
   production: false,
-  BASE_URL: 'https://gtweb.gtbank.com',
+  // http://gtweb6.gtbank.com/WEBAPIs/PubEncrypt4/GTBAdminUserService/api/Staff/GetStaffWithPicture
+  BASE_URL: 'http://gtweb6.gtbank.com/WEBAPIs/PubEncrypt4',
   ADMIN_SERVICE: '/GTBAdminUserService/api',
   APPS_API: '/Login/AccessManagerLogin',
-  USERSEC_API: '/Login/ManageUserSecurityDetails',
+  UPDATEUSERSEC_API: '/Login/ManageUserSecurityDetails',
   USERPIC: '/Staff/GetStaffWithPicture',
   // TRANSF_SERV: '/GTBTransferService/api',
   Channel: 'Access Manager',

@@ -8,6 +8,9 @@ import { UserService } from '../../_services/user.service';
 import { first } from 'rxjs/operators';
 import { UtilityService } from '../../utility.service';
 import { catchError, retry, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { StaffDetails } from 'src/app/_model/user';
+import { UserEoneDetails } from 'src/app/_model/user';
 
 // import { NotificationsService } from 'angular2-notifications'
 
@@ -18,7 +21,7 @@ import { catchError, retry, map } from 'rxjs/operators';
   // providers: [NotificationsService]
 })
 export class LoginComponent implements OnInit {
-  loginResult: any;
+  loginResultSubscription: Subscription;
   loginForm: FormGroup;
   loginError: string;
   loading = false;
@@ -54,21 +57,39 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  get username() { return this.loginForm.controls['username']; }
+  // get username() { return this.loginForm.controls['username']; }
 
   public login() {
     this.loading = true;
     this.loginError = null;
-    this.loginResult = null;
+    const logidet = this.loginForm.value;
     setTimeout(() => {
       this.loading = false;
       localStorage.setItem('Form Details', JSON.stringify(this.loginForm.value));
-      console.log(this.loginForm.value);
+      console.log(logidet);
       // alert('Logging in....');
-    }, 10000);
-    this.loginResult = this.userService.getUserWithPic();
-    if (this.loginResult = null) {
-      catchError(this.util.handleError);
+    }, 1000);
+    const userDetails: any = {
+      username: logidet.username,
+      password: logidet.password
+      // NewPassword: this.password.value
+    };
+    console.log('USERDET' + JSON.stringify(userDetails));
+    this.userService.getUserWithPic(userDetails).subscribe((a: StaffDetails) => {
+      console.log(a);
+    });
+    this.userService.getUserApps(userDetails).subscribe((a: UserEoneDetails) => {
+      console.log(a);
+    });
+    // if (this.loginResultSubscription != null) {
+    //   this.router.navigate(['/']);
+    //   console.log(this.loginResultSubscription);
+    // } else {
+    //   this.router.navigate(['/login']);
+    // }
+    // localStorage.setItem('StaffDetailsWithPic', this.loginResult);
+      // this.router.navigate(['/']);
+
       //       localStorage.setItem('staffDetails', JSON.stringify(data.StaffDetails));
       //       this.router.navigate(['/home']);
       //     } else {
@@ -77,8 +98,6 @@ export class LoginComponent implements OnInit {
       //       // this.errorAlert(this.loginError);
       //       console.log(this.loginError);
       //     // }
-    } else {
-      this.router.navigate(['/']);
 
     // this.authenticationService.login()
     //   .subscribe(data => {
@@ -98,6 +117,10 @@ export class LoginComponent implements OnInit {
     //   });
     // return this.musername;
   }
+  public logout() {
+    localStorage.removeItem('Form Details');
+    this.router.navigate(['/login']);
+  }
 
   // private getUserDetails() {
   //   this.userService.getByUserUsername().pipe(first()).subscribe(users => {
@@ -105,5 +128,5 @@ export class LoginComponent implements OnInit {
   //   });
 }
 
-}
+
 
