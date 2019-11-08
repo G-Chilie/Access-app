@@ -681,7 +681,8 @@
 }
 
 .heading-8 {
-  margin-top: 0px;
+  margin-top: -50px;
+  right: 15px;
 }
 
 .heading-9 {
@@ -977,7 +978,7 @@
   z-index: 1;
   position: absolute;
   top: 0px;
-  right: 86px;
+  right: 6px;
   bottom: 0px;
   width: 320px;
   height: 300px;

@@ -50,55 +50,61 @@
               <p class="paragraph-3">Requires unload</p><img src="src/assets/images/UpArrow.svg" height="12" class="image-17">
               <div class="text-block-6">13 Active</div>
             </a> -->
-      <a href="#" class="small-dashboar-link w-inline-block" (click)="open()" >
+      <a href="javascript:void(0);"  class="small-dashboar-link w-inline-block" (click)="open()" >
           <!-- <a href="" (click)="open()"> -->
-        <h6 class="heading-13">RESET BASIS PASSWORD</h6>
+        <h6 class="heading-19">RESET BASIS PASSWORD</h6>
         <!-- <h1 class="heading-10">15</h1>
         <p class="paragraph-3">Requires unload</p> -->
         <i style='color:red' class="fa fa-arrow-up image-17"></i>
         <div class="text-block-6">Click To Reset Your Basis Password</div>
       </a>
-      <h1 class="heading-12">Quick Links</h1>
+
+      <h1 class="heading-8">Quick Links</h1>
       <a href="#" class="small-dashboar-link w-inline-block">
 
       </a>
-      <div class="third-small-dashboard">
-        <h5 class="card-request-text">Cash Management</h5>
-        <h1 class="heading-10">05</h1>
-        <p class="paragraph-3">Awatitng your approval</p>
-      </div>
+      <a href="javascript:void(0);"  class="small-dashboar2-link w-inline-block" (click)="open()" >
       <div class="second-small-dashboar">
-        <h5 class="heading-13">Kill My ID</h5>
+        <h6 class="heading-19">Kill My ID</h6>
+
         <!-- <h1 class="heading-10">30</h1>
         <p class="paragraph-3">Transactions are on your queue</p> -->
         <i style='color:red' class="fa fa-arrow-up image-17"></i>
         <div class="text-block-6">Click To Kill Your Session On Basis</div>
       </div>
+    </a>
+    <a href="javascript:void(0);"  class="small-dashboar3-link w-inline-block" (click)="open()" >
       <div class="fourth-small-dashboard">
-        <h5 class="heading-13">Update Security Info</h5>
-        <!-- <h1 class="heading-10">19</h1> -->
+        <h5 class="heading-19">Update Security Info</h5>
+        <i style='color:red' class="fa fa-arrow-up image-17"></i>
         <div class="text-block-6">Click Here To Update Your Security Info</div>
         <!-- <p class="paragraph-3">Click Here To Update Your Security Info</p> -->
       </div>
+    </a>
     </div>
   </div>
 
   <div class="section">
     <div class="container-4 w-container">
-      <h4 class="text-center">Enjoy Your Tools. Easier, Quicker &amp; Smarter</h4>
+      <h4 class="text-center">Access Your Applications. Easier, Quicker &amp; Smarter</h4>
       <div>
 
       </div>
-      <!-- <div class="row">
-        <div class=" col-md-2 mb-3" *ngFor="let item of products">
+      <!-- <ul>
+        <li *ngFor="let resultObj of this.userappandurl">
+          {{ resultObj.productName}}
+        </li>
+     </ul> -->
+      <div class="row">
+        <div class=" col-md-2 mb-3" *ngFor="let resultObj of this.userappandurl; let i = index">
           <div class="text-center">
-            <a href={{item.url}} target="_blank" class="w-inline-block">
-              <img src={{item.image}} height="60" width="79.5" class="image-7">
+            <a href={{resultObj.ApplicationName}} target="_blank" class="w-inline-block">
+              <img src="../../../assets/images/single-sign-on2x.png" height="60" width="79.5" class="image-7">{{ resultObj.ApplicationName }}
             </a>
-            <a href={{item.url}} target="_blank" class="link-2">{{item.name}}</a>
+            <a href={{resultObj.ApplicationUrl}} target="_blank" class="link-2"></a>
           </div>
         </div>
-      </div> -->
+      </div>
 
     </div>
   </div>

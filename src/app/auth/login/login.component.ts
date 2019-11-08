@@ -78,54 +78,23 @@ export class LoginComponent implements OnInit {
     this.userService.getUserWithPic(userDetails).subscribe((a: StaffDetails) => {
       console.log(a);
     });
+    delete userDetails.RequestingUserID;
+    delete userDetails.requestID;
+    delete userDetails.Channel;
+    delete userDetails.username;
+    userDetails.password = logidet.password;
+    userDetails.username = logidet.username;
+
     this.userService.getUserApps(userDetails).subscribe((a: UserEoneDetails) => {
       console.log(a);
     });
-    // if (this.loginResultSubscription != null) {
-    //   this.router.navigate(['/']);
-    //   console.log(this.loginResultSubscription);
-    // } else {
-    //   this.router.navigate(['/login']);
-    // }
-    // localStorage.setItem('StaffDetailsWithPic', this.loginResult);
-      // this.router.navigate(['/']);
-
-      //       localStorage.setItem('staffDetails', JSON.stringify(data.StaffDetails));
-      //       this.router.navigate(['/home']);
-      //     } else {
-      //       this.router.navigate(['/login']);
-      //       this.loginError = ''; // data.ResponseDescription;
-      //       // this.errorAlert(this.loginError);
-      //       console.log(this.loginError);
-      //     // }
-
-    // this.authenticationService.login()
-    //   .subscribe(data => {
-    //     console.log('login res - ', JSON.stringify(data));
-    //     if (data.ResponseCode === '00') {
-    //       localStorage.setItem('staffDetails', JSON.stringify(data.StaffDetails));
-    //       this.router.navigate(['/home']);
-    //     } else {
-    //       this.router.navigate(['/login']);
-    //       this.loginError = ''; // data.ResponseDescription;
-    //       // this.errorAlert(this.loginError);
-    //       console.log(this.loginError);
-    //     // }
-    //     this.loading = false;
-
-
-    //   });
-    // return this.musername;
   }
   public logout() {
     localStorage.removeItem('Form Details');
     this.router.navigate(['/login']);
   }
 
-  // private getUserDetails() {
-  //   this.userService.getByUserUsername().pipe(first()).subscribe(users => {
-  //       this.username.value = users;
-  //   });
+
 }
 
 

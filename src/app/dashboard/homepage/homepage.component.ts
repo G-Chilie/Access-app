@@ -6,6 +6,9 @@ import { DashboardService } from '../_services/dashboard.service';
 import { User } from '../../_model/user';
 import { ResetBasisPasswordComponent } from '../../reset-basis-password/reset-basis-password.component';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationModalComponent } from '../../notification-modal/notification-modal.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-homepage',
@@ -16,44 +19,52 @@ export class HomepageComponent implements OnInit {
 
   UserInfo: any;
   content: any = 'Please enter your new password';
+  userappandurl: any;
   closeResult: string;
   constructor(private boardServices: DashboardService, private logininfo: LoginComponent,
-    private ResetBasis: ResetBasisPasswordComponent, private modalService: NgbModal) { }
+    private ResetBasis: ResetBasisPasswordComponent, private modalService: NgbModal,
+     private notifier: NotificationModalComponent, public activeModal: NgbActiveModal,
+      private userService: UserService) { }
 
   ngOnInit() {
-    // this.ResetBasis.open(content);
-    // this.getStaffDetails();
+    this.userappandurl = this.userService.UserApplications;
+    // console.log(this.userappandurl);
+      // (response:Response)=>{
+      //   const result = response;
+      //   console.log(result);
 
   }
 
-  open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
+  public open() {
+      const modalRef = this.modalService.open(NotificationModalComponent);
+      modalRef.result.then((result) => {
+        console.log(result);
+      }).catch((error) => {
+        console.log(error);
+      });
     }
   }
 
-  getStaffDetails() {
-    const user: User = JSON.parse(localStorage.getItem('staffDetail'));
-    const data = {
-      // username: user.username,
-      requestinguserid: user.RequestingUserID
-    };
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return  `with: ${reason}`;
+  //   }
+  // }
+
+  // getStaffDetails() {
+  //   const user: User = JSON.parse(localStorage.getItem('staffDetail'));
+  //   const data = {
+  //     // username: user.username,
+  //     requestinguserid: user.RequestingUserID
+  //   };
 
     // this.boardServices.getStaffDetails(data).subscribe((result) => {
     //   console.log(result);
     //   this.UserInfo = result;
     // });
-  }
-}
+
+

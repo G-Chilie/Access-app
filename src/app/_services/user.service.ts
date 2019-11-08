@@ -5,7 +5,7 @@ import { catchError, retry, map } from 'rxjs/operators';
 import { UtilityService } from '../utility.service';
 import * as JsEncryptModule from 'jsencrypt';
 import { Router, ActivatedRoute } from '@angular/router';
-import { JsonPipe } from '@angular/common';
+import { StaffDetails } from '../_model/user';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -31,6 +31,9 @@ export class UserService {
     return (parsedUser);
   }
 
+  public setResetBasisStatus(response) {
+    localStorage.setItem('ResetBasisPasswordStatus', JSON.stringify(response));
+  }
   public setApplicationsObject(response) {
     localStorage.setItem('EoneDetails', JSON.stringify(response));
     // return user;
@@ -48,13 +51,22 @@ export class UserService {
   public get UserApplications() {
     const user = localStorage.getItem('EoneDetails');
     const userObj = JSON.parse(user);
-    const parsedApplications = userObj.Applications;
-    // const loggedinuser = localStorage.getItem('FullName') ;
-    return (parsedApplications);
-    // return user;
+    const parsedApplicationGroup = userObj.Applications;
+    // const parsedApplications = parsedApplicationGroup.ApplicationName;
+    console.log(parsedApplicationGroup);
+    // const parsedApplicationUrl = parsedApplicationGroup.ApplicationSsoUrl;
+    // console.log(parsedApplicationUrl);
+    // // const loggedinuser = localStorage.getItem('FullName') ;
+    // const myData = { parsedApplications, parsedApplicationUrl};
+    // return myData;
+    return parsedApplicationGroup;
   }
 
+  // url = ".....";
 
+  // getData(): Observable<any> {
+  //        return this.http.get(this.url).map(res => res.json());
+  // }
   public get userPicture() {
     const user = localStorage.getItem('StaffDetailsWithPic');
     const userObj = JSON.parse(user);
@@ -66,7 +78,7 @@ export class UserService {
   public get userBranch() {
     const user = localStorage.getItem('StaffDetailsWithPic');
     const userObj = JSON.parse(user);
-    const parsedBranch = userObj.StaffDetails.Branch;
+    const parsedBranch = userObj.StaffDetails.BranchLocation;
     // const loggedinuser = localStorage.getItem('FullName') ;
     return (parsedBranch);
   }
@@ -85,18 +97,19 @@ export class UserService {
         // tokenId : "",
         // UserName : this.encryptData.encrypt(userData.userInfor.userName),
       };
-      userDetails.password = userDetails.password,
-        // tslint:disable-next-line: quotemark
-        userDetails.IPAddress = "";
 
-      console.log('Encrypted User Details:' + JSON.stringify(data));
+      // userDetails.password = userDetails.password,
+      //   // tslint:disable-next-line: quotemark
+      //   userDetails.IPAddress = "";
+
+      console.log('Encrypted User Body For Apps:' + JSON.stringify(data));
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
       // this.login.loginForm.value;
       // body = this.util.addAuthParams(body);
       // body.customerId = this.extEncrypt(this.merchantId);
       // delete body.customerNumber;
-      return this.http.post<any>(PATH, body).pipe(
+      return this.http.post<any>(PATH, userDetails).pipe(
         retry(2),
         catchError(this.util.handleError),
 
@@ -111,6 +124,7 @@ export class UserService {
       );
     }
   }
+
   public getUserWithPic(userDetails) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.USERPIC}`;
     const body: any = {};
@@ -149,6 +163,42 @@ export class UserService {
         }
       })
     );
+  }
+
+  public resetBasisPassword(userDetails) {
+    const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.RESETBASISPASS}`;
+    {
+      const body: any = {};
+      const data = {
+        ...userDetails,
+
+      };
+      const user = localStorage.getItem('StaffDetailsWithPic');
+      const user2 = localStorage.getItem('EoneDetails');
+      const userObj = JSON.parse(user);
+      const userObj2 = JSON.parse(user);
+      userDetails.TellerName = userObj.StaffDetails.UserName;
+      userDetails.TellerID = userObj2.AdminUser.Branch;
+      userDetails.BranchCode = userObj2.AdminUser.BasisId;
+
+      console.log('User Body For ResetPass::' + JSON.stringify(data));
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+      return this.http.post<any>(PATH, userDetails).pipe(
+        retry(2),
+        catchError(this.util.handleError),
+
+        map(res => {
+          console.log(res);
+          if (res.ResponseCode === '00') {
+            this.setResetBasisStatus(res);
+            return res;
+          } else {
+            return null;
+          }
+        })
+      );
+    }
   }
 
   private UpdateUserSecDet(userDetails) {

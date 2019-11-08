@@ -6,11 +6,14 @@ export const environment = {
   production: false,
   // http://gtweb6.gtbank.com/WEBAPIs/PubEncrypt4/GTBAdminUserService/api/Staff/GetStaffWithPicture
   BASE_URL: 'http://gtweb6.gtbank.com/WEBAPIs/PubEncrypt4',
+  BASE_URL_APPS: 'http://gtweb.gtbank.com',
   ADMIN_SERVICE: '/GTBAdminUserService/api',
   APPS_API: '/Login/AccessManagerLogin',
-  UPDATEUSERSEC_API: '/Login/ManageUserSecurityDetails',
+  UPDATEUSERSEC_API: '/Login/AccessManagerLogin ',
   USERPIC: '/Staff/GetStaffWithPicture',
-  // TRANSF_SERV: '/GTBTransferService/api',
+  RESETBASISPASS: '/Login/ResetBasisPassword',
+  KILLMYID: 'Login/ManageBasisProfile',
+
   Channel: 'Access Manager',
   // tslint:disable-next-line: max-line-length
   PUB_AM_ENC_KEY: `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCRA67mG4zCbKULFvEyn0UafxPNOO42qk3U0Qg2WOTp6l0EOz9ZiHW4fDMHrOcIlPIvwOjkHWpI1VSi1H/I6zbgkDwRGu/OYQ2Eih9YeYwL9DcmbNoe8uXTIwVLtWS7OW/wtLQz+vup/vHTeIWPs0Y+LDcO7BcOGLli53GwqZC+3QIDAQAB`
