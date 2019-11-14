@@ -9,6 +9,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationModalComponent } from '../../notification-modal/notification-modal.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../_services/user.service';
+import { QuicklinksComponent } from '../../quick-links/quicklinks.component';
 
 @Component({
   selector: 'app-homepage',
@@ -23,27 +24,32 @@ export class HomepageComponent implements OnInit {
   closeResult: string;
   constructor(private boardServices: DashboardService, private logininfo: LoginComponent,
     private ResetBasis: ResetBasisPasswordComponent, private modalService: NgbModal,
-     private notifier: NotificationModalComponent, public activeModal: NgbActiveModal,
-      private userService: UserService) { }
+    private notifier: NotificationModalComponent, public QuickLinks: QuicklinksComponent, public activeModal: NgbActiveModal,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.userappandurl = this.userService.UserApplications;
     // console.log(this.userappandurl);
-      // (response:Response)=>{
-      //   const result = response;
-      //   console.log(result);
+    // (response:Response)=>{
+    //   const result = response;
+    //   console.log(result);
 
   }
 
   public open() {
-      const modalRef = this.modalService.open(NotificationModalComponent);
-      modalRef.result.then((result) => {
-        console.log(result);
-      }).catch((error) => {
-        console.log(error);
-      });
-    }
+    const modalRef = this.modalService.open(this.notifier);
+    modalRef.componentInstance.id = 10;
+    modalRef.result.then((result) => {
+      console.log(result);
+    }).catch((error) => {
+      console.log(error);
+    });
   }
+
+  closeModal() {
+    this.activeModal.close('Modal Closed');
+  }
+}
 
   // private getDismissReason(reason: any): string {
   //   if (reason === ModalDismissReasons.ESC) {

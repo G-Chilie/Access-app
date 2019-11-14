@@ -1,42 +1,30 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-Notification
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+<div class="modal-header">
+  <h4 class="modal-title">My Form</h4>
+  <button type="button" class="close" aria-label="Close"
+   (click)="activeModal.dismiss('Cross click')">
+  </button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="submitForm()">
+  <div class="modal-boy">
+    <div class="container">
+      <div class="form-group">
+        <label for="Password1">Enter New Password</label>
+        <input type="text"
+          class="form-control"
+          formControlName="username" />
       </div>
-      <div class="modal-body">
-        <form (ngSubmit)="sendRequest()" [formGroup]="loginForm" id="wf-form-Email-Form" name="wf-form-Email-Form"
-        data-name="Email Form" method="post" class="form">
-        <label for="Password1" class="field-label-2">New Password:</label>
-        <input type="password" class="text-field w-input" maxlength="256" formControlName="password" name="Password1"
-          data-name="Password1" placeholder="Enter Password" id="Password1" required="">
-        <label for="Password2" class="field-label-2">New Password:</label>
-        <input type="password" class="text-field w-input" maxlength="256" formControlName="password" name="Password2"
-          data-name="Password2" placeholder="Re-enter New Password" id="Password2" required="">
-        <button type="submit" class="submit-button w-button">
-          <span *ngIf="loading">
-            <div class="spinner-border spinner-border-sm" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-            Processing..
-          </span>
-          <span *ngIf="!loading">CONTINUE</span>
-        </button>
-      </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="form-group">
+        <label for="Password12">Re-enter New Password</label>
+        <input type="password" class="form-control">
       </div>
     </div>
   </div>
-</div>
+  <div class="modal-footer">
+    <button class="btn btn-success"
+      [disabled]="!myForm.valid">
+      Submit Form
+    </button>
+  </div>
+</form>

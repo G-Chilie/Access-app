@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../_services/user.service';
 import { ResetBasisPasswordComponent } from '../reset-basis-password/reset-basis-password.component';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -10,23 +11,28 @@ import { ResetBasisPasswordComponent } from '../reset-basis-password/reset-basis
   styleUrls: ['./notification-modal.component.css']
 })
 export class NotificationModalComponent implements OnInit {
-  loginForm: FormGroup;
+  myForm: FormGroup;
   loading = false;
-  constructor(private formBuilder: FormBuilder, private userServ: UserService,
-    private ResetPass: ResetBasisPasswordComponent) { }
+  @Input() id: number;
+  private modals: any[] = [];
+  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal, private userServ: UserService,
+    private ResetPass: ResetBasisPasswordComponent, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.createLoginForm();
+    // const modal: any = this.modals.filter(x => x.id === id)[0];
+    // modal.open();
   }
   public createLoginForm() {
-    this.loginForm = this.formBuilder.group({
+    this.myForm = this.formBuilder.group({
       Password1: ['', Validators.required],
       Password2: ['', Validators.required]
     });
+    // this.modals.pop();
   }
 
 
-  sendRequest() {
-    this.ResetPass.submitRequest(this.loginForm.value);
+  submitForm() {
+    this.activeModal.close(this.myForm.value);
   }
 }

@@ -1,0 +1,26 @@
+:host {
+  /* width: 80%; */
+  margin: 2rem 5rem;
+}
+
+.quicklinks-wrapper {
+  background: #a1a1a1;
+  padding: 3rem;
+}
+
+img {
+  height: auto;
+  width: 20%;
+  margin-bottom: 1rem;
+}
+
+.item {
+  height: 120px;
+  width: 120px;
+  text-align: center;
+  padding: 0.3rem;
+}
+
+p {
+  line-height: 14px;
+}

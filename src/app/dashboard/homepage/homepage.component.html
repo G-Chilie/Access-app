@@ -1,110 +1,38 @@
-<div class="row  pl-5 pr-5">
-  <div class="col-md-8">
-    <div class="div-block-10">
-
-      <div>
-        <div data-delay="9000" data-animation="fade" class="slider w-slider" data-autoplay="1" data-easing="ease-in"
-          data-hide-arrows="1" data-duration="1000" data-infinite="1">
-          <div class="mask w-slider-mask">
-            <div class="slide-2 w-slide">
-              <div class="w-container">
-                <div class="row w-row">
-                  <div class="column-2 w-col w-col-6"><img src="./assets/images/banner_image.png" srcset="./assets/images/banner_image-p-800.png 800w, images/banner_image-p-1080.png 1080w, images/banner_image-p-1600.png 1600w, images/banner_image-p-2000.png 2000w, images/banner_image.png 2481w"
-                      sizes="(max-width: 767px) 58vw, 30vw" class="image-5"></div>
-                  <div class="column-4-copy w-col w-col-6">
-                    <h1 class="heading-4">WE&#x27;RE BUILDING BETTER MODELS</h1>
-                    <h3 class="heading-5">FASTER. EASIER. TOGETHER</h3><a target="_blank" class="link w-button">More Info Coming Soon</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- <div class="slide w-slide">
-                    <div class="container w-container">
-                      <div class="row w-row">
-                        <div class="column w-col w-col-6"><img src="src/assets/images/card_img.png" srcset="src/assets/images/card_img-p-500.png 500w, images/card_img-p-800.png 800w, images/card_img-p-1080.png 1080w, images/card_img.png 1229w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 39vw, (max-width: 991px) 16vw, 19vw" class="image-6"></div>
-                        <div class="column-4 w-col w-col-6">
-                          <h1 class="heading-2">WE&#x27;RE BUILDING BETTER MODELS. </h1>
-                          <h1 class="heading-7">STABLE. SMARTER. IMPROVED</h1><a target="_blank" class="read-doc w-button">READ THIS DOC</a></div>
-                      </div>
-                    </div>
-                  </div> -->
-          </div>
-          <div class="w-slider-arrow-left">
-            <div class="icon-2 w-icon-slider-left"></div>
-          </div>
-          <div class="right-arrow w-slider-arrow-right">
-            <div class="icon w-icon-slider-right"></div>
-          </div>
-          <div class="slide-nav w-slider-nav w-round"></div>
-        </div>
-      </div>
-    </div>
+<app-header></app-header>
+<div id="banner" class="d-flex w-100">
+  <div class="w-50">
+    <h5>WE'RE BUILDING BETTER MODELS</h5>
+    <h6>FASTER. EASIER. TOGETHER</h6>
+    <a target="_blank" right="30px">More Info Coming Soon</a>
   </div>
-  <div class="col-md-4">
-
-
-    <div class="side-dashboard">
-      <!-- <a href="#" class="small-dashboar-link w-inline-block">
-              <h6 class="heading-13">ATM</h6>
-              <h1 class="heading-10">15</h1>
-              <p class="paragraph-3">Requires unload</p><img src="src/assets/images/UpArrow.svg" height="12" class="image-17">
-              <div class="text-block-6">13 Active</div>
-            </a> -->
-      <a href="javascript:void(0);"  class="small-dashboar-link w-inline-block" (click)="open()" >
-          <!-- <a href="" (click)="open()"> -->
-        <h6 class="heading-19">RESET BASIS PASSWORD</h6>
-        <!-- <h1 class="heading-10">15</h1>
-        <p class="paragraph-3">Requires unload</p> -->
-        <i style='color:red' class="fa fa-arrow-up image-17"></i>
-        <div class="text-block-6">Click To Reset Your Basis Password</div>
-      </a>
-
-      <h1 class="heading-8">Quick Links</h1>
-      <a href="#" class="small-dashboar-link w-inline-block">
-
-      </a>
-      <a href="javascript:void(0);"  class="small-dashboar2-link w-inline-block" (click)="open()" >
-      <div class="second-small-dashboar">
-        <h6 class="heading-19">Kill My ID</h6>
-
-        <!-- <h1 class="heading-10">30</h1>
-        <p class="paragraph-3">Transactions are on your queue</p> -->
-        <i style='color:red' class="fa fa-arrow-up image-17"></i>
-        <div class="text-block-6">Click To Kill Your Session On Basis</div>
-      </div>
+  <div class="quicklinks w-50 d-flex justify-content-center">
+    <app-quicklinks></app-quicklinks>
+  </div>
+</div>
+<div class="applications">
+  <h4 class="text-center">Access Your Applications. Easier, Quicker &amp; Smarter</h4>
+  <div
+  class=" col-md-2 mb-3"
+  *ngFor="let resultObj of this.userappandurl; let i = index"
+>
+  <div class="text-center">
+    <a
+      href="{{ resultObj.ApplicationName }}"
+      target="_blank"
+      class="w-inline-block"
+    >
+      <img
+        src="../../../assets/images/ETracker.svg"
+        height="60"
+        width="79.5"
+        class="image-6"
+      />{{ resultObj.ApplicationName }}
     </a>
-    <a href="javascript:void(0);"  class="small-dashboar3-link w-inline-block" (click)="open()" >
-      <div class="fourth-small-dashboard">
-        <h5 class="heading-19">Update Security Info</h5>
-        <i style='color:red' class="fa fa-arrow-up image-17"></i>
-        <div class="text-block-6">Click Here To Update Your Security Info</div>
-        <!-- <p class="paragraph-3">Click Here To Update Your Security Info</p> -->
-      </div>
-    </a>
-    </div>
+    <a
+      href="{{ resultObj.ApplicationUrl }}"
+      target="_blank"
+      class="link-2"
+    ></a>
   </div>
-
-  <div class="section">
-    <div class="container-4 w-container">
-      <h4 class="text-center">Access Your Applications. Easier, Quicker &amp; Smarter</h4>
-      <div>
-
-      </div>
-      <!-- <ul>
-        <li *ngFor="let resultObj of this.userappandurl">
-          {{ resultObj.productName}}
-        </li>
-     </ul> -->
-      <div class="row">
-        <div class=" col-md-2 mb-3" *ngFor="let resultObj of this.userappandurl; let i = index">
-          <div class="text-center">
-            <a href={{resultObj.ApplicationName}} target="_blank" class="w-inline-block">
-              <img src="../../../assets/images/single-sign-on2x.png" height="60" width="79.5" class="image-7">{{ resultObj.ApplicationName }}
-            </a>
-            <a href={{resultObj.ApplicationUrl}} target="_blank" class="link-2"></a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+</div>
+</div>

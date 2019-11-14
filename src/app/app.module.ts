@@ -13,18 +13,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { OpenurlComponent } from './openurl/openurl.component';
 import { ResetBasisPasswordComponent } from './reset-basis-password/reset-basis-password.component';
 import { NotificationModalComponent } from './notification-modal/notification-modal.component';
+import { QuicklinksComponent } from './quick-links/quicklinks.component';
+import { QuickLinksModule } from './quick-links/quick-links.module';
+import { HomepageModule } from './dashboard/homepage/homepage.module';
+import { ResetBasisPasswordModule } from './reset-basis-password/reset-basis-password.module';
 // import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, OpenurlComponent, ResetBasisPasswordComponent, NotificationModalComponent
+    AppComponent, LoginComponent, OpenurlComponent, NotificationModalComponent
   ],
   imports: [
-    BrowserModule, ReactiveFormsModule, FormsModule,
+    BrowserModule, ReactiveFormsModule, FormsModule, HomepageModule,
     HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([])
   ],
   exports: [RouterModule],
-  providers: [LoginComponent, ResetBasisPasswordComponent, NotificationModalComponent, NgbActiveModal],
+  providers: [LoginComponent, ResetBasisPasswordComponent, QuicklinksComponent,  NotificationModalComponent, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

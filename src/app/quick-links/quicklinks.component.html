@@ -1,0 +1,57 @@
+<div *ngIf="status === 'quickLinks'" class="quicklinks-wrapper card h-100">
+  <div class="d-flex justify-content-center">
+    <div class="item card m-1">
+      <div class="card-block ">
+        quicklinksssss
+      </div>
+    </div>
+    <div (click)="open('resetBasis')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
+      <div class="card-block text-center">
+        <img src="/assets/images/GTBANK.png" alt="Reset basis password">
+        <p class="small">Reset Basis Password</p>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+      <div class="item card m-1">
+        <div class="card-block ">
+          quicklinksssss
+        </div>
+      </div>
+      <div class="item card m-1">
+        <div class="card-block ">
+          quicklinksssss
+        </div>
+      </div>
+    </div>
+</div>
+<div *ngIf="status === 'resetBasis'" class="quicklinks-wrapper card h-100">
+  <app-reset-basis-password></app-reset-basis-password>
+</div>
+<!-- <div class="col-md-4">
+  <div class="side-dashboard">
+    <a href="javascript:" (click)="open('resetBasis')" class=" small-dashboar-link w-inline-block">
+      <h6 class="heading-19">RESET BASIS PASSWORD</h6>
+      <i style="color:red" class="fa fa-arrow-up image-17"></i>
+      <div class="text-block-6">Click To Reset Your Basis Password</div>
+    </a>
+
+    <h1 class="heading-8">Quick Links</h1>
+    <a href="javascript:" (click)="open('KillMyID')" class="small-dashboar2-link w-inline-block">
+      <div class="second-small-dashboar">
+        <h6 class="heading-19">Kill My ID</h6>
+        <i style="color:red" class="fa fa-arrow-up image-17"></i>
+        <div class="text-block-6">Click To Kill Your Session On Basis</div>
+      </div>
+    </a>
+    <a href="javascript:void(0);" class="small-dashboar3-link w-inline-block" (click)="open()">
+      <div class="fourth-small-dashboard">
+        <h5 class="heading-19">Update Security Info</h5>
+        <i style="color:red" class="fa fa-arrow-up image-17"></i>
+        <div class="text-block-6">
+          Click Here To Update Your Security Info
+        </div>
+      </div>
+    </a>
+  </div >
+</div> -->
