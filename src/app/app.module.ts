@@ -17,6 +17,7 @@ import { QuicklinksComponent } from './quick-links/quicklinks.component';
 import { QuickLinksModule } from './quick-links/quick-links.module';
 import { HomepageModule } from './dashboard/homepage/homepage.module';
 import { ResetBasisPasswordModule } from './reset-basis-password/reset-basis-password.module';
+import { KillMyIdComponent } from './kill-my-id/kill-my-id.component';
 // import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ResetBasisPasswordModule } from './reset-basis-password/reset-basis-pas
     HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([])
   ],
   exports: [RouterModule],
-  providers: [LoginComponent, ResetBasisPasswordComponent, QuicklinksComponent,  NotificationModalComponent, NgbActiveModal],
+  providers: [LoginComponent, ResetBasisPasswordComponent, KillMyIdComponent,
+    QuicklinksComponent,  NotificationModalComponent, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
