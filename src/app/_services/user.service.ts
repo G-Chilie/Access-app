@@ -6,6 +6,7 @@ import { UtilityService } from '../utility.service';
 import * as JsEncryptModule from 'jsencrypt';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StaffDetails } from '../_model/user';
+import swal from 'sweetalert';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -34,6 +35,11 @@ export class UserService {
   public setResetBasisStatus(response) {
     localStorage.setItem('ResetBasisPasswordStatus', JSON.stringify(response));
   }
+
+  public setKillMyId(response) {
+    localStorage.setItem('ResetBasisPasswordStatus', JSON.stringify(response));
+  }
+
   public setApplicationsObject(response) {
     localStorage.setItem('EoneDetails', JSON.stringify(response));
     // return user;
@@ -169,18 +175,20 @@ export class UserService {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.RESETBASISPASS}`;
     {
       const body: any = {};
+      const user = localStorage.getItem('StaffDetailsWithPic');
+      const user2 = localStorage.getItem('EoneDetails');
+      const userObj = JSON.parse(user);
+      const userObj2 = JSON.parse(user2);
+      userDetails.TellerID = userObj2.AdminUser.BasisId;
+      userDetails.TellerName = userObj.StaffDetails.UserName;
+      userDetails.BranchCode = userObj2.AdminUser.Branch;
       const data = {
         ...userDetails,
 
       };
-      const user = localStorage.getItem('StaffDetailsWithPic');
-      const user2 = localStorage.getItem('EoneDetails');
-      const userObj = JSON.parse(user);
-      const userObj2 = JSON.parse(user);
-      userDetails.TellerName = userObj.StaffDetails.UserName;
-      userDetails.TellerID = userObj2.AdminUser.Branch;
-      userDetails.BranchCode = userObj2.AdminUser.BasisId;
-
+      if (data.userDetails == null) {
+        swal('Oops!', 'Please supply matching passwords!', 'failure');
+      }
       console.log('User Body For ResetPass::' + JSON.stringify(data));
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -192,8 +200,46 @@ export class UserService {
           console.log(res);
           if (res.ResponseCode === '00') {
             this.setResetBasisStatus(res);
+            swal('Good job!', 'You have successfully changed your Basis password!', 'success');
             return res;
           } else {
+            swal('Oops!', 'An error has occured. Please try again!', 'failure');
+            return null;
+          }
+        })
+      );
+    }
+  }
+
+  public killMyID(userDetails) {
+    const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.KILLMYID}`;
+    {
+      const body: any = {};
+      userDetails.Channel = 'Access Manager';
+      userDetails.AppId = '1';
+      const data = {
+        ...userDetails,
+
+      };
+      console.log(userDetails);
+      if (data.userDetails == null) {
+        swal('Oops!', 'Please supply a correct username!', 'failure');
+      }
+      console.log('User Body For killMyId::' + JSON.stringify(data.userdetails));
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+      return this.http.post<any>(PATH, userDetails).pipe(
+        retry(2),
+        catchError(this.util.handleError),
+
+        map(res => {
+          console.log(res);
+          if (res.ResponseCode === '00') {
+            this.setKillMyId(res);
+            swal('Good job!', 'You ID has successfully been removed on BASIS!', 'success');
+            return res;
+          } else {
+            swal('Oops!', 'An error has occured. Please try again!', 'failure');
             return null;
           }
         })

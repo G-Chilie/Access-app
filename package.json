@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-angular": "^0.13.0",
     "@angular/animations": "^6.1.0",
     "@angular/common": "^6.1.0",
     "@angular/compiler": "^6.1.0",
@@ -22,16 +23,19 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "@ng-bootstrap/ng-bootstrap": "^3.3.1",
+    "@sweetalert2/ngx-sweetalert2": "^7.0.1",
     "bootstrap": "^4.3.1",
     "bootswatch": "^4.2.1",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
+    "ng-sweet-alert": "^1.0.11",
     "rxjs": "~6.2.0",
     "rxjs-compat": "^6.4.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^9.3.12",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.9",
     "@angular/cli": "~6.2.8",
     "@angular/compiler-cli": "^6.1.0",
     "@angular/language-service": "^6.1.0",

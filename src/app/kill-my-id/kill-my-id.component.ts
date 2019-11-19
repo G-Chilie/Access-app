@@ -13,6 +13,7 @@ import { KillMyIDStatus } from '../_model/user';
 })
 export class KillMyIdComponent implements OnInit {
   closeResult: string;
+  Password1: string;
   myForm: FormGroup;
   password: FormControl;
   loading = false;
@@ -27,7 +28,7 @@ export class KillMyIdComponent implements OnInit {
   public createLoginForm() {
     this.myForm = this.formBuilder.group({
       Password1: ['', Validators.required],
-      Password2: ['', Validators.required]
+      // Password2: ['', Validators.required]
     });
     // this.modals.pop();
   }
@@ -43,13 +44,16 @@ export class KillMyIdComponent implements OnInit {
       // alert('Logging in....');
     }, 2000);
     const userDetails: any = {
-      password1: logidet.Password1,
-      password2: logidet.Password2
+      UserName: logidet.Password1
       // NewPassword: this.password.value
     };
-    console.log('New Password Details:' + JSON.stringify(userDetails.password2));
-    this.userser.resetBasisPassword(userDetails.password2).subscribe((a: KillMyIDStatus) => {
+    console.log('Password Details:' + JSON.stringify(userDetails.Password1));
+    this.userser.killMyID(userDetails).subscribe((a: KillMyIDStatus) => {
       console.log(a);
     });
+  }
+
+  Back() {
+    window.location.reload();
   }
 }
