@@ -12,7 +12,7 @@ export const environment = {
   UPDATEUSERSEC_API: '/Login/AccessManagerLogin ',
   USERPIC: '/Staff/GetStaffWithPicture',
   RESETBASISPASS: '/Login/ResetBasisPassword',
-  KILLMYID: 'Login/ManageBasisProfile',
+  KILLMYID: '/Login/ManageBasisProfile',
 
   Channel: 'Access Manager',
   // tslint:disable-next-line: max-line-length

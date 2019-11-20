@@ -17,6 +17,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ResetBasisPasswordComponent implements OnInit {
   closeResult: string;
   NewPassword: string;
+  passwordvalid = '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}';
   myForm: FormGroup;
   password: FormControl;
   // password: FormControl;
@@ -32,8 +33,14 @@ export class ResetBasisPasswordComponent implements OnInit {
 
   public createLoginForm() {
     this.myForm = this.formBuilder.group({
-      NewPassword: ['', Validators.required],
-      NewPassword2: ['', Validators.required]
+      // tslint:disable-next-line: quotemark
+      NewPassword: ['', [Validators.required,
+        Validators.pattern(this.passwordvalid),
+       Validators.minLength(5)]],
+      // tslint:disable-next-line: quotemark
+      NewPassword2: ['', [Validators.required,
+        Validators.pattern(this.passwordvalid),
+      Validators.minLength(5)]]
     });
     // this.modals.pop();
   }

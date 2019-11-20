@@ -14,6 +14,7 @@ import { KillMyIDStatus } from '../_model/user';
 export class KillMyIdComponent implements OnInit {
   closeResult: string;
   Password1: string;
+  UserName: string;
   myForm: FormGroup;
   password: FormControl;
   loading = false;
@@ -27,7 +28,7 @@ export class KillMyIdComponent implements OnInit {
 
   public createLoginForm() {
     this.myForm = this.formBuilder.group({
-      Password1: ['', Validators.required],
+      UserName: ['', Validators.required],
       // Password2: ['', Validators.required]
     });
     // this.modals.pop();
@@ -44,10 +45,10 @@ export class KillMyIdComponent implements OnInit {
       // alert('Logging in....');
     }, 2000);
     const userDetails: any = {
-      UserName: logidet.Password1
+      UserName: logidet.UserName
       // NewPassword: this.password.value
     };
-    console.log('Password Details:' + JSON.stringify(userDetails.Password1));
+    console.log('Password Details:' + JSON.stringify(userDetails.UserName));
     this.userser.killMyID(userDetails).subscribe((a: KillMyIDStatus) => {
       console.log(a);
     });

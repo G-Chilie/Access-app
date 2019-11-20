@@ -186,7 +186,7 @@ export class UserService {
         ...userDetails,
 
       };
-      if (data.userDetails == null) {
+      if (userDetails == null) {
         swal('Oops!', 'Please supply matching passwords!', 'failure');
       }
       console.log('User Body For ResetPass::' + JSON.stringify(data));
@@ -222,8 +222,8 @@ export class UserService {
 
       };
       console.log(userDetails);
-      if (data.userDetails == null) {
-        swal('Oops!', 'Please supply a correct username!', 'failure');
+      if (userDetails == null) {
+        swal('Oops!', 'Please supply a correct username!', 'error');
       }
       console.log('User Body For killMyId::' + JSON.stringify(data.userdetails));
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -239,7 +239,7 @@ export class UserService {
             swal('Good job!', 'You ID has successfully been removed on BASIS!', 'success');
             return res;
           } else {
-            swal('Oops!', 'An error has occured. Please try again!', 'failure');
+            swal('Oops!', 'An error has occured. Please try again!', 'error');
             return null;
           }
         })
