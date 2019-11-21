@@ -4,8 +4,8 @@
 }
 
 .quicklinks-wrapper {
-  background: #a1a1a1;
-  padding: 3rem;
+  /* background: #faf2f2; */
+  padding: 2rem;
 }
 
 img {
@@ -15,12 +15,20 @@ img {
 }
 
 .item {
+  transition: all ease-in-out 600ms;
   height: 120px;
   width: 120px;
   text-align: center;
   padding: 0.3rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: aqua;
 }
 
 p {
   line-height: 14px;
 }
+

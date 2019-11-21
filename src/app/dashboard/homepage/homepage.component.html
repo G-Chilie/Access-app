@@ -1,38 +1,29 @@
 <app-header></app-header>
-<div id="banner" class="d-flex w-100">
-  <div class="w-50">
-    <h5>WE'RE BUILDING BETTER MODELS</h5>
-    <h6>FASTER. EASIER. TOGETHER</h6>
-    <a target="_blank" right="30px">More Info Coming Soon</a>
+<div id="banner" class="d-flex w-75 mx-auto">
+  <div class="w-50 d-flex align-items-center">
+    <div class="">
+      <img src="./assets/images/banner_image-p-1080.png " class="img img-fluid" />
+    </div>
+    <div class="pl-5">
+      <h4>WE'RE BUILDING BETTER MODELS</h4>
+      <h6>FASTER. EASIER. TOGETHER</h6>
+      <a target="_blank" right="30px">More Info Coming Soon</a>
+    </div>
   </div>
-  <div class="quicklinks w-50 d-flex justify-content-center">
+  <div class="w-50 d-flex justify-content-around align-items-center">
     <app-quicklinks></app-quicklinks>
   </div>
 </div>
+
+<!-- APPLICATION LIST -->
 <div class="applications">
-  <h4 class="text-center">Access Your Applications. Easier, Quicker &amp; Smarter</h4>
-  <div
-  class=" col-md-2 mb-3"
-  *ngFor="let resultObj of this.userappandurl; let i = index"
->
-  <div class="text-center">
-    <a
-      href="{{ resultObj.ApplicationName }}"
-      target="_blank"
-      class="w-inline-block"
-    >
-      <img
-        src="../../../assets/images/ETracker.svg"
-        height="60"
-        width="79.5"
-        class="image-6"
-      />{{ resultObj.ApplicationName }}
-    </a>
-    <a
-      href="{{ resultObj.ApplicationUrl }}"
-      target="_blank"
-      class="link-2"
-    ></a>
+  <h4 class="text-center">
+    Access Your Applications. Easier, Quicker &amp; Smarter
+  </h4>
+  <div class="application-wrapper w-75 mx-auto mt-5 text-center">
+    <div class="item py-2 d-flex align-items-center flex-column justify-content-around" (click)="goToUrl()" *ngFor="let resultObj of this.userappandurl; let i = index">
+        <img src="../../../assets/images/ETracker.svg" width="70px" class="img img-fluid" />
+        <p>{{ resultObj.ApplicationName }}</p>
+    </div>
   </div>
-</div>
 </div>

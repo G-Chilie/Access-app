@@ -9,3 +9,19 @@
 .btn{
   background-color: #fff !important;
 }
+
+.user-image {
+  border-radius: 49.9%;
+  width: 60px;
+  height: 60px;
+  border: #dd4f05 solid 1px;
+}
+
+.user-wrapper {
+  font-size: 0.6rem;
+}
+
+.user-wrapper p {
+  font-size: 0.6rem;
+  line-height: 12px;
+}

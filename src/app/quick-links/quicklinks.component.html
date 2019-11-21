@@ -1,34 +1,46 @@
-<div *ngIf="status === 'quickLinks'" class="quicklinks-wrapper card h-100">
-  <div class="d-flex justify-content-center">
-    <div (click)="open('resetBasis')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
-      <div class="card-block text-center">
-        <img src="/assets/images/GTBANK.png" alt="Reset basis password">
-        <p class="small">Reset Basis Password</p>
-      </div>
-    </div>
-    <div (click)="open('killMyID')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
-      <div class="card-block text-center">
-        <img src="/assets/images/GTBANK.png" alt="Reset basis password">
-        <p class="small">Kill My ID</p>
-      </div>
-    </div>
-  </div>
-  <div class="d-flex justify-content-center">
-    <div (click)="open('basisAccess')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
-      <div class="card-block text-center">
-        <img src="/assets/images/GTBANK.png" alt="Reset basis password">
-        <p class="small">Basis Access</p>
-      </div>
-    </div>
+<div *ngIf="status === 'quickLinks'" class="quicklinks-wrapper">
+  <h4>Quicklinks</h4>
+      <div class="d-flex justify-content-center">
+          <div (click)="open('resetBasis')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
 
-    <div (click)="open('manageUser')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
-      <div class="card-block text-center">
-        <img src="/assets/images/GTBANK.png" alt="Reset basis password">
-        <p class="small">Manage User Security Details</p>
+            <div class="card-block text-center">
+                <div class="">
+              <img src="/assets/images/GTBANK.png" alt="Reset basis password">
+              <p class="small">Reset Basis Password</p>
+            </div>
+          </div>
+          </div>
+          <div (click)="open('killMyID')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
+              <div class="">
+            <div class="card-block text-center">
+              <img src="/assets/images/GTBANK.png" alt="Reset basis password">
+              <p class="small">Kill My ID</p>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div (click)="open('basisAccess')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
+            <div class="">
+                <div class="">
+              <img src="/assets/images/GTBANK.png" alt="Reset basis password">
+              <p class="small">Basis Access</p>
+            </div>
+          </div>
+          </div>
+
+          <div (click)="open('manageUser')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
+            <div class="card-block text-center">
+                <div class="">
+              <img src="/assets/images/GTBANK.png" alt="Reset basis password">
+              <p class="small">Manage User Security Details</p>
+            </div>
+            </div>
+          </div>
+          </div>
       </div>
-    </div>
-    </div>
-</div>
+
+
 <div *ngIf="status === 'resetBasis'" class="quicklinks-wrapper card h-100">
   <app-reset-basis-password></app-reset-basis-password>
 </div>

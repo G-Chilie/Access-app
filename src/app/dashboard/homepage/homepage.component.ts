@@ -10,6 +10,7 @@ import { NotificationModalComponent } from '../../notification-modal/notificatio
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../_services/user.service';
 import { QuicklinksComponent } from '../../quick-links/quicklinks.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -22,10 +23,14 @@ export class HomepageComponent implements OnInit {
   content: any = 'Please enter your new password';
   userappandurl: any;
   closeResult: string;
-  constructor(private boardServices: DashboardService, private logininfo: LoginComponent,
-    private ResetBasis: ResetBasisPasswordComponent, private modalService: NgbModal,
-    private notifier: NotificationModalComponent, public QuickLinks: QuicklinksComponent, public activeModal: NgbActiveModal,
-    private userService: UserService) { }
+  constructor(
+    private modalService: NgbModal,
+    private notifier: NotificationModalComponent,
+    public QuickLinks: QuicklinksComponent,
+    public activeModal: NgbActiveModal,
+    private userService: UserService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     this.userappandurl = this.userService.UserApplications;
@@ -48,6 +53,10 @@ export class HomepageComponent implements OnInit {
 
   closeModal() {
     this.activeModal.close('Modal Closed');
+  }
+
+  goToUrl() {
+    console.log(`úrl`);
   }
 }
 
