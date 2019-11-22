@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgbModule, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
@@ -18,11 +18,12 @@ import { QuickLinksModule } from './quick-links/quick-links.module';
 import { HomepageModule } from './dashboard/homepage/homepage.module';
 import { ResetBasisPasswordModule } from './reset-basis-password/reset-basis-password.module';
 import { KillMyIdComponent } from './kill-my-id/kill-my-id.component';
+import { RouteToApplicationComponent } from './route-to-application/route-to-application.component';
 // import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, OpenurlComponent, NotificationModalComponent
+    AppComponent, LoginComponent, OpenurlComponent, NotificationModalComponent, RouteToApplicationComponent
   ],
   imports: [
     BrowserModule, ReactiveFormsModule, FormsModule, HomepageModule,
@@ -30,7 +31,13 @@ import { KillMyIdComponent } from './kill-my-id/kill-my-id.component';
   ],
   exports: [RouterModule],
   providers: [LoginComponent, ResetBasisPasswordComponent, KillMyIdComponent,
-    QuicklinksComponent,  NotificationModalComponent, NgbActiveModal],
+    QuicklinksComponent,  NotificationModalComponent, NgbActiveModal,
+    {
+      provide: 'externalUrlRedirectResolver',
+      useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+          window.location.href = (route.data as any).externalUrl;
+      }
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

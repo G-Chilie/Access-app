@@ -11,6 +11,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../_services/user.service';
 import { QuicklinksComponent } from '../../quick-links/quicklinks.component';
 import { Router } from '@angular/router';
+import { HttpParams, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-homepage',
@@ -22,6 +23,7 @@ export class HomepageComponent implements OnInit {
   UserInfo: any;
   content: any = 'Please enter your new password';
   userappandurl: any;
+  userlogindet: any;
   closeResult: string;
   constructor(
     private modalService: NgbModal,
@@ -29,11 +31,13 @@ export class HomepageComponent implements OnInit {
     public QuickLinks: QuicklinksComponent,
     public activeModal: NgbActiveModal,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient,
     ) { }
 
   ngOnInit() {
     this.userappandurl = this.userService.UserApplications;
+    this.userlogindet = localStorage.getItem('Form Details');
     // console.log(this.userappandurl);
     // (response:Response)=>{
     //   const result = response;
@@ -55,31 +59,18 @@ export class HomepageComponent implements OnInit {
     this.activeModal.close('Modal Closed');
   }
 
-  goToUrl() {
-    console.log(`úrl`);
+  goToUrl(appUrl, appid, userdetails) {
+    const newuserdet = JSON.parse(userdetails);
+    console.log(appUrl, appid, newuserdet.username, newuserdet.password);
+//     const data = new HttpParams();
+// data.append('Content-Disposition', 'form-data; name="Presentation"');
+// data.append('Content-Type', 'text/html');
+// data.append('text', page.content);
+
+const headers = new Headers({ 'Content-Type': 'application/json' });
+return this.http.post(appUrl + newuserdet.username + newuserdet.password + appid, {headers: headers});
+
   }
 }
-
-  // private getDismissReason(reason: any): string {
-  //   if (reason === ModalDismissReasons.ESC) {
-  //     return 'by pressing ESC';
-  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-  //     return 'by clicking on a backdrop';
-  //   } else {
-  //     return  `with: ${reason}`;
-  //   }
-  // }
-
-  // getStaffDetails() {
-  //   const user: User = JSON.parse(localStorage.getItem('staffDetail'));
-  //   const data = {
-  //     // username: user.username,
-  //     requestinguserid: user.RequestingUserID
-  //   };
-
-    // this.boardServices.getStaffDetails(data).subscribe((result) => {
-    //   console.log(result);
-    //   this.UserInfo = result;
-    // });
 
 

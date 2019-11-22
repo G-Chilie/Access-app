@@ -1,6 +1,7 @@
 .navbar-brand .custom {
   padding-top: 0.2rem !important;
     padding-bottom: 0.1rem  !important;
+
 }
 .form-control {
   border-radius: 1.25rem !important;
@@ -12,8 +13,8 @@
 
 .user-image {
   border-radius: 49.9%;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border: #dd4f05 solid 1px;
 }
 
@@ -24,4 +25,12 @@
 .user-wrapper p {
   font-size: 0.6rem;
   line-height: 12px;
+}
+
+.objectfit{
+  object-fit: cover;
+}
+
+.gtbank_logo{
+  margin-right: 0px;
 }
