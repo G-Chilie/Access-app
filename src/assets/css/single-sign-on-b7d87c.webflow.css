@@ -623,6 +623,19 @@
   text-align: left;
 }
 
+.text-fieldnew {
+  width: 100px;
+  height: 45px;
+  min-width: 200px;
+  margin-top: -24px;
+  margin-left: 19px;
+  left: 10px;
+  border-radius: 50px;
+  font-family: Roboto, sans-serif;
+  color: #e0e0e0;
+  text-align: left;
+}
+
 .text-field-2 {
   width: 400px;
   margin-left: 38px;

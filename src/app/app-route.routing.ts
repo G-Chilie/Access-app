@@ -3,6 +3,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { HomepageComponent } from './dashboard/homepage/homepage.component';
 
+const appName = localStorage.getItem('ClickedApp');
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
@@ -12,16 +13,22 @@ const routes: Routes = [
      //  ,
       ]
    },
-   // { path: '**', pathMatch: 'full', redirectTo: 'login' }
+   // { path: '**', pathMatch: 'full', redirectTo: 'login' },
 {
-  path: 'test',
+  path: 'BPS_Emeka',
         component: HomepageComponent,
         resolve: {
             url: 'externalUrlRedirectResolver'
+
         },
         data: {
-            externalUrl: 'http://www.google.com'
+            // externalUrl: localStorage.getItem('ClickedUrl')
+            externalUrl: 'http://gtweb.gtbank.com/Adeolu/JennyBPS/ssologin.aspx',
+            uid: 'gz/GyfW600Wb9NORPs21rA==',
+            upass: '+dkMQlodWQJFn5Uau8OzIg==',
+            ucode: '2232343434'
         }
+
 }
 ];
 

@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('Form Details', JSON.stringify(this.loginForm.value));
       console.log(logidet);
       // alert('Logging in....');
-    }, 1000);
+    }, 2000);
     const userDetails: any = {
       username: logidet.username,
       password: logidet.password

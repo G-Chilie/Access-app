@@ -11,8 +11,16 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../_services/user.service';
 import { QuicklinksComponent } from '../../quick-links/quicklinks.component';
 import { Router } from '@angular/router';
-import { HttpParams, HttpClient } from '@angular/common/http';
+import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'my-auth-token'
+  })
+};
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -60,17 +68,37 @@ export class HomepageComponent implements OnInit {
   }
 
   goToUrl(appUrl, appid, userdetails) {
+    localStorage.setItem('ClickedApp', appid);
+    localStorage.setItem('ClickedUrl', appUrl);
     const newuserdet = JSON.parse(userdetails);
     console.log(appUrl, appid, newuserdet.username, newuserdet.password);
+    localStorage.setItem('uid', newuserdet.username);
+    localStorage.setItem('upass', newuserdet.password);
+    localStorage.setItem('ucode', appid);
+    // const userName = newuserdet.username;
+    // const passWord = newuserdet.password;
+    const userName = 'gz/GyfW600Wb9NORPs21rA==';
+    const passWord = '+dkMQlodWQJFn5Uau8OzIg==';
+    const appidnew = '2232343434';
+    const urlnew = 'http://gtweb.gtbank.com/Adeolu/JennyBPS/ssologin.aspx';
+
+    const data: any = {
+      userName, passWord, appidnew
+      // ...this.util.addAuthParams(body),
+      // tslint:disable-next-line: quotemark
+      // tokenId : "",
+      // UserName : this.encryptData.encrypt(userData.userInfor.userName),
+    };
+
+    return this.http.post<any>(urlnew, data).pipe(
+    );
 //     const data = new HttpParams();
 // data.append('Content-Disposition', 'form-data; name="Presentation"');
 // data.append('Content-Type', 'text/html');
 // data.append('text', page.content);
 
-const headers = new Headers({ 'Content-Type': 'application/json' });
-return this.http.post(appUrl + newuserdet.username + newuserdet.password + appid, {headers: headers});
-
+// const headers = new Headers({ 'Content-Type': 'application/json' });
+// return this.http.post(appUrl + newuserdet.username + newuserdet.password + appid, {headers: headers});
   }
 }
-
 

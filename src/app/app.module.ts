@@ -30,7 +30,8 @@ import { RouteToApplicationComponent } from './route-to-application/route-to-app
     HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([])
   ],
   exports: [RouterModule],
-  providers: [LoginComponent, ResetBasisPasswordComponent, KillMyIdComponent,
+  providers: [
+    LoginComponent, ResetBasisPasswordComponent, KillMyIdComponent,
     QuicklinksComponent,  NotificationModalComponent, NgbActiveModal,
     {
       provide: 'externalUrlRedirectResolver',

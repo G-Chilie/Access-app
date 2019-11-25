@@ -19,18 +19,47 @@
 }
 
 .user-wrapper {
-  font-size: 0.6rem;
+  font-size: 0.8rem;
 }
 
 .user-wrapper p {
   font-size: 0.6rem;
   line-height: 12px;
+
 }
 
 .objectfit{
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .gtbank_logo{
   margin-right: 0px;
 }
+
+.fill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 4.5rem;
+  height: 4.5rem; }
+  .avatar.avatar-xs {
+    width: 2.25rem;
+    height: 2.25rem; }
+  .avatar.avatar-sm {
+    width: 3rem;
+    height: 3rem; }
+  .avatar.avatar-lg {
+    width: 7.5rem;
+    height: 7.5rem; }
+  .avatar.avatar-xlg {
+    width: 12rem;
+    height: 12rem; }
+  .avatar.avatar-square {
+    border-radius: 0.125rem; }
+
+

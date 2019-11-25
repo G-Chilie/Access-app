@@ -1,6 +1,6 @@
 <form (ngSubmit)="submitRequest()" autocomplete="off" [formGroup]="myForm" id="wf-form-Email-Form" name="wf-form-Email-Form"
 data-name="Email Form" method="post" class="form">
-<label for="UserName" class="field-label">Enter Password:</label>
+<label for="UserName" class="field-label"></label>
 <input type="text" class="text-field w-input" maxlength="256" formControlName="UserName" autofocus="true"
   name="UserName" data-name="User ID" placeholder="Enter your Username" id="Pass1">
 <!-- <label for="Password2" class="field-label-2">Re-enter Password:</label>
@@ -16,7 +16,7 @@ data-name="Email Form" method="post" class="form">
   <span *ngIf="!loading">CONTINUE</span>
 </button>
 <div>
-  <button type="button" class="cancel-button w-button" (click)="Back()">
+  <button type="button" class="submit-button w-button" (click)="Back()">
     Back
     </button>
 </div>
