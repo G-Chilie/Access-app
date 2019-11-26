@@ -13,8 +13,9 @@ export const environment = {
   USERPIC: '/Staff/GetStaffWithPicture',
   RESETBASISPASS: '/Login/ResetBasisPassword',
   KILLMYID: '/Login/ManageBasisProfile',
-
+  ENC_API: '/Auth/DataEncryption',
   Channel: 'Access Manager',
+  RandomPrefix: '1011',
   // tslint:disable-next-line: max-line-length
   PUB_AM_ENC_KEY: `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCRA67mG4zCbKULFvEyn0UafxPNOO42qk3U0Qg2WOTp6l0EOz9ZiHW4fDMHrOcIlPIvwOjkHWpI1VSi1H/I6zbgkDwRGu/OYQ2Eih9YeYwL9DcmbNoe8uXTIwVLtWS7OW/wtLQz+vup/vHTeIWPs0Y+LDcO7BcOGLli53GwqZC+3QIDAQAB`
 };

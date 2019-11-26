@@ -60,6 +60,10 @@ export class LoginComponent implements OnInit {
   // get username() { return this.loginForm.controls['username']; }
 
   public login() {
+
+    localStorage.setItem('Ntoi', 'Oya!');
+    const userKey = this.util.generateNumber();
+    localStorage.setItem('UserKey', userKey);
     this.loading = true;
     this.loginError = null;
     const logidet = this.loginForm.value;
@@ -75,22 +79,19 @@ export class LoginComponent implements OnInit {
       // NewPassword: this.password.value
     };
     console.log('USERDET' + JSON.stringify(userDetails));
+
     this.userService.getUserWithPic(userDetails).subscribe((a: StaffDetails) => {
       console.log(a);
     });
-    delete userDetails.RequestingUserID;
-    delete userDetails.requestID;
-    delete userDetails.Channel;
-    delete userDetails.username;
-    userDetails.password = logidet.password;
-    userDetails.username = logidet.username;
 
-    this.userService.getUserApps(userDetails).subscribe((a: UserEoneDetails) => {
+    this.userService.getUserApps(logidet).subscribe((a: UserEoneDetails) => {
       console.log(a);
     });
   }
+
   public logout() {
     localStorage.removeItem('Form Details');
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 

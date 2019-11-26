@@ -97,15 +97,25 @@ export class UtilityService {
     return reqID;
   }
 
+  // generateNumber() {
+  //   this.randomNumber = null;
+  //   this.randomNumber =
+  //     environment.RandomPrefix +
+  //     this.today +
+  //     Math.floor(Math.random() * (999999999 - 10000000 + 1) + 10000000);
+  //     console.log(`RandomNumber Checker: ${this.randomNumber}`);
+  //   return this.randomNumber;
+  // }
+
   generateNumber() {
     this.randomNumber = null;
     this.randomNumber =
-      environment.Channel +
-      this.today +
-      Math.floor(Math.random() * (999999999 - 10000000 + 1) + 10000000);
-      console.log(`RandomNumber Checker: ${this.randomNumber}`);
+    environment.RandomPrefix +
+    this.today +
+    Math.floor(Math.random() * (999999999 - 10000000 + 1) + 10000000);
+    console.log(`RandomNumber Checker: ${this.randomNumber}`);
     return this.randomNumber;
-  }
+    }
   // products() {
   //   this.paymentService.paymentError$.next(null);
   //   this.paymentService.paymentInfo$.next('loading product list..');

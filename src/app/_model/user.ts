@@ -66,6 +66,12 @@ export class UserEoneDetails {
   };
 }
 
+export class EncryptionDetails {
+  Data: string;
+  ResponseCode: string;
+  ResponseDescription: string;
+}
+
 export interface Application {
   ApplicationID: string;
   ApplicationName: string;

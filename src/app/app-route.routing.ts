@@ -24,9 +24,9 @@ const routes: Routes = [
         data: {
             // externalUrl: localStorage.getItem('ClickedUrl')
             externalUrl: 'http://gtweb.gtbank.com/Adeolu/JennyBPS/ssologin.aspx',
-            uid: 'gz/GyfW600Wb9NORPs21rA==',
-            upass: '+dkMQlodWQJFn5Uau8OzIg==',
-            ucode: '2232343434'
+            // uid: 'gz/GyfW600Wb9NORPs21rA==',
+            // upass: '+dkMQlodWQJFn5Uau8OzIg==',
+            // ucode: '2232343434'
         }
 
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { catchError, retry, map } from 'rxjs/operators';
+import { catchError, retry, map, tap } from 'rxjs/operators';
 import { UtilityService } from '../utility.service';
 import * as JsEncryptModule from 'jsencrypt';
 import { Router, ActivatedRoute } from '@angular/router';
-import { StaffDetails } from '../_model/user';
+import { StaffDetails, EncryptionDetails } from '../_model/user';
 import swal from 'sweetalert';
 
 @Injectable({ providedIn: 'root' })
@@ -42,6 +42,11 @@ export class UserService {
 
   public setApplicationsObject(response) {
     localStorage.setItem('EoneDetails', JSON.stringify(response));
+    // return user;
+  }
+
+  public setEncryptedData(response) {
+    localStorage.setItem('Encrypted String: ', JSON.stringify(response));
     // return user;
   }
 
@@ -89,42 +94,98 @@ export class UserService {
     return (parsedBranch);
   }
 
-  public getUserApps(userDetails) {
+  public encryptData(dataToEncrypt) {
+    const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.ENC_API}`;
+    console.log('New Data To Encrypt:' + JSON.stringify(dataToEncrypt));
+    const data = {
+      Data: dataToEncrypt.Data,
+      Key: localStorage.getItem('UserKey'),
+      EncryptDecrypt: 1,
+      AppId: 1,
+      Channel: 'AM'
+    };
+    console.log(data);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      return this.http.post<any>(PATH, data)
+      .pipe(
+        tap(() => console.log('Encryption method has been triggered')),
+        retry(3),
+        catchError(this.util.handleError),
+        map(res => {
+          console.log(res);
+          if (res.ResponseCode === '00') {
+            this.setEncryptedData(res);
+            return res;
+          } else {
+            console.log(res.ResponseDescription);
+          }
+        })
+      );
+  }
+
+  public getUserApps(_formData) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.APPS_API}`;
+
+
+    // get encrypted username
+    const userDetails2: any = {
+      Data: _formData.username
+    };
+    // this.userService.getUserApps(logidet).subscribe((a: UserEoneDetails) => {
+    //   console.log(a);
+    // });
+    this.encryptData(userDetails2).subscribe((b: EncryptionDetails) => {
+      console.log(b);
+    });
+    const encryptedPassString = localStorage.getItem('Encrypted String: ');
+    const encryptedPassStringObj = JSON.parse(encryptedPassString);
+    const UserIDEnc = encryptedPassStringObj.Data;
+
+    // get encrypted password
+    const userDetails3: any = {
+      username:  _formData.password
+    };
+    this.encryptData(userDetails3).subscribe((b: EncryptionDetails) => {
+      console.log(b);
+    });
+    // this.encryptData(userDetails3);
+    const encryptedUsernameString = localStorage.getItem('Encrypted String: ');
+    const encryptedUserStringObj = JSON.parse(encryptedUsernameString);
+    const UserPassEnc = encryptedUserStringObj.Data;
+    localStorage.setItem('EncUid', UserIDEnc);
+    localStorage.setItem('EncPass', UserPassEnc);
+
+    const userDetailsForAPI: any = {
+      Channel: 'AM',
+      RequestID: '1122334455',
+      UserName: UserIDEnc,
+      Password: UserPassEnc,
+      Key: localStorage.getItem('UserKey'),
+      AppId: 1
+
+    };
+    console.log('userDet For Apps: ' + JSON.stringify(UserIDEnc) + '' + JSON.stringify(UserPassEnc));
+
     // let body: any = localStorage.getItem('Form Details');
     {
-      // const userData: User = this.userService.getUserDetails();
-      // console.log(userData);
-      const body: any = {};
       const data = {
-        ...userDetails,
-        // ...this.util.addAuthParams(body),
-        // tslint:disable-next-line: quotemark
-        // tokenId : "",
-        // UserName : this.encryptData.encrypt(userData.userInfor.userName),
+        ...userDetailsForAPI,
       };
-
-      // userDetails.password = userDetails.password,
-      //   // tslint:disable-next-line: quotemark
-      //   userDetails.IPAddress = "";
 
       console.log('Encrypted User Body For Apps:' + JSON.stringify(data));
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-      // this.login.loginForm.value;
-      // body = this.util.addAuthParams(body);
-      // body.customerId = this.extEncrypt(this.merchantId);
-      // delete body.customerNumber;
-      return this.http.post<any>(PATH, userDetails).pipe(
-        retry(2),
+      return this.http.post<any>(PATH, data).pipe(
+        retry(3),
         catchError(this.util.handleError),
 
         map(res => {
-          console.log(res);
+          // console.log(res);
           if (res.ResponseCode === '00') {
             this.setApplicationsObject(res);
             return res;
           } else {
+            console.log('An error Occured: ' + res.ResponseDescription);
           }
         })
       );
@@ -137,9 +198,7 @@ export class UserService {
     // const res: any = Login;
     const data = {
       ...userDetails
-      // ...this.util.addAuthParams(body),
-      // tslint:disable-next-line: quotemark
-      // tokenId : "",
+
     };
     // this.util.generateRequestId;
     userDetails.requestID = '12345678';
@@ -150,15 +209,11 @@ export class UserService {
 
     console.log('Encrypted User Details:' + JSON.stringify(userDetails));
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    // body = this.util.addAuthParams(body);
-    // body.customerId = this.extEncrypt(this.merchantId);
-    // delete body.customerNumber;
     return this.http.post<any>(PATH, userDetails).pipe(
       retry(2),
       catchError(this.util.handleError),
       // tslint:disable-next-line: no-shadowed-variable
       map(res => {
-        console.log(res);
         if (res.ResponseCode === '00') {
           this.setUserObject(res);
           this.router.navigate(['/']);

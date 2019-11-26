@@ -32,27 +32,20 @@
   </div> -->
 
   <div class="application-wrapper w-75 mx-auto mt-5 text-center">
-      <div class="item py-2 d-flex align-items-center flex-column justify-content-around" (click)="goToUrl(resultObj.ApplicationUrl, resultObj.ApplicationID, this.userlogindet)"
-    *ngFor="let resultObj of this.userappandurl; let i = index">
-    <div class="text-center">
-      <a
-        href="{{ resultObj.ApplicationName }}"
-        target="_blank"
-        class="w-inline-block"
-      >
-        <img
-          src="../../../assets/images/ETracker.svg"
-          height="60"
-          width="79.5"
-          class="image-6"
-        />{{ resultObj.ApplicationName }}
-      </a>
-      <a
-        href="{{ resultObj.ApplicationUrl }}"
-        target="_blank"
-        class="link-2"
-      ></a>
+    <div class="item py-2 d-flex align-items-center flex-column justify-content-around"
+      (click)="goToUrl(resultObj.ApplicationUrl, resultObj.ApplicationID, this.userlogindet)"
+      *ngFor="let resultObj of this.userappandurl; let i = index">
+      <div class="text-center">
+          <form action="{{resultObj.ApplicationUrl}}" target="_blank" method="post">
+            <input hidden value={{this.userName}} type="text" name="uid" id="uid">
+            <input hidden value={{this.passWord}} type="text" name="upass" id="upass">
+            <input hidden value={{this.ucode}} type="text" name="ucode" id="ucode">
+            <!-- <a href="{{ resultObj.ApplicationUrl }}" target="_blank" class="link-2"></a> -->
+            <button type="submit"> <img src="../../../assets/images/ETracker.svg" height="60" width="79.5"
+              class="image-6" /></button>
+          </form>
+          <p>{{ resultObj.ApplicationName }}</p>
+      </div>
     </div>
-  </div>
   </div>
 </div>
