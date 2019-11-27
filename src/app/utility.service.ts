@@ -2,22 +2,25 @@ import { Injectable } from '@angular/core';
 // import { UserService } from '../app/_services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { environment } from '../environments/environment';
-import { retry, catchError, map } from 'rxjs/operators';
+import { retry, catchError, map, tap } from 'rxjs/operators';
 import * as JsEncryptModule from 'jsencrypt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilityService {
+  Info$: Subject<string> = new BehaviorSubject<string>(null);
+  Error$: Subject<string> = new BehaviorSubject<string>(null);
+
   randomNumber: any;
   today: Date;
   res: any;
   username: any;
-  // body: any = localStorage.getItem('FormDetails');
+
   constructor(private http: HttpClient,
-     private router: Router) { }
+    private router: Router) { }
 
   handleResponseError(res) {
     let message = res.responseDescription;
@@ -56,34 +59,63 @@ export class UtilityService {
     return throwError(`${errormessage}`);
   }
 
-  extEncrypt(data) {
-    // console.log('encrypting: ' + data);
-    const encrypt = new JsEncryptModule.JSEncrypt();
-    encrypt.setPublicKey(environment.PUB_AM_ENC_KEY);
-    const hash = encrypt.encrypt(data);
-    return hash;
+  encrypt(data) {
+    const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.ENC_API}`;
+    console.log('New Data To Encrypt:' + JSON.stringify(data));
+    const reqObj = {
+      Data: data,
+      Key: localStorage.getItem('UserKey'),
+      EncryptDecrypt: 1,
+      AppId: 1,
+      Channel: 'AM'
+    };
+    console.log(data);
+    return this.http.post<any>(PATH, reqObj)
+      .pipe(
+        tap(() => console.log('Encryption method has been triggered')),
+        retry(3),
+        catchError(this.handleError),
+        map(res => {
+          console.log(res);
+          if (res.ResponseCode === '00') {
+            this.Info$.next(res.responseDescription);
+            return res.Data;
+          } else {
+            console.log(res.ResponseDescription);
+            this.Error$.next(res.responseDescription);
+            return null;
+          }
+        })
+      );
   }
 
   addAuthParams(body) {
-    // this.user = this.userService.getByUserUsername();
-    // console.log(this.user);
-    //  const userdetails = this.extEncrypt(localStorage.getItem('FormDetails'));
-     const userdetails = JSON.stringify(localStorage.getItem('userdet')) ;
-     console.log('ewa deolu', userdetails);
-      // body.username = this.extEncrypt(body.UserID);
-      // body.username = userdetails.username;
-      // body.password = userdetails.password;
-
+    const userdetails = JSON.stringify(localStorage.getItem('userdet'));
+    console.log('ewa deolu', userdetails);
     return body;
   }
 
-   getUsername() {
+  getUsername() {
     this.res = localStorage.getItem('Form Details');
     // this.res = this.userService.getUserWithPic();
     this.username = this.res.username;
     console.log(this.username);
     return this.username;
-   }
+  }
+
+  getEncryptedDetails() {
+    const encUsername = localStorage.getItem('username');
+    const encPassword = localStorage.getItem('password');
+    const data = {
+      UserName: encUsername,
+      Password: encPassword
+    };
+    if (encUsername && encPassword) {
+      return data;
+    } else {
+      return null;
+    }
+  }
 
   generateRequestId() {
     let reqID = '';
@@ -110,12 +142,11 @@ export class UtilityService {
   generateNumber() {
     this.randomNumber = null;
     this.randomNumber =
-    environment.RandomPrefix +
-    this.today +
-    Math.floor(Math.random() * (999999999 - 10000000 + 1) + 10000000);
+      environment.RandomPrefix +
+      Math.floor(Math.random() * (999999999 - 10000000 + 1) + 10000000);
     console.log(`RandomNumber Checker: ${this.randomNumber}`);
     return this.randomNumber;
-    }
+  }
   // products() {
   //   this.paymentService.paymentError$.next(null);
   //   this.paymentService.paymentInfo$.next('loading product list..');

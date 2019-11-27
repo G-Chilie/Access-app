@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { UserService } from '../_services/user.service';
-import { ResetPasswordStatus, UserEoneDetails } from '../_model/user';
+import { ResetPasswordStatus } from '../_model/user';
 import swal from 'sweetalert';
 import { catchError } from 'rxjs/operators';
 import { UtilityService } from '../utility.service';

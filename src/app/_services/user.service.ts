@@ -40,10 +40,10 @@ export class UserService {
     localStorage.setItem('ResetBasisPasswordStatus', JSON.stringify(response));
   }
 
-  public setApplicationsObject(response) {
-    localStorage.setItem('EoneDetails', JSON.stringify(response));
-    // return user;
-  }
+  // public setApplicationsObject(response) {
+  //   localStorage.setItem('EoneDetails', JSON.stringify(response));
+  //   // return user;
+  // }
 
   public setEncryptedData(response) {
     localStorage.setItem('Encrypted String: ', JSON.stringify(response));
@@ -51,26 +51,24 @@ export class UserService {
   }
 
   public get UserLastLoginDate() {
-    const user = localStorage.getItem('EoneDetails');
-    const userObj = JSON.parse(user);
-    const parsedLoginDate = userObj.EoneLastLogin;
-    // const loggedinuser = localStorage.getItem('FullName') ;
-    return (parsedLoginDate);
-    // return user;
+    const user = localStorage.getItem('AdminUserDetails');
+    if (user) {
+      const userObj = JSON.parse(user);
+      const parsedLoginDate = userObj.EoneLastLogin;
+      return (parsedLoginDate);
+    }
+    return [];
+
   }
 
   public get UserApplications() {
-    const user = localStorage.getItem('EoneDetails');
-    const userObj = JSON.parse(user);
-    const parsedApplicationGroup = userObj.Applications;
-    // const parsedApplications = parsedApplicationGroup.ApplicationName;
-    console.log(parsedApplicationGroup);
-    // const parsedApplicationUrl = parsedApplicationGroup.ApplicationSsoUrl;
-    // console.log(parsedApplicationUrl);
-    // // const loggedinuser = localStorage.getItem('FullName') ;
-    // const myData = { parsedApplications, parsedApplicationUrl};
-    // return myData;
-    return parsedApplicationGroup;
+    const user = localStorage.getItem('AdminUserDetails');
+    if (user) {
+      const userObj = JSON.parse(user);
+      const parsedApplicationGroup = userObj.Applications;
+      return parsedApplicationGroup;
+    }
+    return [];
   }
 
   // url = ".....";
@@ -105,8 +103,7 @@ export class UserService {
       Channel: 'AM'
     };
     console.log(data);
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      return this.http.post<any>(PATH, data)
+    return this.http.post<any>(PATH, data)
       .pipe(
         tap(() => console.log('Encryption method has been triggered')),
         retry(3),
@@ -118,78 +115,33 @@ export class UserService {
             return res;
           } else {
             console.log(res.ResponseDescription);
+            return null;
           }
         })
       );
   }
 
-  public getUserApps(_formData) {
+  public getUserApps(reqData) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.APPS_API}`;
-
-
-    // get encrypted username
-    const userDetails2: any = {
-      Data: _formData.username
-    };
-    // this.userService.getUserApps(logidet).subscribe((a: UserEoneDetails) => {
-    //   console.log(a);
-    // });
-    this.encryptData(userDetails2).subscribe((b: EncryptionDetails) => {
-      console.log(b);
-    });
-    const encryptedPassString = localStorage.getItem('Encrypted String: ');
-    const encryptedPassStringObj = JSON.parse(encryptedPassString);
-    const UserIDEnc = encryptedPassStringObj.Data;
-
-    // get encrypted password
-    const userDetails3: any = {
-      username:  _formData.password
-    };
-    this.encryptData(userDetails3).subscribe((b: EncryptionDetails) => {
-      console.log(b);
-    });
-    // this.encryptData(userDetails3);
-    const encryptedUsernameString = localStorage.getItem('Encrypted String: ');
-    const encryptedUserStringObj = JSON.parse(encryptedUsernameString);
-    const UserPassEnc = encryptedUserStringObj.Data;
-    localStorage.setItem('EncUid', UserIDEnc);
-    localStorage.setItem('EncPass', UserPassEnc);
-
-    const userDetailsForAPI: any = {
-      Channel: 'AM',
-      RequestID: '1122334455',
-      UserName: UserIDEnc,
-      Password: UserPassEnc,
-      Key: localStorage.getItem('UserKey'),
-      AppId: 1
-
-    };
-    console.log('userDet For Apps: ' + JSON.stringify(UserIDEnc) + '' + JSON.stringify(UserPassEnc));
-
-    // let body: any = localStorage.getItem('Form Details');
-    {
-      const data = {
-        ...userDetailsForAPI,
-      };
-
-      console.log('Encrypted User Body For Apps:' + JSON.stringify(data));
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-      return this.http.post<any>(PATH, data).pipe(
-        retry(3),
-        catchError(this.util.handleError),
-
-        map(res => {
-          // console.log(res);
-          if (res.ResponseCode === '00') {
-            this.setApplicationsObject(res);
-            return res;
-          } else {
-            console.log('An error Occured: ' + res.ResponseDescription);
-          }
-        })
-      );
-    }
+    reqData.Channel = 'AM';
+    reqData.RequestID = '1122334455';
+    reqData.Key = localStorage.getItem('UserKey');
+    reqData.AppId = 1;
+    console.log('userDet For Apps: ' + JSON.stringify(reqData));
+    return this.http.post<any>(PATH, reqData).pipe(
+      retry(3),
+      catchError(this.util.handleError),
+      map(res => {
+        if (res.ResponseCode === '00') {
+          this.util.Info$.next(res.ResponseDescription);
+          return res.AdminUser.Applications;
+        } else {
+          console.log('An error Occured: ' + res.ResponseDescription);
+          this.util.Error$.next(res.ResponseDescription);
+          return null;
+        }
+      })
+    );
   }
 
   public getUserWithPic(userDetails) {

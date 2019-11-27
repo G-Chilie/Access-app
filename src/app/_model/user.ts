@@ -46,8 +46,7 @@ export class StaffDetails {
   Picture: string;
 }
 
-export class UserEoneDetails {
-  AdminUser: {
+export class AdminUserDetails {
     BasisId: string;
     UserName: string;
     Branch: string;
@@ -58,15 +57,20 @@ export class UserEoneDetails {
     RoleId: string;
     Status: string;
     EoneLastLogin: string;
-    AdminUserSecurityDetails: AdminUserSecurityDetail,
-    Applications: Application[],
+    AdminUserSecurityDetails: AdminUserSecurityDetail;
+    Applications: Application[];
     LoginInfo: number;
     ResponseCode: string;
     ResponseDescription: string;
-  };
-}
+  }
 
 export class EncryptionDetails {
+  Data: string;
+  ResponseCode: string;
+  ResponseDescription: string;
+}
+
+export class EncryptionDetails2 {
   Data: string;
   ResponseCode: string;
   ResponseDescription: string;

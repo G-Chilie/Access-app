@@ -9,8 +9,8 @@ import { first } from 'rxjs/operators';
 import { UtilityService } from '../../utility.service';
 import { catchError, retry, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { StaffDetails } from 'src/app/_model/user';
-import { UserEoneDetails } from 'src/app/_model/user';
+import { StaffDetails, AdminUserDetails } from 'src/app/_model/user';
+
 
 // import { NotificationsService } from 'angular2-notifications'
 
@@ -60,32 +60,31 @@ export class LoginComponent implements OnInit {
   // get username() { return this.loginForm.controls['username']; }
 
   public login() {
-
-    localStorage.setItem('Ntoi', 'Oya!');
+    localStorage.clear();
     const userKey = this.util.generateNumber();
     localStorage.setItem('UserKey', userKey);
     this.loading = true;
     this.loginError = null;
-    const logidet = this.loginForm.value;
-    setTimeout(() => {
-      this.loading = false;
-      localStorage.setItem('Form Details', JSON.stringify(this.loginForm.value));
-      console.log(logidet);
-      // alert('Logging in....');
-    }, 2000);
-    const userDetails: any = {
-      username: logidet.username,
-      password: logidet.password
-      // NewPassword: this.password.value
-    };
-    console.log('USERDET' + JSON.stringify(userDetails));
+    console.log('USER' + JSON.stringify(this.loginForm.value));
 
-    this.userService.getUserWithPic(userDetails).subscribe((a: StaffDetails) => {
+    // Encrypt user details
+    this.util.encrypt(this.loginForm.value.username).subscribe(data => {
+      data ? localStorage.setItem('username', data) : console.log('data not encrypted');
+    });
+    this.util.encrypt(this.loginForm.value.password).subscribe(data => {
+      data ? localStorage.setItem('password', data) : console.log('data not encrypted');
+    });
+    // end of encryprion.. encrypted user details stored in localstorage
+    this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
       console.log(a);
     });
+    const userData = this.util.getEncryptedDetails();
+    userData ? this.getAdminUserDetails(userData) : console.log('No user data');
+  }
 
-    this.userService.getUserApps(logidet).subscribe((a: UserEoneDetails) => {
-      console.log(a);
+  getAdminUserDetails(data) {
+    this.userService.getUserApps(data).subscribe((a: AdminUserDetails) => {
+      a ? localStorage.setItem('AdminUserDetails', data) : console.log('No admin user data');
     });
   }
 

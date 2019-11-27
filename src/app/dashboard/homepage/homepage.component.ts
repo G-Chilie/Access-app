@@ -48,12 +48,6 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit() {
     this.userappandurl = this.userService.UserApplications;
-    this.userlogindet = localStorage.getItem('Form Details');
-    // console.log(this.userappandurl);
-    // (response:Response)=>{
-    //   const result = response;
-    //   console.log(result);
-
   }
 
   public open() {
