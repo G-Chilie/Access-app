@@ -27,8 +27,8 @@ const httpOptions = {
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  userName = localStorage.getItem('EncUid');
-  passWord = localStorage.getItem('EncPass');
+  userName = localStorage.getItem('username');
+  passWord = localStorage.getItem('password');
   ucode = localStorage.getItem('UserKey');
   UserInfo: any;
   content: any = 'Please enter your new password';
@@ -72,28 +72,6 @@ export class HomepageComponent implements OnInit {
     localStorage.setItem('uid', newuserdet.username);
     localStorage.setItem('upass', newuserdet.password);
     localStorage.setItem('ucode', appid);
-    // const userName = newuserdet.username;
-    // const passWord = newuserdet.password;
-
-    // const urlnew = 'http://gtweb.gtbank.com/Adeolu/JennyBPS/ssologin.aspx';
-
-    // const data: any = {
-    //   userName, passWord, ucode
-    //   // ...this.util.addAuthParams(body),
-    //   // tslint:disable-next-line: quotemark
-    //   // tokenId : "",
-    //   // UserName : this.encryptData.encrypt(userData.userInfor.userName),
-    // };
-
-    // return this.http.post<any>(urlnew, data).pipe(
-    // );
-//     const data = new HttpParams();
-// data.append('Content-Disposition', 'form-data; name="Presentation"');
-// data.append('Content-Type', 'text/html');
-// data.append('text', page.content);
-
-// const headers = new Headers({ 'Content-Type': 'application/json' });
-// return this.http.post(appUrl + newuserdet.username + newuserdet.password + appid, {headers: headers});
-  }
+ }
 }
 

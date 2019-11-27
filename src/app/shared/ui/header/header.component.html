@@ -12,7 +12,7 @@
         <p class="mb-0">
           You are logged in from <strong>{{ this.branchname }}</strong>
         </p>
-        <p>Last login: {{ this.lastlogindate }}</p>
+        <p>Last login: {{ this.lastlogindate | date:'medium' }}</p>
       </div>
     </div>
     <img

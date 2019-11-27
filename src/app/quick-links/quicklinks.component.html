@@ -20,20 +20,20 @@
           </div>
         </div>
         <div class="d-flex justify-content-center">
-          <div (click)="open('basisAccess')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
+          <!-- <div (click)="open('basisAccess')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
             <div class="">
                 <div class="">
               <img src="/assets/images/GTBANK.png" alt="Reset basis password">
               <p class="small">Basis Access</p>
             </div>
           </div>
-          </div>
+          </div> -->
 
-          <div (click)="open('manageUser')" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
+          <div (click)="Logout()" class="item card m-1 d-flex flex-column align-items-center justify-content-center">
             <div class="card-block text-center">
                 <div class="">
               <img src="/assets/images/GTBANK.png" alt="Reset basis password">
-              <p class="small">Manage User Security Details</p>
+              <p class="medium">LOG OUT</p>
             </div>
             </div>
           </div>
@@ -47,14 +47,13 @@
 <div *ngIf="status === 'killMyID'" class="quicklinks-wrapper card h-100">
   <app-kill-my-id></app-kill-my-id>
 </div>
-<div *ngIf="status === 'basisAccess'" class="quicklinks-wrapper card h-100">
+<!-- <div *ngIf="status === 'basisAccess'" class="quicklinks-wrapper card h-100">
     <app-reset-basis-password></app-reset-basis-password>
-  <!-- <app-basis-access></basis-access> -->
-</div>
-<div *ngIf="status === 'manageUser'" class="quicklinks-wrapper card h-100">
+
+</div> -->
+<!-- <div *ngIf="status === 'manageUser'" class="quicklinks-wrapper card h-100">
     <app-reset-basis-password></app-reset-basis-password>
-  <!-- <app-manage-user-security></app-manage-user-security> -->
-</div>
+</div> -->
 <!-- <div class="col-md-4">
   <div class="side-dashboard">
     <a href="javascript:" (click)="open('resetBasis')" class=" small-dashboar-link w-inline-block">
