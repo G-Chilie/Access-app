@@ -72,17 +72,17 @@ export class UtilityService {
     console.log(data);
     return this.http.post<any>(PATH, reqObj)
       .pipe(
-        tap(() => console.log('Encryption method has been triggered')),
+        // tap(() => console.log('Encryption method has been triggered')),
         retry(3),
         catchError(this.handleError),
         map(res => {
           console.log(res);
           if (res.ResponseCode === '00') {
-            this.Info$.next(res.responseDescription);
+            // this.Info$.next(res.responseDescription);
             return res.Data;
           } else {
             console.log(res.ResponseDescription);
-            this.Error$.next(res.responseDescription);
+            // this.Error$.next(res.responseDescription);
             return null;
           }
         })

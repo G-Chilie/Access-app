@@ -3,6 +3,9 @@ import { ResetBasisPasswordComponent } from '../reset-basis-password/reset-basis
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationModalComponent } from '../notification-modal/notification-modal.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { windowTime } from 'rxjs/operators';
+import { Response } from 'selenium-webdriver/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quicklinks',
@@ -12,6 +15,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class QuicklinksComponent implements OnInit {
 status: any;
   constructor(
+    private router: Router,
     private notifier: NotificationModalComponent,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal
@@ -27,5 +31,10 @@ status: any;
 
   closeModal() {
     this.activeModal.close('Modal Closed');
+  }
+
+  Logout() {
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 }

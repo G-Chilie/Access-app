@@ -123,6 +123,9 @@ export class UserService {
 
   public getUserApps(reqData) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.APPS_API}`;
+    if (reqData) {
+      reqData = this.util.getEncryptedDetails();
+    }
     reqData.Channel = 'AM';
     reqData.RequestID = '1122334455';
     reqData.Key = localStorage.getItem('UserKey');
@@ -134,7 +137,8 @@ export class UserService {
       map(res => {
         if (res.ResponseCode === '00') {
           this.util.Info$.next(res.ResponseDescription);
-          return res.AdminUser.Applications;
+          console.log(res.AdminUser.Applications);
+          return res;
         } else {
           console.log('An error Occured: ' + res.ResponseDescription);
           this.util.Error$.next(res.ResponseDescription);
@@ -229,13 +233,12 @@ export class UserService {
 
       };
       console.log(userDetails);
-      if (userDetails == null) {
+      if (!data) {
         swal('Oops!', 'Please supply a correct username!', 'error');
       }
-      console.log('User Body For killMyId::' + JSON.stringify(data.userdetails));
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      console.log('User Body For killMyId::' + JSON.stringify(data));
 
-      return this.http.post<any>(PATH, userDetails).pipe(
+      return this.http.post<any>(PATH, data).pipe(
         retry(2),
         catchError(this.util.handleError),
 
@@ -246,6 +249,7 @@ export class UserService {
             swal('Good job!', 'You ID has successfully been removed on BASIS!', 'success');
             return res;
           } else {
+            console.log(res);
             swal('Oops!', 'An error has occured. Please try again!', 'error');
             return null;
           }

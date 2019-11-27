@@ -1,18 +1,18 @@
 <div class="navbar navbar-expand-md navbar-light flex-top border-0 shadow-sm">
   <div class="d-flex justify-content-between w-100">
-    <div class="user-wrapper d-flex align-items-center">
-      <div class="objectfit">
-      <div class="user-image mr-2">
-            <a  class="custom mr-0 mr-md-2  font" href="/" ><img src="{{'data:image/png;base64,'+this.picture}}"  ng-show="Base64 != null" height="100" width="50" class=" pt-2  image-3"/></a>
+    <div class="user-wrapper2 d-flex align-items-center">
+
+      <div class="user-image justify-content-between objectfit: fill mr-2">
+            <a  class="custom mr-0 mr-md-2  font" href="/" ><img src="{{'data:image/png;base64,'+this.picture}}"  ng-show="Base64 != null" height="100" width="50" class=" pt-3  image-3"/></a>
         </div>
 
-      </div>
+
       <div class="user-info mt-1">
         <h6 class="mb-0">Welcome, {{ this.fullName }} </h6>
         <p class="mb-0">
           You are logged in from <strong>{{ this.branchname }}</strong>
         </p>
-        <p>Last login: {{ this.lastlogindate }}</p>
+        <p>Last login date: {{ this.lastlogindate | date:'medium' }}</p>
       </div>
     </div>
     <img

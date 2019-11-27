@@ -4,7 +4,7 @@ import { UserService } from '../_services/user.service';
 import { UtilityService } from '../utility.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { KillMyIDStatus } from '../_model/user';
-
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-kill-my-id',
@@ -15,7 +15,7 @@ export class KillMyIdComponent implements OnInit {
   closeResult: string;
   Password1: string;
   UserName: string;
-  myForm: FormGroup;
+  myForm2: FormGroup;
   password: FormControl;
   loading = false;
   constructor(private modalService: NgbModal, private userser: UserService, private formBuilder: FormBuilder,
@@ -27,7 +27,7 @@ export class KillMyIdComponent implements OnInit {
   }
 
   public createLoginForm() {
-    this.myForm = this.formBuilder.group({
+    this.myForm2 = this.formBuilder.group({
       UserName: ['', Validators.required],
       // Password2: ['', Validators.required]
     });
@@ -37,10 +37,10 @@ export class KillMyIdComponent implements OnInit {
   submitRequest() {
     this.loading = true;
     // this.loginError = null;
-    const logidet = this.myForm.value;
+    const logidet = this.myForm2.value;
     setTimeout(() => {
       this.loading = false;
-      localStorage.setItem('New Password Details:', JSON.stringify(this.myForm.value));
+      localStorage.setItem('New Password Details:', JSON.stringify(this.myForm2.value));
       console.log(logidet);
       // alert('Logging in....');
     }, 2000);
@@ -50,7 +50,8 @@ export class KillMyIdComponent implements OnInit {
     };
     console.log('Password Details:' + JSON.stringify(userDetails.UserName));
     this.userser.killMyID(userDetails).subscribe((a: KillMyIDStatus) => {
-      console.log(a);
+      a ?  console.log(a) : swal('Oops!', 'An error occured while kiiling your session. Please try again later', 'error');
+
     });
   }
 
