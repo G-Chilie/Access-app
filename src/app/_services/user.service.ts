@@ -185,25 +185,32 @@ export class UserService {
   public resetBasisPassword(userDetails) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.RESETBASISPASS}`;
     {
+      console.log('Data1' + userDetails);
       const body: any = {};
       const user = localStorage.getItem('StaffDetailsWithPic');
-      const user2 = localStorage.getItem('EoneDetails');
+      const user2 = localStorage.getItem('AdminUserDetails');
       const userObj = JSON.parse(user);
       const userObj2 = JSON.parse(user2);
-      userDetails.TellerID = userObj2.AdminUser.BasisId;
-      userDetails.TellerName = userObj.StaffDetails.UserName;
-      userDetails.BranchCode = userObj2.AdminUser.Branch;
-      const data = {
-        ...userDetails,
 
+      const reqObj2 = {
+        NewPassword: userDetails,
+        TellerID: userObj2.AdminUser.BasisId,
+        TellerName: userObj.StaffDetails.UserName,
+        BranchCode: userObj2.AdminUser.Branch,
       };
+
+      console.log('Data2' + reqObj2);
+      // const data = {
+      //   ...userDetails,
+
+      // };
       if (userDetails == null) {
         swal('Oops!', 'Please supply matching passwords!', 'failure');
       }
-      console.log('User Body For ResetPass::' + JSON.stringify(data));
+      console.log('User Body For ResetPass::' + JSON.stringify(reqObj2));
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-      return this.http.post<any>(PATH, userDetails).pipe(
+      return this.http.post<any>(PATH, reqObj2).pipe(
         retry(2),
         catchError(this.util.handleError),
 
@@ -214,7 +221,7 @@ export class UserService {
             swal('Good job!', 'You have successfully changed your Basis password!', 'success');
             return res;
           } else {
-            swal('Oops!', 'An error has occured. Please try again!', 'failure');
+            swal('Oops!', res.ResponseDescription, 'error');
             return null;
           }
         })

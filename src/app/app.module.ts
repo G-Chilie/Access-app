@@ -4,7 +4,6 @@ import {NgbModule, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule, Routes, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { UiModule } from './shared/ui/ui.module';
 import { AppRouteRoutes } from './app-route.routing';
@@ -19,26 +18,22 @@ import { HomepageModule } from './dashboard/homepage/homepage.module';
 import { ResetBasisPasswordModule } from './reset-basis-password/reset-basis-password.module';
 import { KillMyIdComponent } from './kill-my-id/kill-my-id.component';
 import { RouteToApplicationComponent } from './route-to-application/route-to-application.component';
+import { LoginModule } from './auth/login/login.module';
+
 // import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, OpenurlComponent, NotificationModalComponent, RouteToApplicationComponent
+    AppComponent, LoginComponent, NotificationModalComponent, RouteToApplicationComponent
   ],
   imports: [
-    BrowserModule, ReactiveFormsModule, FormsModule, HomepageModule,
+    BrowserModule, LoginModule, ReactiveFormsModule, FormsModule, HomepageModule,
     HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([])
   ],
   exports: [RouterModule],
   providers: [
     LoginComponent, ResetBasisPasswordComponent, KillMyIdComponent,
-    QuicklinksComponent,  NotificationModalComponent, NgbActiveModal,
-    {
-      provide: 'externalUrlRedirectResolver',
-      useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-          window.location.href = (route.data as any).externalUrl;
-      }
-  }],
+    QuicklinksComponent,  NotificationModalComponent, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

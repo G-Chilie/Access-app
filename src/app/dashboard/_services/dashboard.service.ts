@@ -21,15 +21,15 @@ getProducts(): Observable<Product> {
 //  getStaffDetails(): Observable<UserInfo> {
 //   return this.http.get<UserInfo>( this.staffDetailsUrl);
 //  }
-  getStaffDetails(data) {
-    data.channel = environment.Channel;
-    data.requestID = this.requestID;
+//   getStaffDetails(data) {
+//     data.channel = environment.Channel;
+//     data.requestID = this.requestID;
 
-    return this.http.post(`${this.baseUrl}/GetStaffWithPicture`, data);
-  }
-logout() {
- localStorage.removeItem('staffDetail');
- this.router.navigate(['/login']);
-}
+//     return this.http.post(`${this.baseUrl}/GetStaffWithPicture`, data);
+//   }
+// logout() {
+//  localStorage.removeItem('staffDetail');
+//  this.router.navigate(['/login']);
+// }
 
 }

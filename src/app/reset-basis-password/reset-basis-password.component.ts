@@ -34,13 +34,10 @@ export class ResetBasisPasswordComponent implements OnInit {
   public createLoginForm() {
     this.myForm = this.formBuilder.group({
       // tslint:disable-next-line: quotemark
-      NewPassword: ['', [Validators.required,
-        Validators.pattern(this.passwordvalid),
-       Validators.minLength(5)]],
+      NewPassword: ['', [Validators.required]],
       // tslint:disable-next-line: quotemark
-      NewPassword2: ['', [Validators.required,
-        Validators.pattern(this.passwordvalid),
-      Validators.minLength(5)]]
+      NewPassword2: ['', [Validators.required]],
+
     });
     // this.modals.pop();
   }
@@ -65,7 +62,7 @@ export class ResetBasisPasswordComponent implements OnInit {
       return;
     }
     console.log('New Password Details:' + JSON.stringify(userDetails.NewPassword));
-    this.userser.resetBasisPassword(userDetails).subscribe((a: ResetPasswordStatus) => {
+    this.userser.resetBasisPassword(this.myForm.value.NewPassword2).subscribe((a: ResetPasswordStatus) => {
       console.log(a);
     });
 
