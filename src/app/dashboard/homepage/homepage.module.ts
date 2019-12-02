@@ -14,11 +14,11 @@ const routes: Routes = [
   { path: '', component: HomepageComponent },
 ];
 @NgModule({
+  declarations: [HomepageComponent],
   imports: [
     CommonModule, RouterModule.forChild(routes),
     QuickLinksModule,
     UiModule
    ],
-  declarations: [HomepageComponent]
 })
 export class HomepageModule { }

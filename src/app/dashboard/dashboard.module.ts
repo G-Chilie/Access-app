@@ -8,10 +8,10 @@ import { DashboardService } from './_services/dashboard.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
+  declarations: [DashboardComponent],
   imports: [
     CommonModule, UiModule, DashboardRoutes, UiModule, HttpClientModule
   ],
-  declarations: [DashboardComponent],
   exports: [DashboardComponent],
   providers: [DashboardService]
 })

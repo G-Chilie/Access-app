@@ -7,9 +7,12 @@ import * as JsEncryptModule from 'jsencrypt';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StaffDetails, EncryptionDetails } from '../_model/user';
 import swal from 'sweetalert';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+  // Info$: Subject<string> = new BehaviorSubject<string>(null);
+  // Error$: Subject<string> = new BehaviorSubject<string>(null);
   constructor(private http: HttpClient, private util: UtilityService, private router: Router) { }
 
   extEncrypt(data) {
@@ -124,28 +127,30 @@ export class UserService {
   public getUserApps(reqData) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.APPS_API}`;
     if (reqData) {
-      reqData = this.util.getEncryptedDetails();
+      // reqData = this.util.getEncryptedDetails();
+      reqData.Channel = 'AM';
+      reqData.RequestID = '1122334455';
+      reqData.Key = localStorage.getItem('UserKey');
+      reqData.AppId = 1;
+      console.log('userDet For Apps: ' + JSON.stringify(reqData));
+      return this.http.post<any>(PATH, reqData).pipe(
+        retry(3),
+        catchError(this.util.handleError),
+        map(res => {
+          if (res.ResponseCode === '00') {
+            this.util.Info$.next(res.ResponseDescription);
+            console.log(res.AdminUser.Applications);
+            return res;
+          } else {
+            console.log('An error Occured: ' + res.ResponseDescription);
+            this.util.Error$.next(res.ResponseDescription);
+            return null;
+          }
+        })
+      );
+    } else {
+      return null;
     }
-    reqData.Channel = 'AM';
-    reqData.RequestID = '1122334455';
-    reqData.Key = localStorage.getItem('UserKey');
-    reqData.AppId = 1;
-    console.log('userDet For Apps: ' + JSON.stringify(reqData));
-    return this.http.post<any>(PATH, reqData).pipe(
-      retry(3),
-      catchError(this.util.handleError),
-      map(res => {
-        if (res.ResponseCode === '00') {
-          this.util.Info$.next(res.ResponseDescription);
-          console.log(res.AdminUser.Applications);
-          return res;
-        } else {
-          console.log('An error Occured: ' + res.ResponseDescription);
-          this.util.Error$.next(res.ResponseDescription);
-          return null;
-        }
-      })
-    );
   }
 
   public getUserWithPic(userDetails) {
@@ -171,11 +176,10 @@ export class UserService {
       // tslint:disable-next-line: no-shadowed-variable
       map(res => {
         if (res.ResponseCode === '00') {
-          this.setUserObject(res);
-          this.router.navigate(['/']);
+          // this.router.navigate(['/']);
           return res;
         } else {
-          this.router.navigate(['login']);
+          // this.router.navigate(['login']);
           return null;
         }
       })

@@ -6,32 +6,12 @@ import { NgModule } from '@angular/core';
 
 const appName = localStorage.getItem('ClickedApp');
 const routes: Routes = [
-  { path: '',  redirectTo: '/login', pathMatch: 'full'},
-  { path: 'login', component: LoginComponent},
-  { path: 'home', component: HomepageComponent},
-  {
-    path: 'dashboard',  // canActivate: [AuthGuard],
-    children: [
-      {
-        path: '', loadChildren: './dashboard/dashboard.module#DashboardModule'
-      },  //  ,
-    ]}
-  //   path: 'BPS_Emeka',
-  //   component: HomepageComponent,
-  //   resolve: {
-  //     url: 'externalUrlRedirectResolver'
-
-  //   },
-  //   data: {
-  //     // externalUrl: localStorage.getItem('ClickedUrl')
-  //     externalUrl: 'http://gtweb.gtbank.com/Adeolu/JennyBPS/ssologin.aspx',
-  //     // uid: 'gz/GyfW600Wb9NORPs21rA==',
-  //     // upass: '+dkMQlodWQJFn5Uau8OzIg==',
-  //     // ucode: '2232343434'
-  //   }
-
-   ,
-  { path: '**', redirectTo: '' },
+  { path: '',  redirectTo: 'login', pathMatch: 'full'},
+  { path: 'login', loadChildren: './auth/login/login.module#LoginModule'},
+  // { path: 'login', loadChildren: import('./auth/login/login.module').then(m => m.LoginModule)},
+  // loadChildren: './auth/login/login.module#LoginModule'
+  {path: 'home', loadChildren: './dashboard/homepage/homepage.module#HomepageModule'},
+  { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
 
 

@@ -19,20 +19,22 @@ import { ResetBasisPasswordModule } from './reset-basis-password/reset-basis-pas
 import { KillMyIdComponent } from './kill-my-id/kill-my-id.component';
 import { RouteToApplicationComponent } from './route-to-application/route-to-application.component';
 import { LoginModule } from './auth/login/login.module';
+import { HomepageComponent } from './dashboard/homepage/homepage.component';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 // import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, NotificationModalComponent, RouteToApplicationComponent
+    AppComponent, NotificationModalComponent, RouteToApplicationComponent
   ],
   imports: [
-    BrowserModule, LoginModule, ReactiveFormsModule, FormsModule, HomepageModule,
+    BrowserModule, ReactiveFormsModule, FormsModule,
     HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([])
   ],
   exports: [RouterModule],
   providers: [
-    LoginComponent, ResetBasisPasswordComponent, KillMyIdComponent,
+    ResetBasisPasswordComponent, KillMyIdComponent,
     QuicklinksComponent,  NotificationModalComponent, NgbActiveModal],
   bootstrap: [AppComponent]
 })

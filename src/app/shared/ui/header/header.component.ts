@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as JsEncryptModule from 'jsencrypt';
 import { environment } from '../../../../environments/environment';
 import { UserService } from '../../../_services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,15 +14,16 @@ export class HeaderComponent implements OnInit {
   picture: any;
   branchname: any;
   lastlogindate: any;
-  constructor(private userserv: UserService) { }
+  constructor(private userserv: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.fullName = this.userserv.User;
-    this.picture = this.userserv.userPicture;
-    this.branchname = this.userserv.userBranch;
-    this.lastlogindate = this.userserv.UserLastLoginDate;
-    console.log(this.fullName);
-
+    setTimeout(() => {
+      this.fullName = this.userserv.User;
+      this.picture = this.userserv.userPicture;
+      this.branchname = this.userserv.userBranch;
+      this.lastlogindate = this.userserv.UserLastLoginDate;
+      console.log(this.fullName);
+    }, 4000);
   }
 
   extEncrypt(data) {
@@ -30,5 +32,10 @@ export class HeaderComponent implements OnInit {
     encrypt.setPublicKey(environment.PUB_AM_ENC_KEY);
     const hash = encrypt.encrypt(data);
     return hash;
+  }
+
+  Logout() {
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 }

@@ -54,6 +54,15 @@
   color: #dd4f05;
 }
 
+.apps-btn {
+  appearance: none;
+  background: transparent;
+}
+
+.shadow {
+  box-shadow: none !important;
+}
+
 /* .application-wrapper .item:hover {
   -webkit-box-shadow: 3px 4px 15px -4px rgba(0,0,0,0.68);
   -moz-box-shadow: 3px 4px 15px -4px rgba(0,0,0,0.68);

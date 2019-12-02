@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div id="banner" class="d-flex w-100 mx-auto">
+<div id="banner" class="d-flex w-75 mx-auto">
   <div class="w-50 d-flex align-items-center">
     <div class="">
       <img src="./assets/images/card_img.png " class="img img-fluid" />
@@ -35,13 +35,13 @@
     <div class="item py-2 d-flex align-items-center flex-column justify-content-around"
       (click)="goToUrl(resultObj.ApplicationUrl, resultObj.ApplicationID, this.userlogindet)"
       *ngFor="let resultObj of this.userappandurl; let i = index">
-      <div class="text-center">
+      <div class="text-center" >
           <form action="{{resultObj.ApplicationUrl}}" target="_blank" method="post">
             <input hidden value={{this.userName}} type="text" name="uid" id="uid">
             <input hidden value={{this.passWord}} type="text" name="upass" id="upass">
             <input hidden value={{this.ucode}} type="text" name="ucode" id="ucode">
             <!-- <a href="{{ resultObj.ApplicationUrl }}" target="_blank" class="link-2"></a> -->
-            <button type="submit"> <img src="../../../assets/images/ETracker.svg" height="60" width="79.5"
+            <button class="apps-btn" type="submit"> <img src="../../../assets/images/ETracker.svg" height="60" width="79.5"
               class="image-6" /></button>
           </form>
           <p>{{ resultObj.ApplicationName }}</p>

@@ -1,24 +1,26 @@
 <div class="navbar navbar-expand-md navbar-light flex-top border-0 shadow-sm">
-  <div class="d-flex justify-content-between w-100">
-    <div class="user-wrapper2 d-flex align-items-center">
-
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <div *ngIf="fullName" class="user-wrapper d-flex align-items-center">
       <div class="user-image justify-content-between objectfit: fill mr-2">
-            <a  class="custom mr-0 mr-md-2  font" href="/" ><img src="{{'data:image/png;base64,'+this.picture}}"  ng-show="Base64 != null" height="100" width="50" class=" pt-3  image-3"/></a>
-        </div>
-
-
+        <a class="custom mr-0 mr-md-2  font" href="/"><img src="{{'data:image/png;base64,'+this.picture}}"
+            ng-show="Base64 != null" height="100" width="20" class=" pt-3 image-3" /></a>
+      </div>
       <div class="user-info mt-1">
-        <h6 class="mb-0">Welcome, {{ this.fullName }} </h6>
+        <h6 class="mb-0">Welcome, {{ fullName }} </h6>
         <p class="mb-0">
-          You are logged in from <strong>{{ this.branchname }}</strong>
+          You are logged in from <strong>{{ branchname }}</strong>
         </p>
-        <p>Last login date: {{ this.lastlogindate | date:'medium' }}</p>
+        <p>Last login date: {{ lastlogindate | date:'medium' }}</p>
       </div>
     </div>
-    <img
-      height="50"
-      src="../../../../assets/images/GTBANK.png"
-      class="gtbank_logo"
-    />
+    <div *ngIf="!fullName" class="spinner-border spinner-border-sm" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="cursorclick d-flex">
+      <img (click)="Logout()" src="./../../assets/images/logout.png" class="gtbank_logo img img-responsive mx-3">
+      <img src="../../../../assets/images/GTBANK.png" class="gtbank_logo" />
+    </div>
+
+
   </div>
 </div>

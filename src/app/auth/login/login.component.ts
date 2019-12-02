@@ -11,7 +11,6 @@ import { catchError, retry, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { StaffDetails, AdminUserDetails } from 'src/app/_model/user';
 
-
 // import { NotificationsService } from 'angular2-notifications'
 
 @Component({
@@ -44,10 +43,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createLoginForm();
-    //  this.boardServices.getInfo().subscribe((result) => {
-    //    console.log(result);
-    //    this.Auth = result;
-    //   });
   }
 
   private createLoginForm() {
@@ -72,25 +67,42 @@ export class LoginComponent implements OnInit {
       data ? localStorage.setItem('username', data) : console.log('data not encrypted');
     });
     this.util.encrypt(this.loginForm.value.password).subscribe(data => {
+      localStorage.setItem('password', data);
       data ? this.getEncDetails(data) : console.log('data not encrypted');
     });
     // end of encryprion.. encrypted user details stored in localstorage
     this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
       console.log(a);
+      this.userService.setUserObject(a);
     });
   }
 
   getEncDetails(data) {
-    localStorage.setItem('password', data);
-    const userData = this.util.getEncryptedDetails();
+    setTimeout(() => {
+      console.warn('fetch apps');
+      const userData = this.util.getEncryptedDetails();
+    console.log(userData);
+    if (!userData) {
+      this.util.getEncryptedDetails();
+    }
     userData ? this.getAdminUserDetails(userData) : console.log('No user data');
+    }, 4000);
   }
 
   getAdminUserDetails(data) {
+    console.warn('fetch apps 22');
     this.userService.getUserApps(data).subscribe((a) => {
       console.log(a);
-      a ? localStorage.setItem('AdminUserDetails', JSON.stringify(a)) : console.log('No admin user data');
+      if (a) {
+        localStorage.setItem('AdminUserDetails', JSON.stringify(a));
+        this.router.navigate(['/home']);
+      } else {
+        console.log('No admin user data');
+      }
+      // a ? localStorage.setItem('AdminUserDetails', JSON.stringify(a)) : console.log('No admin user data');
+      //  this.router.navigate(['/home']);
     });
+
   }
 
   public logout() {

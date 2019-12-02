@@ -14,7 +14,11 @@ body {
 }
 
 * {
-  transition: all ease-in-out 600ms;
+  transition: all ease-in 450ms;
+}
+
+.cursorclick{
+    cursor: pointer;
 }
 
 
