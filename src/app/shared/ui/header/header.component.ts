@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
       this.branchname = this.userserv.userBranch;
       this.lastlogindate = this.userserv.UserLastLoginDate;
       console.log(this.fullName);
-    }, 4000);
+    }, 3000);
   }
 
   extEncrypt(data) {

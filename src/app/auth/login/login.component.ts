@@ -10,6 +10,7 @@ import { UtilityService } from '../../utility.service';
 import { catchError, retry, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { StaffDetails, AdminUserDetails } from 'src/app/_model/user';
+import swal from 'sweetalert';
 
 // import { NotificationsService } from 'angular2-notifications'
 
@@ -62,30 +63,38 @@ export class LoginComponent implements OnInit {
     this.loginError = null;
     console.log('USER' + JSON.stringify(this.loginForm.value));
 
-    // Encrypt user details
+
+    // if (a) {
     this.util.encrypt(this.loginForm.value.username).subscribe(data => {
       data ? localStorage.setItem('username', data) : console.log('data not encrypted');
     });
+
+
     this.util.encrypt(this.loginForm.value.password).subscribe(data => {
       localStorage.setItem('password', data);
       data ? this.getEncDetails(data) : console.log('data not encrypted');
     });
+
+
+    // } else {
+    //   this.router.navigate(['/login']);
+    //   swal('An error occured while logging you in. Please contact support', 'error');
+    // }
+
+    // Encrypt user details
     // end of encryprion.. encrypted user details stored in localstorage
-    this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
-      console.log(a);
-      this.userService.setUserObject(a);
-    });
+
   }
 
   getEncDetails(data) {
     setTimeout(() => {
       console.warn('fetch apps');
       const userData = this.util.getEncryptedDetails();
-    console.log(userData);
-    if (!userData) {
-      this.util.getEncryptedDetails();
-    }
-    userData ? this.getAdminUserDetails(userData) : console.log('No user data');
+      console.log(userData);
+      if (!userData) {
+        this.util.getEncryptedDetails();
+      }
+      userData ? this.getAdminUserDetails(userData) : console.log('No user data');
     }, 4000);
   }
 
@@ -96,6 +105,11 @@ export class LoginComponent implements OnInit {
       if (a) {
         localStorage.setItem('AdminUserDetails', JSON.stringify(a));
         this.router.navigate(['/home']);
+        // tslint:disable-next-line: no-shadowed-variable
+        this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
+          console.log('GetUserWithPic result: ' + a);
+          this.userService.setUserObject(a);
+        });
       } else {
         console.log('No admin user data');
       }

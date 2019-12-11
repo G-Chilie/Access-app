@@ -50,7 +50,7 @@ export class KillMyIdComponent implements OnInit {
     };
     console.log('Password Details:' + JSON.stringify(userDetails.UserName));
     this.userser.killMyID(userDetails).subscribe((a: KillMyIDStatus) => {
-      a ?  console.log(a) : swal('Oops!', 'An error occured while kiiling your session. Please try again later', 'error');
+      a ?  console.log(a) : swal('Oops!', a.ResponseDescription, 'error');
 
     });
   }

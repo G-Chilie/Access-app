@@ -34,9 +34,9 @@ export class ResetBasisPasswordComponent implements OnInit {
   public createLoginForm() {
     this.myForm = this.formBuilder.group({
       // tslint:disable-next-line: quotemark
-      NewPassword: ['', [Validators.required]],
+      NewPassword: new FormControl(['', [Validators.required], Validators.pattern(this.passwordvalid)]),
       // tslint:disable-next-line: quotemark
-      NewPassword2: ['', [Validators.required]],
+      NewPassword2: new FormControl(['', [Validators.required], Validators.pattern(this.passwordvalid)]),
 
     });
     // this.modals.pop();

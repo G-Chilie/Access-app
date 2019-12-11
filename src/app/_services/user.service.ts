@@ -261,7 +261,7 @@ export class UserService {
             return res;
           } else {
             console.log(res);
-            swal('Oops!', 'An error has occured. Please try again!', 'error');
+            swal('Oops!', res.ResponseDescription,  'error');
             return null;
           }
         })
