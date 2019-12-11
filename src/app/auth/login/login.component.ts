@@ -11,6 +11,7 @@ import { catchError, retry, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { StaffDetails, AdminUserDetails } from 'src/app/_model/user';
 import swal from 'sweetalert';
+import { FormValidators } from 'src/app/Validator/form-validator';
 
 // import { NotificationsService } from 'angular2-notifications'
 
@@ -56,6 +57,11 @@ export class LoginComponent implements OnInit {
   // get username() { return this.loginForm.controls['username']; }
 
   public login() {
+    if (this.loginForm.invalid) {
+      FormValidators.validateAllFormFields(this.loginForm);
+      swal('Oops! ', 'Please enter a correct username and password', 'error');
+      return;
+    }
     localStorage.clear();
     const userKey = this.util.generateNumber();
     localStorage.setItem('UserKey', userKey);

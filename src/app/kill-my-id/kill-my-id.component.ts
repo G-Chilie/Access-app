@@ -5,6 +5,7 @@ import { UtilityService } from '../utility.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { KillMyIDStatus } from '../_model/user';
 import swal from 'sweetalert';
+import { FormValidators } from '../Validator/form-validator';
 
 @Component({
   selector: 'app-kill-my-id',
@@ -35,6 +36,11 @@ export class KillMyIdComponent implements OnInit {
   }
 
   submitRequest() {
+    if (this.myForm2.invalid) {
+      FormValidators.validateAllFormFields(this.myForm2);
+      swal('Oops! ', 'Please enter a correct username', 'error');
+      return;
+    }
     this.loading = true;
     // this.loginError = null;
     const logidet = this.myForm2.value;

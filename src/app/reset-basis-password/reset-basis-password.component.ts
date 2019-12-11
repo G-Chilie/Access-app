@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 import { UtilityService } from '../utility.service';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormValidators } from '../Validator/form-validator';
 
 @Component({
   selector: 'app-reset-basis-password',
@@ -16,8 +17,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ResetBasisPasswordComponent implements OnInit {
   closeResult: string;
-  NewPassword: string;
-  passwordvalid = '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}';
+  passwordvalid = '([A-Za-z]{4})([0-9]{3})[?=#$%&*^{}]';
+  // passwordvalid2 = '([A-Za-z]{4})([0-9]{3})['{}[\]\\;':,.\/?#$%&*^()_+=-]';
+  // passwordvalid = '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/^['; ',.\/?#$%&*^{}()_+=-]*$/';
+  // /^[ A-Za-z0-9_@./#&+-]*$/
   myForm: FormGroup;
   password: FormControl;
   // password: FormControl;
@@ -34,15 +37,33 @@ export class ResetBasisPasswordComponent implements OnInit {
   public createLoginForm() {
     this.myForm = this.formBuilder.group({
       // tslint:disable-next-line: quotemark
-      NewPassword: new FormControl(['', [Validators.required], Validators.pattern(this.passwordvalid)]),
+      // tslint:disable-next-line: max-line-length
+      NewPassword: new FormControl('', [Validators.required,
+      Validators.pattern(this.passwordvalid)
+    ]),
       // tslint:disable-next-line: quotemark
-      NewPassword2: new FormControl(['', [Validators.required], Validators.pattern(this.passwordvalid)]),
+      // tslint:disable-next-line: max-line-length
+      NewPassword2: new FormControl('', [Validators.required,
+       Validators.pattern(this.passwordvalid)]),
 
     });
     // this.modals.pop();
   }
 
+  get NewPassword() {
+    return this.myForm.get('NewPassword');
+  }
+
+  get NewPassword2() {
+    return this.myForm.get('NewPassword');
+  }
+
   submitRequest() {
+    if (this.myForm.invalid) {
+      FormValidators.validateAllFormFields(this.myForm);
+      swal('Oops! ', 'Please enter vaild and identical passwords', 'error');
+      return;
+    }
     this.loading = true;
     // this.loginError = null;
     const logidet = this.myForm.value;
