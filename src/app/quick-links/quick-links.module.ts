@@ -7,6 +7,7 @@ import { HomepageModule } from '../dashboard/homepage/homepage.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResetBasisPasswordModule } from '../reset-basis-password/reset-basis-password.module';
 import { KillMyIdComponent } from '../kill-my-id/kill-my-id.component';
+import { TokenValidationModule } from '../token-validation/token-validation.module';
 
 @NgModule({
   declarations: [QuicklinksComponent],
@@ -15,7 +16,7 @@ import { KillMyIdComponent } from '../kill-my-id/kill-my-id.component';
     FormsModule,
     ReactiveFormsModule,
     // HomepageModule,
-    ResetBasisPasswordModule, KillMyIdModule
+    ResetBasisPasswordModule, TokenValidationModule, KillMyIdModule
   ],
   exports: [ QuicklinksComponent ]
 })

@@ -74,6 +74,15 @@ export class UserService {
     return [];
   }
 
+  public get ApplicationImage() {
+    const user = localStorage.getItem('AdminUserDetails');
+    if (user) {
+      const userObj = JSON.parse(user);
+      const appImage = userObj.Applications.ApplicationImage;
+      return appImage;
+    }
+    return [];
+  }
   // url = ".....";
 
   // getData(): Observable<any> {
@@ -143,6 +152,7 @@ export class UserService {
             return res;
           } else {
             console.log('An error Occured: ' + res.ResponseDescription);
+            swal('Oops', res.ResponseDescription + '. Please reload the page and try again', 'error');
             this.util.Error$.next(res.ResponseDescription);
             return null;
           }
@@ -180,11 +190,45 @@ export class UserService {
           return res;
         } else {
           // this.router.navigate(['login']);
+          console.log('issue with staff details: ' + res.ResponseDescription);
           return null;
         }
       })
     );
   }
+
+  public validateWithToken(token) {
+    const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.VAL_TOKEN}`;
+    {
+      const userID = localStorage.getItem('username');
+      const key = localStorage.getItem('UserKey');
+
+      const reqObj2 = {
+        UserName: userID,
+        Token: token,
+        Channel: 'AM',
+        RequestID: this.util.generateRequestId,
+        Key: key
+        };
+
+        return this.http.post<any>(PATH, reqObj2).pipe(
+          retry(2),
+          catchError(this.util.handleError),
+
+          map(res => {
+            console.log(res);
+            if (res.ResponseCode === '00') {
+              // this.setResetBasisStatus(res);
+              // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
+              return res;
+            } else {
+              // swal('Oops!', res.ResponseDescription, 'error');
+              return null;
+            }
+          })
+        );
+      }
+    }
 
   public resetBasisPassword(userDetails) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.RESETBASISPASS}`;
@@ -261,7 +305,7 @@ export class UserService {
             return res;
           } else {
             console.log(res);
-            swal('Oops!', res.ResponseDescription,  'error');
+            swal('Oops!', res.ResponseDescription, 'error');
             return null;
           }
         })

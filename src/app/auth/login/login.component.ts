@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { StaffDetails, AdminUserDetails } from 'src/app/_model/user';
 import swal from 'sweetalert';
 import { FormValidators } from 'src/app/Validator/form-validator';
-
+import { TokenValidationComponent } from 'src/app/token-validation/container/token-validation/token-validation.component';
 // import { NotificationsService } from 'angular2-notifications'
 
 @Component({
@@ -40,7 +40,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private util: UtilityService,
-    private userService: UserService
+    private userService: UserService,
+    private tokencomp: TokenValidationComponent
   ) { }
 
   ngOnInit() {
@@ -68,6 +69,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.loginError = null;
     console.log('USER' + JSON.stringify(this.loginForm.value));
+    localStorage.setItem('LoginFormDet', JSON.stringify(this.loginForm.value));
 
 
     // if (a) {
@@ -106,21 +108,35 @@ export class LoginComponent implements OnInit {
 
   getAdminUserDetails(data) {
     console.warn('fetch apps 22');
+
     this.userService.getUserApps(data).subscribe((a) => {
       console.log(a);
+
       if (a) {
-        localStorage.setItem('AdminUserDetails', JSON.stringify(a));
-        this.router.navigate(['/home']);
-        // tslint:disable-next-line: no-shadowed-variable
-        this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
-          console.log('GetUserWithPic result: ' + a);
-          this.userService.setUserObject(a);
-        });
-      } else {
-        console.log('No admin user data');
+        // const finUser = a;
+        // const userObj = JSON.parse(finUser);
+        const finUserStatus = a.FinancialUser;
+        console.log('FinUserStatus: ' + finUserStatus);
+        if (finUserStatus === true) {
+          localStorage.setItem('AdminUserDetails', JSON.stringify(a));
+          this.router.navigate(['/token-validation']);
+          // this.tokencomp.getUserPic(this.loginForm.value);
+        } else if (finUserStatus === false) {
+          localStorage.setItem('AdminUserDetails', JSON.stringify(a));
+          // tslint:disable-next-line: no-shadowed-variable
+          this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
+            console.log('GetUserWithPic result: ' + a);
+            this.userService.setUserObject(a);
+          });
+
+
+          // tslint:disable-next-line: no-shadowed-variable
+        } else {
+          console.log('No admin user data');
+        }
+        // a ? localStorage.setItem('AdminUserDetails', JSON.stringify(a)) : console.log('No admin user data');
+        //  this.router.navigate(['/home']);
       }
-      // a ? localStorage.setItem('AdminUserDetails', JSON.stringify(a)) : console.log('No admin user data');
-      //  this.router.navigate(['/home']);
     });
 
   }

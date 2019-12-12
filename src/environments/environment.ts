@@ -14,6 +14,7 @@ export const environment = {
   RESETBASISPASS: '/AdminUser/ResetBasisPassword',
   KILLMYID: '/AdminUser/ManageBasisProfile',
   ENC_API: '/Auth/DataEncryption',
+  VAL_TOKEN: '/Auth/ValidateToken',
   Channel: 'Access Manager',
   RandomPrefix: '1011',
   // tslint:disable-next-line: max-line-length

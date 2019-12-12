@@ -25,6 +25,10 @@ status: any;
     this.status = 'quickLinks';
   }
 
+  verifyToken() {
+    this.router.navigate(['/token-validation']);
+  }
+
   open(status: any) {
     this.status = status;
   }

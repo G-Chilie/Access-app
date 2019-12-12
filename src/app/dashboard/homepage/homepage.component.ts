@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -27,6 +28,7 @@ const httpOptions = {
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  picture: any;
   userName = localStorage.getItem('username');
   passWord = localStorage.getItem('password');
   ucode = localStorage.getItem('UserKey');
@@ -37,6 +39,7 @@ export class HomepageComponent implements OnInit {
   closeResult: string;
 
   constructor(
+    public sanitizer: DomSanitizer,
     private modalService: NgbModal,
     private notifier: NotificationModalComponent,
     public QuickLinks: QuicklinksComponent,
@@ -48,6 +51,10 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit() {
     this.userappandurl = this.userService.UserApplications;
+
+    // const pic = this.userService.ApplicationImage;
+    // this.picture = ('data:image/svg;base64,' + this.userService.ApplicationImage);
+    // console.log('Image is: ' + this.picture);
   }
 
   public open() {
@@ -64,14 +71,17 @@ export class HomepageComponent implements OnInit {
     this.activeModal.close('Modal Closed');
   }
 
-  goToUrl(appUrl, appid, userdetails) {
+  goToUrl(appUrl, appid, userdetails, appImageUrl) {
     localStorage.setItem('ClickedApp', appid);
     localStorage.setItem('ClickedUrl', appUrl);
+    localStorage.setItem('applicationImage', appImageUrl);
     const newuserdet = JSON.parse(userdetails);
     console.log(appUrl, appid, newuserdet.username, newuserdet.password);
     localStorage.setItem('uid', newuserdet.username);
     localStorage.setItem('upass', newuserdet.password);
     localStorage.setItem('ucode', appid);
+
+
  }
 }
 

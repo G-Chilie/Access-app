@@ -21,6 +21,9 @@ import { RouteToApplicationComponent } from './route-to-application/route-to-app
 import { LoginModule } from './auth/login/login.module';
 import { HomepageComponent } from './dashboard/homepage/homepage.component';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { AuthGuard } from './_guards/auth.guard';
+import { TokenValidationModule } from './token-validation/token-validation.module';
+import { TokenValidationComponent } from './token-validation/container/token-validation/token-validation.component';
 
 // import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
@@ -30,12 +33,12 @@ import { DashboardModule } from './dashboard/dashboard.module';
   ],
   imports: [
     BrowserModule, ReactiveFormsModule, FormsModule,
-    HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([])
+    HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([]), TokenValidationModule
   ],
   exports: [RouterModule],
-  providers: [
+  providers: [AuthGuard,
     ResetBasisPasswordComponent, KillMyIdComponent,
-    QuicklinksComponent,  NotificationModalComponent, NgbActiveModal],
+    QuicklinksComponent, TokenValidationComponent, NotificationModalComponent, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
