@@ -41,7 +41,7 @@
             <input hidden value={{this.passWord}} type="text" name="upass" id="upass">
             <input hidden value={{this.ucode}} type="text" name="ucode" id="ucode">
             <!-- <a href="{{ resultObj.ApplicationUrl }}" target="_blank" class="link-2"></a> -->
-            <button class="apps-btn" type="submit"> <img src="{{this.sanitizer.bypassSecurityTrustResourceUrl('data:image/svg;base64,' + resultObj.ApplicationImage)}}" ng-show="Base64 != null" height="60" width="79.5"
+            <button class="apps-btn" type="submit"> <img src="{{resultObj.ApplicationImage}}" ng-show="Base64 != null" height="60" width="79.5"
               class="image-6" /></button>
           </form>
           <!-- <div class="user-image justify-content-between objectfit: fill mr-2">

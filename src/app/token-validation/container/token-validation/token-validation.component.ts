@@ -85,7 +85,6 @@ export class TokenValidationComponent implements OnInit {
     });
   }
 
-
   Back() {
     this.router.navigate(['home']);
   }

@@ -24,19 +24,22 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthGuard } from './_guards/auth.guard';
 import { TokenValidationModule } from './token-validation/token-validation.module';
 import { TokenValidationComponent } from './token-validation/container/token-validation/token-validation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PopUpModalComponent } from './modal/pop-up-modal/pop-up-modal.component';
 
 // import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
 @NgModule({
   declarations: [
-    AppComponent, NotificationModalComponent, RouteToApplicationComponent
+    AppComponent, NotificationModalComponent, RouteToApplicationComponent, PopUpModalComponent
   ],
   imports: [
     BrowserModule, ReactiveFormsModule, FormsModule,
-    HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([]), TokenValidationModule
+    HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([]), TokenValidationModule, BrowserAnimationsModule
   ],
   exports: [RouterModule],
-  providers: [AuthGuard,
+  providers: [
+    AuthGuard, PopUpModalComponent,
     ResetBasisPasswordComponent, KillMyIdComponent,
     QuicklinksComponent, TokenValidationComponent, NotificationModalComponent, NgbActiveModal],
   bootstrap: [AppComponent]

@@ -32,6 +32,7 @@ export class HomepageComponent implements OnInit {
   userName = localStorage.getItem('username');
   passWord = localStorage.getItem('password');
   ucode = localStorage.getItem('UserKey');
+  finalUrl: string;
   UserInfo: any;
   content: any = 'Please enter your new password';
   userappandurl: any;
@@ -51,7 +52,10 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit() {
     this.userappandurl = this.userService.UserApplications;
-
+    for (const res of this.userappandurl) {
+res.ApplicationImage = this.sanitizer.bypassSecurityTrustResourceUrl(this.updateImage(res.ApplicationImage));
+    }
+    // this.finalUrl = this.userService.UserApplications.ApplicationImage;
     // const pic = this.userService.ApplicationImage;
     // this.picture = ('data:image/svg;base64,' + this.userService.ApplicationImage);
     // console.log('Image is: ' + this.picture);
@@ -69,6 +73,11 @@ export class HomepageComponent implements OnInit {
 
   closeModal() {
     this.activeModal.close('Modal Closed');
+  }
+
+  public updateImage(appUrl) {
+    const applicationUrl = 'data:image/svg;base64,' + appUrl;
+    return applicationUrl;
   }
 
   goToUrl(appUrl, appid, userdetails, appImageUrl) {

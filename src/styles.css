@@ -13,12 +13,27 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-* {
+/* * {
   transition: all ease-in 450ms;
-}
+} */
 
 .cursorclick{
     cursor: pointer;
 }
 
+.rounded {
+  border-radius: 2rem;
+}
 
+.brand-bg {
+  background-color: #de4a0a !important;
+}
+
+.brand {
+  color: #de4a0a !important;
+}
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: "Poppins", sans-serif; }

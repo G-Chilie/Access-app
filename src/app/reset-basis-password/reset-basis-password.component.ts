@@ -9,6 +9,8 @@ import { UtilityService } from '../utility.service';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormValidators } from '../Validator/form-validator';
+import { PopUpModalComponent } from '../modal/pop-up-modal/pop-up-modal.component';
+
 
 @Component({
   selector: 'app-reset-basis-password',
@@ -26,7 +28,8 @@ export class ResetBasisPasswordComponent implements OnInit {
   // password: FormControl;
   // password: any;
   loading = false;
-  constructor(private modalService: NgbModal, private router: Router, private userser: UserService, private formBuilder: FormBuilder,
+  // tslint:disable-next-line: max-line-length
+  constructor(private popup: PopUpModalComponent, private modalService: NgbModal, private router: Router, private userser: UserService, private formBuilder: FormBuilder,
     private userServ: UserService,
     private util: UtilityService) { }
 
@@ -59,6 +62,7 @@ export class ResetBasisPasswordComponent implements OnInit {
   }
 
   submitRequest() {
+    this.popup.openDialog();
     if (this.myForm.invalid) {
       FormValidators.validateAllFormFields(this.myForm);
       swal('Oops! ', 'Please enter vaild and identical passwords', 'error');

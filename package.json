@@ -13,6 +13,7 @@
   "dependencies": {
     "@angular-devkit/build-angular": "^0.13.0",
     "@angular/animations": "^6.1.0",
+    "@angular/cdk": "~7.3.3",
     "@angular/common": "^6.1.0",
     "@angular/compiler": "^6.1.0",
     "@angular/core": "^6.1.0",
@@ -29,11 +30,12 @@
     "bootswatch": "^4.2.1",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
+    "hammerjs": "^2.0.8",
     "ng-sweet-alert": "^1.0.11",
     "rxjs": "~6.2.0",
     "rxjs-compat": "^6.4.0",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^9.3.12",
+    "sweetalert2": "^9.5.3",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

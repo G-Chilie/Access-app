@@ -13,7 +13,7 @@ const routes: Routes = [
   // loadChildren: './auth/login/login.module#LoginModule'
   {path: 'home', canActivate: [AuthGuard], loadChildren: './dashboard/homepage/homepage.module#HomepageModule'},
   // tslint:disable-next-line: max-line-length
-  {path: 'token-validation', canActivate: [AuthGuard], component: TokenValidationComponent},
+  // {path: 'token-validation', canActivate: [AuthGuard], component: TokenValidationComponent},
   { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
 

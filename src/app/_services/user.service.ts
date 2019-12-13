@@ -163,6 +163,7 @@ export class UserService {
     }
   }
 
+
   public getUserWithPic(userDetails) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.USERPIC}`;
     const body: any = {};
@@ -209,26 +210,26 @@ export class UserService {
         Channel: 'AM',
         RequestID: this.util.generateRequestId,
         Key: key
-        };
+      };
 
-        return this.http.post<any>(PATH, reqObj2).pipe(
-          retry(2),
-          catchError(this.util.handleError),
+      return this.http.post<any>(PATH, reqObj2).pipe(
+        retry(2),
+        catchError(this.util.handleError),
 
-          map(res => {
-            console.log(res);
-            if (res.ResponseCode === '00') {
-              // this.setResetBasisStatus(res);
-              // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
-              return res;
-            } else {
-              // swal('Oops!', res.ResponseDescription, 'error');
-              return null;
-            }
-          })
-        );
-      }
+        map(res => {
+          console.log(res);
+          if (res.ResponseCode === '00') {
+            // this.setResetBasisStatus(res);
+            // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
+            return res;
+          } else {
+            // swal('Oops!', res.ResponseDescription, 'error');
+            return null;
+          }
+        })
+      );
     }
+  }
 
   public resetBasisPassword(userDetails) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.RESETBASISPASS}`;
