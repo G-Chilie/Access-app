@@ -4,13 +4,13 @@
                   </div>
 <form (ngSubmit)="submitRequest()" autocomplete="off" [formGroup]="myForm2" id="wf-form-Email-Form" name="wf-form-Email-Form"
 data-name="Email Form" method="post" class="form">
-<label for="UserName" class="field-label"></label>
-<input type="text" class="text-field w-input" maxlength="256" formControlName="UserName" autofocus="true"
-  name="UserName" data-name="User ID" placeholder="Enter your Username" id="Pass1">
+<h4 class="kd">Click the continue button to <span>end your session on BASIS</span></h4>
+<!-- <input type="text" class="text-field w-input" maxlength="256" formControlName="UserName" autofocus="true"
+  name="UserName" data-name="User ID" placeholder="Enter your Username" id="Pass1"> -->
 <!-- <label for="Password2" class="field-label-2">Re-enter Password:</label>
 <input type="password" class="text-field w-input" maxlength="256" formControlName="Password2" name="Password2"
   data-name="Password2" placeholder="Re-enter your New Password" id="Pass2" required=""> -->
-<button type="submit" class="submit-button w-button">
+<button type="submit" class="submit-button w-button2">
   <span *ngIf="loading">
     <div class="spinner-border spinner-border-sm" role="status">
       <span class="sr-only">Loading...</span>
@@ -20,7 +20,7 @@ data-name="Email Form" method="post" class="form">
   <span *ngIf="!loading">CONTINUE</span>
 </button>
 <div>
-  <button type="button" class="submit-button w-button" (click)="Back()">
+  <button type="button" class="submit-button w-button2" (click)="Back()">
     Back
     </button>
 </div>

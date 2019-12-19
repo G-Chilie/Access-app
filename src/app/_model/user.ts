@@ -98,6 +98,11 @@ export class ResetPasswordStatus {
   ResponseDescription: string;
 }
 
+export class BasisAccessStatus {
+  ResponseCode: string;
+  ResponseDescription: string;
+}
+
 export class ValidateUserWithToken {
   ResponseCode: string;
   ResponseDescription: string;

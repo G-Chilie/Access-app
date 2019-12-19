@@ -5,7 +5,7 @@ import { catchError, retry, map, tap } from 'rxjs/operators';
 import { UtilityService } from '../utility.service';
 import * as JsEncryptModule from 'jsencrypt';
 import { Router, ActivatedRoute } from '@angular/router';
-import { StaffDetails, EncryptionDetails } from '../_model/user';
+import { StaffDetails, EncryptionDetails, ValidateUserWithToken, BasisAccessStatus } from '../_model/user';
 import swal from 'sweetalert';
 import { Subject, BehaviorSubject } from 'rxjs';
 
@@ -200,35 +200,97 @@ export class UserService {
 
   public validateWithToken(token) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.VAL_TOKEN}`;
-    {
-      const userID = localStorage.getItem('username');
-      const key = localStorage.getItem('UserKey');
+    // const encryptedtoken = this.util.encrypt(token)
+    // tslint:disable-next-line: no-shadowed-variable
+    console.log('token to encrypt: ' + token);
+    // tslint:disable-next-line: no-shadowed-variable
 
-      const reqObj2 = {
-        UserName: userID,
-        Token: token,
-        Channel: 'AM',
-        RequestID: this.util.generateRequestId,
-        Key: key
-      };
+    this.util.encryptToken(token).subscribe(data => {
+      data ? this.validate(data) : console.log('Token not encrypted');
+    });
 
-      return this.http.post<any>(PATH, reqObj2).pipe(
-        retry(2),
-        catchError(this.util.handleError),
+    // this.validate(data).subscribe((a: ValidateUserWithToken) => {
+    //   a ? this.router.navigate(['/home']) : swal('Oops! ', 'An error occured. Contact support!', 'error');
+    // });
 
-        map(res => {
-          console.log(res);
-          if (res.ResponseCode === '00') {
-            // this.setResetBasisStatus(res);
-            // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
-            return res;
-          } else {
-            // swal('Oops!', res.ResponseDescription, 'error');
-            return null;
-          }
-        })
-      );
-    }
+  }
+
+  public accessBasis() {
+
+    const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.BASISACCESE}`;
+
+    const admindetstring = localStorage.getItem('AdminUserDetails');
+    const admindetObj = JSON.parse(admindetstring);
+
+    const reqObjBasis = {
+      UserName: localStorage.getItem('username'),
+      Password: localStorage.getItem('password'),
+      TokenValue: localStorage.getItem('EncryptedToken'),
+      Channel: 'AM',
+      RequestID: '4',
+      Key: localStorage.getItem('UserKey'),
+      AppId: 1,
+      BranchCode: admindetObj.AdminUser.BasisId,
+      BasisId: admindetObj.AdminUser.BasisId
+    };
+
+    return this.http.post<BasisAccessStatus>(PATH, reqObjBasis).pipe(
+      retry(3),
+      catchError(this.util.handleError),
+
+      map(res => {
+        console.log(res);
+        if (res.ResponseCode === '00') {
+          // this.setResetBasisStatus(res);
+          // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
+          return res;
+        } else {
+          // swal('Oops!', res.ResponseDescription, 'error');
+          return res;
+        }
+      })
+    );
+  }
+
+  public validate(encryptedToken) {
+    const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.VAL_TOKEN}`;
+    let reqObj2: any = '';
+    // const data: any = '';
+    // let encToken: any = '';
+    const userID = localStorage.getItem('username');
+    const key = localStorage.getItem('UserKey');
+    console.log('Enc Token:' + encryptedToken);
+    localStorage.setItem('EncryptedToken', encryptedToken);
+    // const encTokenString = JSON.parse(encToken.Data);
+    // encToken = JSON.parse(localStorage.getItem('Token Encrypted'));
+
+
+    console.log('enctokenstring: ' + encryptedToken);
+    reqObj2 = {
+      UserName: userID,
+      TokenValue: encryptedToken,
+      Channel: 'AM',
+      RequestID: this.util.generateRequestId,
+      Key: key
+    };
+    console.log('ReqObj: ' + JSON.stringify(reqObj2));
+
+    return this.http.post<any>(PATH, reqObj2).pipe(
+      retry(3),
+      catchError(this.util.handleError),
+
+      map(res => {
+        console.log(res);
+        if (res.ResponseCode === '00') {
+          // this.setResetBasisStatus(res);
+          // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
+          return res;
+        } else {
+          // swal('Oops!', res.ResponseDescription, 'error');
+          return res;
+        }
+      })
+    );
   }
 
   public resetBasisPassword(userDetails) {

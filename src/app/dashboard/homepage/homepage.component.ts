@@ -2,9 +2,6 @@ import { LoginComponent } from './../../auth/login/login.component';
 import { Product } from '../../_model/products.data';
 import { UserInfo } from '../../_model/userinfo.data';
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../_services/dashboard.service';
-import { User } from '../../_model/user';
-import { ResetBasisPasswordComponent } from '../../reset-basis-password/reset-basis-password.component';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationModalComponent } from '../../notification-modal/notification-modal.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,10 +12,11 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TokenValidationComponent } from '../../token-validation/container/token-validation/token-validation.component';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type': 'application/json',
     'Authorization': 'my-auth-token'
   })
 };
@@ -48,13 +46,30 @@ export class HomepageComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private http: HttpClient,
-    ) { }
+    private tokenvalid: TokenValidationComponent
+  ) { }
 
   ngOnInit() {
     this.userappandurl = this.userService.UserApplications;
     for (const res of this.userappandurl) {
-res.ApplicationImage = this.sanitizer.bypassSecurityTrustResourceUrl(this.updateImage(res.ApplicationImage));
+
+      // tslint:disable-next-line: max-line-length
+      res.ApplicationImage ? console.log(res.ApplicationImage) : res.ApplicationImage = 'data:image/png;base64,' + '../../../assets/images/single-sign-on2x.png';
     }
+    function getBase64(event) {
+      const me = this;
+      event = '../../../assets/images/single-sign-on2x.png';
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        // me.modelvalue = reader.result;
+        console.log(reader.result);
+      };
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+   }
     // this.finalUrl = this.userService.UserApplications.ApplicationImage;
     // const pic = this.userService.ApplicationImage;
     // this.picture = ('data:image/svg;base64,' + this.userService.ApplicationImage);
@@ -81,6 +96,8 @@ res.ApplicationImage = this.sanitizer.bypassSecurityTrustResourceUrl(this.update
   }
 
   goToUrl(appUrl, appid, userdetails, appImageUrl) {
+    this.tokenvalid.submitRequest();
+    this.router.navigate(['/token-validation']);
     localStorage.setItem('ClickedApp', appid);
     localStorage.setItem('ClickedUrl', appUrl);
     localStorage.setItem('applicationImage', appImageUrl);
@@ -91,6 +108,6 @@ res.ApplicationImage = this.sanitizer.bypassSecurityTrustResourceUrl(this.update
     localStorage.setItem('ucode', appid);
 
 
- }
+  }
 }
 

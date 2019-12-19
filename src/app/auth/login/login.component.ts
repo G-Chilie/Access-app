@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { StaffDetails, AdminUserDetails } from 'src/app/_model/user';
 import swal from 'sweetalert';
 import { FormValidators } from 'src/app/Validator/form-validator';
+import { PopUpModalComponent } from '../../modal/pop-up-modal/pop-up-modal.component';
 import { TokenValidationComponent } from 'src/app/token-validation/container/token-validation/token-validation.component';
 // import { NotificationsService } from 'angular2-notifications'
 
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
   Auth: Auth;
   constructor(
     // private notifications: NotificationsService,
+    private popup: PopUpModalComponent,
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -119,6 +121,8 @@ export class LoginComponent implements OnInit {
         console.log('FinUserStatus: ' + finUserStatus);
         if (finUserStatus === true) {
           localStorage.setItem('AdminUserDetails', JSON.stringify(a));
+          // this.popup.openDialog();
+
           this.router.navigate(['/token-validation']);
           // this.tokencomp.getUserPic(this.loginForm.value);
         } else if (finUserStatus === false) {

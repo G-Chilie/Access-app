@@ -1,3 +1,24 @@
-<p>
-  pop-up-modal works!
-</p>
+<button type="submit" class="submit-button w-button2">
+  <span *ngIf="loading">
+    <div class="spinner-border spinner-border-sm" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    Processing..
+  </span>
+  <span *ngIf="!loading">CONTINUE</span>
+  <div class="text-center" >
+    <form action="{{appUrl}}" target="_blank" method="post">
+      <input hidden value={{userName}} type="text" name="uid" id="uid">
+      <input hidden value={{passWord}} type="text" name="upass" id="upass">
+      <input hidden value={{ucode}} type="text" name="ucode" id="ucode">
+      <!-- <a href="{{ resultObj.ApplicationUrl }}" target="_blank" class="link-2"></a> -->
+      <!-- <button class="apps-btn" type="button"> <img src="{{'data:image/png;base64,' + resultObj.ApplicationImage}}" ng-show="Base64 != null" height="60" width="79.5" -->
+        <!-- class="image-6" /></button> -->
+    </form>
+    <!-- <div class="user-image justify-content-between objectfit: fill mr-2">
+      <a class="custom mr-0 mr-md-2  font" ><img src="{{'data:image/png;base64,'+this.picture}}"
+          ng-show="Base64 != null" height="100" width="20" class=" pt-3 image-3" /></a>
+    </div> -->
+    <!-- <p>{{ resultObj.ApplicationName }}</p> -->
+</div>
+</button>

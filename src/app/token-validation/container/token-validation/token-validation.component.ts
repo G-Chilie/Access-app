@@ -63,15 +63,13 @@ export class TokenValidationComponent implements OnInit {
       data ? this.validate(data) : console.log('token data not encrypted');
     });
 
-
-
   }
 
   validate(recdata) {
-    console.log('Token Value:' + JSON.stringify(this.validateTokenForm.value));
+    console.log('Encrypted Token:' + recdata);
     const logindetails = JSON.parse(localStorage.getItem('LoginFormDet'));
 
-    this.userser.validateWithToken(recdata).subscribe((a: ValidateUserWithToken) => {
+    this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {
       a ? this.getUserPic(logindetails) : swal('Oops! ', a.ResponseDescription, 'error');
     });
 

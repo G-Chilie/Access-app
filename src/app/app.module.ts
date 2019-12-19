@@ -26,22 +26,26 @@ import { TokenValidationModule } from './token-validation/token-validation.modul
 import { TokenValidationComponent } from './token-validation/container/token-validation/token-validation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PopUpModalComponent } from './modal/pop-up-modal/pop-up-modal.component';
+import { MatDialogModule, MatFormFieldModule } from '@angular/material';
+import { BasisAccessModule } from './basis-access/basis-access.module';
+import { BasisAccessComponent } from './basis-access/container/basis-access/basis-access.component';
 
 // import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
 @NgModule({
   declarations: [
-    AppComponent, NotificationModalComponent, RouteToApplicationComponent, PopUpModalComponent
+    AppComponent, NotificationModalComponent, RouteToApplicationComponent
   ],
   imports: [
-    BrowserModule, ReactiveFormsModule, FormsModule,
-    HttpClientModule, UiModule, NgbModule, AppRouteRoutes, RouterModule.forRoot([]), TokenValidationModule, BrowserAnimationsModule
+    BrowserModule, MatDialogModule, MatFormFieldModule, ReactiveFormsModule, FormsModule,
+    HttpClientModule, UiModule, NgbModule, AppRouteRoutes,
+    RouterModule.forRoot([]), TokenValidationModule, BrowserAnimationsModule, BasisAccessModule
   ],
   exports: [RouterModule],
   providers: [
     AuthGuard, PopUpModalComponent,
     ResetBasisPasswordComponent, KillMyIdComponent,
-    QuicklinksComponent, TokenValidationComponent, NotificationModalComponent, NgbActiveModal],
+    QuicklinksComponent, TokenValidationComponent, BasisAccessComponent, NotificationModalComponent, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

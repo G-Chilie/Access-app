@@ -36,22 +36,24 @@ export class KillMyIdComponent implements OnInit {
   }
 
   submitRequest() {
-    if (this.myForm2.invalid) {
-      FormValidators.validateAllFormFields(this.myForm2);
-      swal('Oops! ', 'Please enter a correct username', 'error');
-      return;
-    }
-    this.loading = true;
-    // this.loginError = null;
-    const logidet = this.myForm2.value;
-    setTimeout(() => {
-      this.loading = false;
-      localStorage.setItem('New Password Details:', JSON.stringify(this.myForm2.value));
-      console.log(logidet);
-      // alert('Logging in....');
-    }, 2000);
+    // if (this.myForm2.invalid) {
+    //   FormValidators.validateAllFormFields(this.myForm2);
+    //   swal('Oops! ', 'Please enter a correct username', 'error');
+    //   return;
+    // }
+    // this.loading = true;
+    // // this.loginError = null;
+    // const logidet = this.myForm2.value;
+    // setTimeout(() => {
+    //   this.loading = false;
+    //   localStorage.setItem('New Password Details:', JSON.stringify(this.myForm2.value));
+    //   console.log(logidet);
+    //   // alert('Logging in....');
+    // }, 2000);
+    const userDet = localStorage.getItem('LoginFormDet');
+    const userDetstring = JSON.parse(userDet);
     const userDetails: any = {
-      UserName: logidet.UserName
+      UserName: userDetstring.username
       // NewPassword: this.password.value
     };
     console.log('Password Details:' + JSON.stringify(userDetails.UserName));

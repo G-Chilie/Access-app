@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResetBasisPasswordModule } from '../reset-basis-password/reset-basis-password.module';
 import { KillMyIdComponent } from '../kill-my-id/kill-my-id.component';
 import { TokenValidationModule } from '../token-validation/token-validation.module';
+import { PopUpModalModule } from '../modal/pop-up-modal/pop-up-modal/pop-up-modal.module';
+import { BasisAccessModule } from '../basis-access/basis-access.module';
 
 @NgModule({
   declarations: [QuicklinksComponent],
@@ -16,7 +18,7 @@ import { TokenValidationModule } from '../token-validation/token-validation.modu
     FormsModule,
     ReactiveFormsModule,
     // HomepageModule,
-    ResetBasisPasswordModule, TokenValidationModule, KillMyIdModule
+    ResetBasisPasswordModule, TokenValidationModule, KillMyIdModule, PopUpModalModule, BasisAccessModule
   ],
   exports: [ QuicklinksComponent ]
 })

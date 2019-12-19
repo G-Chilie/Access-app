@@ -62,7 +62,7 @@ export class ResetBasisPasswordComponent implements OnInit {
   }
 
   submitRequest() {
-    this.popup.openDialog();
+    // this.popup.openDialog();
     if (this.myForm.invalid) {
       FormValidators.validateAllFormFields(this.myForm);
       swal('Oops! ', 'Please enter vaild and identical passwords', 'error');

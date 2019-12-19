@@ -14,6 +14,11 @@ import { Router } from '@angular/router';
 })
 export class QuicklinksComponent implements OnInit {
 status: any;
+// tslint:disable-next-line: max-line-length
+appUrl = 'http://10.0.6.78:8888/forms/frmservlet?config=ref&serveruserparams=NLS_LANG=AMERICAN_AMERICA.AR8MSWIN1256&otherparams=P_WST_LAN_IND=1';
+userName = localStorage.getItem('username');
+passWord = localStorage.getItem('password');
+ucode = localStorage.getItem('UserKey');
   constructor(
     private router: Router,
     private notifier: NotificationModalComponent,
