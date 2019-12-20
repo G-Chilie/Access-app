@@ -36,14 +36,9 @@
       (click)="goToUrl(resultObj.ApplicationUrl, resultObj.ApplicationID, this.userlogindet, resultObj.ApplicationImage)"
       *ngFor="let resultObj of this.userappandurl; let i = index">
       <div class="text-center" >
-          <form action="{{resultObj.ApplicationUrl}}" target="_blank" method="post">
-            <input hidden value={{this.userName}} type="text" name="uid" id="uid">
-            <input hidden value={{this.passWord}} type="text" name="upass" id="upass">
-            <input hidden value={{this.ucode}} type="text" name="ucode" id="ucode">
-            <!-- <a href="{{ resultObj.ApplicationUrl }}" target="_blank" class="link-2"></a> -->
-            <button class="apps-btn" type="button"> <img src="{{'data:image/png;base64,' + resultObj.ApplicationImage}}" ng-show="Base64 != null" height="60" width="79.5"
+            <a href="{{ resultObj.ApplicationUrl }}" target="_blank" class="link-2"></a>
+            <button class="apps-btn" type="submit"> <img src="{{'data:image/png;base64,' + resultObj.ApplicationImage}}" ng-show="Base64 != null" height="60" width="79.5"
               class="image-6" /></button>
-          </form>
           <!-- <div class="user-image justify-content-between objectfit: fill mr-2">
             <a class="custom mr-0 mr-md-2  font" ><img src="{{'data:image/png;base64,'+this.picture}}"
                 ng-show="Base64 != null" height="100" width="20" class=" pt-3 image-3" /></a>

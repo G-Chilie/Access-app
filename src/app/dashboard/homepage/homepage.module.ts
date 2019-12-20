@@ -7,7 +7,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { QuicklinksComponent } from 'src/app/quick-links/quicklinks.component';
 import { QuickLinksModule } from 'src/app/quick-links/quick-links.module';
 import { UiModule } from 'src/app/shared/ui/ui.module';
-
+import {MatDialogModule} from '@angular/material';
+import { PopUpModalComponent } from 'src/app/modal/pop-up-modal/pop-up-modal.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,9 @@ const routes: Routes = [
   imports: [
     CommonModule, RouterModule.forChild(routes),
     QuickLinksModule,
-    UiModule
+    UiModule,
+    MatDialogModule
    ],
+   entryComponents: [ PopUpModalComponent ]
 })
 export class HomepageModule { }

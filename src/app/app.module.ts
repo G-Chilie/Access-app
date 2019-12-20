@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {RouterModule, Routes, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule, Routes, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -26,7 +26,7 @@ import { TokenValidationModule } from './token-validation/token-validation.modul
 import { TokenValidationComponent } from './token-validation/container/token-validation/token-validation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PopUpModalComponent } from './modal/pop-up-modal/pop-up-modal.component';
-import { MatDialogModule, MatFormFieldModule } from '@angular/material';
+import { MatDialogModule, MatFormFieldModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BasisAccessModule } from './basis-access/basis-access.module';
 import { BasisAccessComponent } from './basis-access/container/basis-access/basis-access.component';
 
@@ -43,6 +43,8 @@ import { BasisAccessComponent } from './basis-access/container/basis-access/basi
   ],
   exports: [RouterModule],
   providers: [
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] },
     AuthGuard, PopUpModalComponent,
     ResetBasisPasswordComponent, KillMyIdComponent,
     QuicklinksComponent, TokenValidationComponent, BasisAccessComponent, NotificationModalComponent, NgbActiveModal],

@@ -1,15 +1,12 @@
-import {Component, Inject} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/_services/user.service';
 import { ValidateUserWithToken } from 'src/app/_model/user';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
-
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UtilityService } from 'src/app/utility.service';
 
 /**
  * @title Dialog Overview
@@ -20,26 +17,118 @@ export interface DialogData {
   styleUrls: ['./pop-up-modal.component.css']
 })
 // tslint:disable-next-line: component-class-suffix
-export class PopUpModalComponent {
+export class PopUpModalComponent implements OnInit {
+  @ViewChild('tokenForm') tokenForm: NgForm;
   userName = localStorage.getItem('username');
   passWord = localStorage.getItem('password');
   ucode = localStorage.getItem('UserKey');
   loading = false;
+  _tokenForm: FormGroup;
   // tslint:disable-next-line: max-line-length
   appUrl = 'http://10.0.6.78:8888/forms/frmservlet?config=ref&serveruserparams=NLS_LANG=AMERICAN_AMERICA.AR8MSWIN1256&otherparams=P_WST_LAN_IND=1';
 
-  constructor(public router: Router, public userserv: UserService, public dialog: MatDialog) {}
+  constructor(
+    public util: UtilityService,
+    public router: Router,
+    public userserv: UserService,
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<PopUpModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ) {}
 
-  openDialog(): void {
-    Swal.fire({
-      title: 'Token Verification Successful',
-      input: 'password',
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Submit',
-      showLoaderOnConfirm: true,
+
+    ngOnInit() {
+      this.createTokenForm();
+      // const newuserdet = JSON.parse(this.data.userdetails);
+      console.log(this.data.userdetails);
+    }
+
+    createTokenForm() {
+      this._tokenForm = this.fb.group({
+        tokenValue: ['', Validators.required]
+      });
+    }
+
+    onSubmit(_tokenForm) {
+      this.setDataInLocalStorage();
+      console.log(this.tokenForm.form.value);
+
+      const passSaved = localStorage.getItem('password');
+      const keySaved = localStorage.getItem('UserKey');
+      const encryptPass = this.userserv.encryptData(this.tokenForm.form.value);
+     this.util.encrypt(this.tokenForm.value.tokenValue).subscribe(resp => {
+      if (passSaved.toString() === resp) {
+        localStorage.setItem('Password is the same. ', 'Yass!');
+        this.redirectForm();
+      } else {
+        localStorage.setItem('Password Not the same ', 'No!');
+        this.redirectForm();
+        this.dialogRef.close();
+      }
+    });
+    }
+
+    redirectForm() {
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = this.data.appUrl;
+      form.target = '_blank';
+
+      document.getElementById('form-section').appendChild(form);
+
+      const userId = document.createElement('input');
+      userId.id = 'uid';
+      userId.name = 'uid';
+      userId.type = 'text';
+      userId.hidden = true;
+      userId.value = localStorage.getItem('username');
+
+      const userPass = document.createElement('input');
+      userPass.id = 'upass';
+      userPass.name = 'upass';
+      userPass.type = 'text';
+      userPass.hidden = true;
+      userPass.value = localStorage.getItem('password');
+
+      const userCode = document.createElement('input');
+      userCode.id = 'ucode';
+      userCode.name = 'ucode';
+      userCode.type = 'text';
+      userCode.hidden = true;
+      userCode.value = localStorage.getItem('UserKey');
+
+      form.appendChild(userId);
+      form.appendChild(userPass);
+      form.appendChild(userCode);
+
+      form.submit();
+
+    }
+
+    setDataInLocalStorage() {
+      localStorage.setItem('ClickedApp', this.data.appid);
+      localStorage.setItem('ClickedUrl', this.data.appUrl);
+      localStorage.setItem('applicationImage', this.data.appImageUrl);
+      // const newuserdet = JSON.parse(this.data.userdetails);
+      // console.log(this.data.appUrl, this.data.appid, newuserdet.username, newuserdet.password);
+      // localStorage.setItem('uid', newuserdet.username);
+      // localStorage.setItem('upass', newuserdet.password);
+      // localStorage.setItem('ucode', this.data.appid);
+
+    }
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+  // openDialog(): void {
+  //   Swal.fire({
+  //     title: 'Token Verification Successful',
+  //     input: 'password',
+  //     inputAttributes: {
+  //       autocapitalize: 'off'
+  //     },
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Submit',
+  //     showLoaderOnConfirm: true,
       // preConfirm: (login) => {
       //   this.userserv.validateWithToken(login).subscribe((a: ValidateUserWithToken) => {
       //     a ? this.router.navigate(['/home']) : swal('Oops! ', 'An error occured. Contact support!', 'error');
@@ -59,7 +148,7 @@ export class PopUpModalComponent {
       //     });
       // },
       // allowOutsideClick: () => !Swal.isLoading()
-    });
+    // });
     // }).then((result) => {
     //   if (result.value) {
     //     Swal.fire({
@@ -69,7 +158,7 @@ export class PopUpModalComponent {
     //   }
     // });
 
-  }
+  // }
 
 }
 

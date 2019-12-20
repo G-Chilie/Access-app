@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TokenValidationComponent } from '../../token-validation/container/token-validation/token-validation.component';
+import { PopUpModalComponent } from 'src/app/modal/pop-up-modal/pop-up-modal.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -46,16 +48,19 @@ export class HomepageComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private http: HttpClient,
-    private tokenvalid: TokenValidationComponent
+    private tokenvalid: TokenValidationComponent,
+    private popup: PopUpModalComponent,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.userappandurl = this.userService.UserApplications;
-    for (const res of this.userappandurl) {
+    // for (const res of this.userappandurl) {
 
-      // tslint:disable-next-line: max-line-length
-      res.ApplicationImage ? console.log(res.ApplicationImage) : res.ApplicationImage = 'data:image/png;base64,' + '../../../assets/images/single-sign-on2x.png';
-    }
+    //   // tslint:disable-next-line: max-line-length
+    // tslint:disable-next-line: max-line-length
+    //   res.ApplicationImage ? console.log(res.ApplicationImage) : res.ApplicationImage = 'data:image/png;base64,' + '../../../assets/images/single-sign-on2x.png';
+    // }
     function getBase64(event) {
       const me = this;
       event = '../../../assets/images/single-sign-on2x.png';
@@ -96,17 +101,22 @@ export class HomepageComponent implements OnInit {
   }
 
   goToUrl(appUrl, appid, userdetails, appImageUrl) {
-    this.tokenvalid.submitRequest();
-    this.router.navigate(['/token-validation']);
-    localStorage.setItem('ClickedApp', appid);
-    localStorage.setItem('ClickedUrl', appUrl);
-    localStorage.setItem('applicationImage', appImageUrl);
-    const newuserdet = JSON.parse(userdetails);
-    console.log(appUrl, appid, newuserdet.username, newuserdet.password);
-    localStorage.setItem('uid', newuserdet.username);
-    localStorage.setItem('upass', newuserdet.password);
-    localStorage.setItem('ucode', appid);
+    // this.tokenvalid.submitRequest();
+    // this.router.navigate(['/token-validation']);
+    // this.popup.openDialog();
+    console.log(appid);
+    console.log(appUrl);
+    console.log(userdetails);
+    console.log(appImageUrl);
+    const dialogRef = this.dialog.open(PopUpModalComponent, {
+      width: '450px',
+      data: { appUrl: appUrl, appid: appid, userdetails: userdetails, appImageUrl: appImageUrl}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
 
   }
 }

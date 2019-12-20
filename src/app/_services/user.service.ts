@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, retry, map, tap } from 'rxjs/operators';
 import { UtilityService } from '../utility.service';
@@ -411,4 +411,16 @@ export class UserService {
       })
     );
   }
+
+  public redirectToPage(data: any) {
+
+    const redirectParams = new HttpParams();
+    redirectParams.set('uid', data.username);
+    redirectParams.set('upass', data.password);
+    redirectParams.set('ucode', data.ucode);
+
+    return this.http.post<any>(data.appUrl, redirectParams)
+    .subscribe(res => console.log(res));
+  }
+
 }
