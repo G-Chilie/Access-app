@@ -8,28 +8,28 @@ import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { PopUpModalComponent } from '../../../modal/pop-up-modal/pop-up-modal.component';
 import { MatDialog } from '@angular/material';
-
 @Component({
   selector: 'app-basis-access',
   templateUrl: './basis-access.component.html',
   styleUrls: ['./basis-access.component.css']
 })
 export class BasisAccessComponent implements OnInit {
-// tslint:disable-next-line: max-line-length
-@ViewChild('tokenForm') basisValidateForm: NgForm;
-// tslint:disable-next-line: max-line-length
-appUrl = 'http://10.0.6.78:8888/forms/frmservlet?config=ref&serveruserparams=NLS_LANG=AMERICAN_AMERICA.AR8MSWIN1256&otherparams=P_WST_LAN_IND=1';
-// appUrl = 'http://10.0.6.203/BASISAccess/CloseApp2.aspx';
-userName = localStorage.getItem('username');
-passWord = localStorage.getItem('password');
-ucode = localStorage.getItem('UserKey');
+  // tslint:disable-next-line: max-line-length
+  @ViewChild('tokenForm') basisValidateForm: NgForm;
+  // tslint:disable-next-line: max-line-length
+  // appUrl = 'http://10.0.6.78:8888/forms/frmservlet?config=ref&serveruserparams=NLS_LANG=AMERICAN_AMERICA.AR8MSWIN1256&otherparams=P_WST_LAN_IND=1';
+  appUrl = 'http://10.0.4.61:9001/banks/';
+  // appUrl = 'http://10.0.6.203/BASISAccess/CloseApp2.aspx';
+  userName = localStorage.getItem('username');
+  passWord = localStorage.getItem('password');
+  ucode = localStorage.getItem('UserKey');
   _basisValidateForm: FormGroup;
   password: FormControl;
   loading = false;
   passwordvalid = '([0-9]{6})';
   constructor(private popup: PopUpModalComponent, private userService: UserService,
-     private router: Router, private formBuilder: FormBuilder,
-  private util: UtilityService, public dialog: MatDialog) { }
+    private router: Router, private formBuilder: FormBuilder,
+    private util: UtilityService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.createLoginForm();
@@ -84,40 +84,47 @@ ucode = localStorage.getItem('UserKey');
     });
   }
 
+  // openURL() {
+  //     const shell = new ActiveXObject('WScript.Shell');
+  //     shell.run('Firefox http://www.google.com');
+  // }
+
   redirectForm() {
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = this.appUrl;
-    form.target = '_blank';
 
-    document.getElementById('form-section').appendChild(form);
+    window.location.href = this.appUrl;
+    // const form = document.createElement('form');
+    // form.method = 'POST';
+    // form.action = this.appUrl;
+    // form.target = '_blank';
 
-    const userId = document.createElement('input');
-    userId.id = 'uid';
-    userId.name = 'uid';
-    userId.type = 'text';
-    userId.hidden = true;
-    userId.value = localStorage.getItem('username');
+    // document.getElementById('form-section').appendChild(form);
 
-    const userPass = document.createElement('input');
-    userPass.id = 'upass';
-    userPass.name = 'upass';
-    userPass.type = 'text';
-    userPass.hidden = true;
-    userPass.value = localStorage.getItem('password');
+    // const userId = document.createElement('input');
+    // userId.id = 'uid';
+    // userId.name = 'uid';
+    // userId.type = 'text';
+    // userId.hidden = true;
+    // userId.value = localStorage.getItem('username');
 
-    const userCode = document.createElement('input');
-    userCode.id = 'ucode';
-    userCode.name = 'ucode';
-    userCode.type = 'text';
-    userCode.hidden = true;
-    userCode.value = localStorage.getItem('UserKey');
+    // const userPass = document.createElement('input');
+    // userPass.id = 'upass';
+    // userPass.name = 'upass';
+    // userPass.type = 'text';
+    // userPass.hidden = true;
+    // userPass.value = localStorage.getItem('password');
 
-    form.appendChild(userId);
-    form.appendChild(userPass);
-    form.appendChild(userCode);
+    // const userCode = document.createElement('input');
+    // userCode.id = 'ucode';
+    // userCode.name = 'ucode';
+    // userCode.type = 'text';
+    // userCode.hidden = true;
+    // userCode.value = localStorage.getItem('UserKey');
 
-    form.submit();
+    // form.appendChild(userId);
+    // form.appendChild(userPass);
+    // form.appendChild(userCode);
+
+    // form.submit();
 
   }
   Back() {

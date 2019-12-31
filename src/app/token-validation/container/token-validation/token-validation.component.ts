@@ -84,6 +84,11 @@ export class TokenValidationComponent implements OnInit {
   }
 
   Back() {
-    this.router.navigate(['home']);
+    const backCheck = localStorage.getItem('StaffDetailsWithPic');
+    if (backCheck === '' || backCheck === null) {
+      this.router.navigate(['login']);
+    } else {
+      this.router.navigate(['home']);
+    }
   }
 }

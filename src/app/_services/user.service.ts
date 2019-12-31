@@ -286,8 +286,8 @@ export class UserService {
           // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
           return res;
         } else {
-          // swal('Oops!', res.ResponseDescription, 'error');
-          return res;
+          swal('Oops!', res.ResponseDescription, 'error');
+          return;
         }
       })
     );
