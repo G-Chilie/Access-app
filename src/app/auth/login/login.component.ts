@@ -129,7 +129,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('AdminUserDetails', JSON.stringify(a));
           // tslint:disable-next-line: no-shadowed-variable
           this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
-            console.log('GetUserWithPic result: ' + a);
+            a ? this.router.navigate(['home']) : console.log('GetUserWithPic result: ' + a);
             this.userService.setUserObject(a);
           });
 

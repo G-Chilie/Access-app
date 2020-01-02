@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenValidationRoutingModule } from './token-validation-routing.module';
 import { TokenValidationComponent } from './container/token-validation/token-validation.component';
+import { Routes } from '@angular/router';
 
+const routes: Routes = [
+  { path: '', component: TokenValidationComponent },
+];
 @NgModule({
   imports: [
     CommonModule,
