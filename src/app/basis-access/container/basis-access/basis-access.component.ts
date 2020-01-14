@@ -91,7 +91,8 @@ export class BasisAccessComponent implements OnInit {
 
   redirectForm() {
 
-    window.location.href = this.appUrl;
+    // tslint:disable-next-line: no-unused-expression
+    window.location.href = this.appUrl, '_blank';
     // const form = document.createElement('form');
     // form.method = 'POST';
     // form.action = this.appUrl;

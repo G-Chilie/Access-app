@@ -39,7 +39,9 @@
 }
 
 .application-wrapper {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 1fr 10px 1fr 10px 1fr 10px 1fr 10px 1fr 10px 1fr;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
@@ -55,19 +57,17 @@
 }
 
 .apps-btn {
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background: transparent;
 }
 
 .shadow {
-  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
 }
 
-/* .application-wrapper .item:hover {
-  -webkit-box-shadow: 3px 4px 15px -4px rgba(0,0,0,0.68);
-  -moz-box-shadow: 3px 4px 15px -4px rgba(0,0,0,0.68);
-  box-shadow: 3px 4px 15px -4px rgba(0,0,0,0.68);
-} */
 .application-wrapper img:hover {
   width: 50px;
 }
