@@ -130,6 +130,7 @@ export class LoginComponent implements OnInit {
           // tslint:disable-next-line: no-shadowed-variable
           this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
             a ? this.router.navigate(['home']) : console.log('GetUserWithPic result: ' + a);
+            this.loading = false;
             this.userService.setUserObject(a);
           });
 

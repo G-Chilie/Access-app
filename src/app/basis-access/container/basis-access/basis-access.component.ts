@@ -18,7 +18,9 @@ export class BasisAccessComponent implements OnInit {
   @ViewChild('tokenForm') basisValidateForm: NgForm;
   // tslint:disable-next-line: max-line-length
   // appUrl = 'http://10.0.6.78:8888/forms/frmservlet?config=ref&serveruserparams=NLS_LANG=AMERICAN_AMERICA.AR8MSWIN1256&otherparams=P_WST_LAN_IND=1';
-  appUrl = 'http://10.0.4.61:9001/banks/';
+  // tslint:disable-next-line: max-line-length
+  appUrl = 'http://10.0.6.112:8888/forms/frmservlet?config=ref&serveruserparams=NLS_LANG=AMERICAN_AMERICA.AR8MSWIN1256&otherparams=P_WST_LAN_IND=1';
+  // appUrl = 'http://10.0.4.61:9001/banks/';
   // appUrl = 'http://10.0.6.203/BASISAccess/CloseApp2.aspx';
   userName = localStorage.getItem('username');
   passWord = localStorage.getItem('password');
@@ -49,7 +51,8 @@ export class BasisAccessComponent implements OnInit {
 
   basisLogin() {
     this.userService.accessBasis().subscribe((a: BasisAccessStatus) => {
-      console.log('Basis Access Result: ' + a);
+      a ? this.redirectForm() : swal('Oops! ', a.ResponseDescription, 'error');
+      this.loading = false;
     });
   }
 
@@ -63,7 +66,7 @@ export class BasisAccessComponent implements OnInit {
     // this.loginError = null;
     const logidet = this._basisValidateForm.value;
     setTimeout(() => {
-      this.loading = false;
+      this.loading = true;
       localStorage.setItem('Token Value:', JSON.stringify(this._basisValidateForm.value));
       console.log(logidet);
       // alert('Logging in....');
@@ -76,12 +79,14 @@ export class BasisAccessComponent implements OnInit {
   }
 
   validate(recdata) {
+    localStorage.setItem('TokenEncrypted', recdata);
     console.log('Encrypted Token:' + recdata);
     const logindetails = JSON.parse(localStorage.getItem('LoginFormDet'));
 
-    this.userService.validate(recdata).subscribe((a: BasisAccessStatus) => {
-      a ? this.redirectForm() : swal('Oops! ', a.ResponseDescription, 'error');
-    });
+    // this.userService.validate(recdata).subscribe((a: BasisAccessStatus) => {
+    //   a ? this.basisLogin() : swal('Oops! ', a.ResponseDescription, 'error');
+    // });
+    this.basisLogin();
   }
 
   // openURL() {
@@ -92,40 +97,41 @@ export class BasisAccessComponent implements OnInit {
   redirectForm() {
 
     // tslint:disable-next-line: no-unused-expression
-    window.location.href = this.appUrl, '_blank';
-    // const form = document.createElement('form');
-    // form.method = 'POST';
-    // form.action = this.appUrl;
-    // form.target = '_blank';
+    // window.location.href = this.appUrl, '_blank';
+    // window.open(this.appUrl, '_blank');
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = this.appUrl;
+    form.target = '_blank';
 
-    // document.getElementById('form-section').appendChild(form);
+    document.getElementById('form-section').appendChild(form);
 
-    // const userId = document.createElement('input');
-    // userId.id = 'uid';
-    // userId.name = 'uid';
-    // userId.type = 'text';
-    // userId.hidden = true;
-    // userId.value = localStorage.getItem('username');
+    const userId = document.createElement('input');
+    userId.id = 'uid';
+    userId.name = 'uid';
+    userId.type = 'text';
+    userId.hidden = true;
+    userId.value = localStorage.getItem('username');
 
-    // const userPass = document.createElement('input');
-    // userPass.id = 'upass';
-    // userPass.name = 'upass';
-    // userPass.type = 'text';
-    // userPass.hidden = true;
-    // userPass.value = localStorage.getItem('password');
+    const userPass = document.createElement('input');
+    userPass.id = 'upass';
+    userPass.name = 'upass';
+    userPass.type = 'text';
+    userPass.hidden = true;
+    userPass.value = localStorage.getItem('password');
 
-    // const userCode = document.createElement('input');
-    // userCode.id = 'ucode';
-    // userCode.name = 'ucode';
-    // userCode.type = 'text';
-    // userCode.hidden = true;
-    // userCode.value = localStorage.getItem('UserKey');
+    const userCode = document.createElement('input');
+    userCode.id = 'ucode';
+    userCode.name = 'ucode';
+    userCode.type = 'text';
+    userCode.hidden = true;
+    userCode.value = localStorage.getItem('UserKey');
 
-    // form.appendChild(userId);
-    // form.appendChild(userPass);
-    // form.appendChild(userCode);
+    form.appendChild(userId);
+    form.appendChild(userPass);
+    form.appendChild(userCode);
 
-    // form.submit();
+    form.submit();
 
   }
   Back() {

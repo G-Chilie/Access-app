@@ -38,16 +38,17 @@
   size: 10px;
 }
 
-.application-wrapper {
+/* .application-wrapper {
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: 1fr 10px 1fr 10px 1fr 10px 1fr 10px 1fr 10px 1fr;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
-}
+} */
 
 .application-wrapper .item {
+    padding: 2rem 4rem;
   cursor: pointer;
 
 }
@@ -70,4 +71,14 @@
 
 .application-wrapper img:hover {
   width: 50px;
+}
+
+.qlinks {
+    height: 300px;
+}
+
+#banner img {
+    max-width: 100%;
+    width: 100% \9;
+    /* height: auto; */
 }

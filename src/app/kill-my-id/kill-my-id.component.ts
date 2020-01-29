@@ -50,6 +50,7 @@ export class KillMyIdComponent implements OnInit {
     //   console.log(logidet);
     //   // alert('Logging in....');
     // }, 2000);
+    this.loading = true;
     const userDet = localStorage.getItem('LoginFormDet');
     const userDetstring = JSON.parse(userDet);
     const userDetails: any = {
@@ -59,7 +60,7 @@ export class KillMyIdComponent implements OnInit {
     console.log('Password Details:' + JSON.stringify(userDetails.UserName));
     this.userser.killMyID(userDetails).subscribe((a: KillMyIDStatus) => {
       a ?  console.log(a) : swal('Oops!', a.ResponseDescription, 'error');
-
+this.loading = false;
     });
   }
 

@@ -225,12 +225,13 @@ export class UserService {
     const reqObjBasis = {
       UserName: localStorage.getItem('username'),
       Password: localStorage.getItem('password'),
-      TokenValue: localStorage.getItem('EncryptedToken'),
+      // TokenValue: localStorage.getItem('EncryptedToken'),
+      TokenValue: localStorage.getItem('TokenEncrypted'),
       Channel: 'AM',
       RequestID: '4',
       Key: localStorage.getItem('UserKey'),
       AppId: 1,
-      BranchCode: admindetObj.AdminUser.BasisId,
+      BranchCode: admindetObj.AdminUser.Branch,
       BasisId: admindetObj.AdminUser.BasisId
     };
 
@@ -241,12 +242,14 @@ export class UserService {
       map(res => {
         console.log(res);
         if (res.ResponseCode === '00') {
+          console.log('Successful basis setTeller attempt, response = ' + JSON.stringify(res));
           // this.setResetBasisStatus(res);
           // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
           return res;
         } else {
           // swal('Oops!', res.ResponseDescription, 'error');
-          return res;
+          console.log('Failed basis setTeller attempt, response = ' + JSON.stringify(res));
+          return null;
         }
       })
     );
@@ -287,7 +290,7 @@ export class UserService {
           return res;
         } else {
           swal('Oops!', res.ResponseDescription, 'error');
-          return;
+          return null;
         }
       })
     );
@@ -329,10 +332,12 @@ export class UserService {
           console.log(res);
           if (res.ResponseCode === '00') {
             this.setResetBasisStatus(res);
-            swal('Good job!', 'You have successfully changed your Basis password!', 'success');
+            swal('Oops', 'You can no longer reset your password from Access Manager. Kindly contact support', 'error');
+            // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
             return res;
           } else {
-            swal('Oops!', res.ResponseDescription, 'error');
+            swal('Oops', 'You can no longer reset your password from Access Manager. Kindly contact support', 'error');
+            // swal('Oops!', res.ResponseDescription, 'error');
             return null;
           }
         })

@@ -89,6 +89,7 @@ export class ResetBasisPasswordComponent implements OnInit {
     console.log('New Password Details:' + JSON.stringify(userDetails.NewPassword));
     this.userser.resetBasisPassword(this.myForm.value.NewPassword2).subscribe((a: ResetPasswordStatus) => {
       console.log(a);
+      this.loading = false;
     });
 
   }

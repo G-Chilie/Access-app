@@ -53,7 +53,7 @@ export class TokenValidationComponent implements OnInit {
     // this.loginError = null;
     const logidet = this.validateTokenForm.value;
     setTimeout(() => {
-      this.loading = false;
+
       localStorage.setItem('Token Value:', JSON.stringify(this.validateTokenForm.value));
       console.log(logidet);
       // alert('Logging in....');
@@ -70,7 +70,7 @@ export class TokenValidationComponent implements OnInit {
     const logindetails = JSON.parse(localStorage.getItem('LoginFormDet'));
 
     this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {
-      a ? this.getUserPic(logindetails) : this.getUserPic(logindetails);
+      a ? this.getUserPic(logindetails) : swal('Oops! ', a.ResponseDescription, 'error');
     });
 
     // this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {

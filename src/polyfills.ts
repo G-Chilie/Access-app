@@ -52,6 +52,8 @@ import 'core-js/es7/reflect';
  * Standard animation support in Angular DOES NOT require any polyfills (as of Angular 6.0).
  **/
 import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+import 'core-js/es7/object';
+import 'core-js/es7/array';
 
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents
@@ -66,7 +68,8 @@ import 'web-animations-js';  // Run `npm install --save web-animations-js`.
  * in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js
  * with the following flag, it will bypass `zone.js` patch for IE/Edge
  */
-// (window as any).__Zone_enable_cross_context_check = true;
+ (window as any).__Zone_enable_cross_context_check = true;
+
 
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
