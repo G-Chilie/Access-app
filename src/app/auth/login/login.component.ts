@@ -112,11 +112,11 @@ export class LoginComponent implements OnInit {
     console.warn('fetch apps 22');
 
     this.userService.getUserApps(data).subscribe((a) => {
+      this.loading = false;
       console.log(a);
 
       if (a) {
-        // const finUser = a;
-        // const userObj = JSON.parse(finUser);
+
         const finUserStatus = a.FinancialUser;
         console.log('FinUserStatus: ' + finUserStatus);
         if (finUserStatus === true) {
@@ -129,8 +129,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('AdminUserDetails', JSON.stringify(a));
           // tslint:disable-next-line: no-shadowed-variable
           this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
-            a ? this.router.navigate(['home']) : console.log('GetUserWithPic result: ' + a);
             this.loading = false;
+            a ? this.router.navigate(['home']) : console.log('GetUserWithPic result: ' + a);
+
             this.userService.setUserObject(a);
           });
 

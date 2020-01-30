@@ -25,7 +25,8 @@
     </div>
   </div> -->
 
-  <div class="application-wrapper d-flex flex-wrap w-75 mx-auto mt-5 text-center justify-content-around">
+  <div >
+    <div class="application-wrapper d-flex flex-wrap w-75 mx-auto mt-5 text-center justify-content-around">
       <div class="item py-2 d-flex align-items-center"
           (click)="goToUrl(resultObj.ApplicationUrl, resultObj.ApplicationID, this.userlogindet, resultObj.ApplicationImage)"
           *ngFor="let resultObj of this.userappandurl; let i = index">
@@ -42,4 +43,6 @@
           </div>
       </div>
   </div>
+
+
 </div>

@@ -70,6 +70,7 @@ export class TokenValidationComponent implements OnInit {
     const logindetails = JSON.parse(localStorage.getItem('LoginFormDet'));
 
     this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {
+      this.loading = false;
       a ? this.getUserPic(logindetails) : swal('Oops! ', a.ResponseDescription, 'error');
     });
 

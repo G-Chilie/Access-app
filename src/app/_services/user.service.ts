@@ -152,7 +152,7 @@ export class UserService {
             return res;
           } else {
             console.log('An error Occured: ' + res.ResponseDescription);
-            swal('Oops', res.ResponseDescription + '. Please reload the page and try again', 'error');
+            swal('Oops', res.ResponseDescription + '. Please verify and try again', 'error');
             this.util.Error$.next(res.ResponseDescription);
             return null;
           }
