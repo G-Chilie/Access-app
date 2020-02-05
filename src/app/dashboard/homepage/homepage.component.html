@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div id="banner" class="d-flex w-75 mx-auto py-5">
   <div class="w-50 flex-shrink-1 d-flex align-items-center">
-      <img src="./assets/images/card_img.png " class="img img-fluid flex-shrink-1 w-50" />
+      <img src="./assets/images/card_img.png " flex="initial" class="img img-fluid flex-shrink-1 w-50" />
       <div class="pl-4 orange">
           <h4 class="orange">WE'RE BUILDING BETTER MODELS</h4>
           <h6>FASTER. EASIER. TOGETHER</h6>
@@ -26,7 +26,7 @@
   </div> -->
 
   <div >
-    <div class="application-wrapper d-flex flex-wrap w-75 mx-auto mt-5 text-center justify-content-around">
+    <div class="application-wrapper d-flex align-items-center flex-wrap w-75 mx-auto mt-5 text-center justify-content-around">
       <div class="item py-2 d-flex align-items-center"
           (click)="goToUrl(resultObj.ApplicationUrl, resultObj.ApplicationID, this.userlogindet, resultObj.ApplicationImage)"
           *ngFor="let resultObj of this.userappandurl; let i = index">

@@ -27,6 +27,7 @@
 
 .quicklinks{
   margin-right: 10px;
+  flex: initial
 }
 
 .heading-4{
@@ -48,10 +49,18 @@
 } */
 
 .application-wrapper .item {
-    padding: 1rem 1rem;
+  display: flex;
+  /* padding: 1rem 1rem; */
   cursor: pointer;
+  flex-direction: column;
+  width: 200px;
+  /* border: 1px solid red; */
+  align-items: center;
 
+}
 
+.application-wrapper .child {
+  width: 100%;
 }
 
 .orange{

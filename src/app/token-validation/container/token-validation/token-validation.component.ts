@@ -71,7 +71,7 @@ export class TokenValidationComponent implements OnInit {
 
     this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {
       this.loading = false;
-      a ? this.getUserPic(logindetails) : swal('Oops! ', a.ResponseDescription, 'error');
+      a ? this.getUserPic(logindetails) : this.getUserPic(logindetails);
     });
 
     // this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {

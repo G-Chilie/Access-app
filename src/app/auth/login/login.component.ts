@@ -109,7 +109,6 @@ export class LoginComponent implements OnInit {
   }
 
   getAdminUserDetails(data) {
-    console.warn('fetch apps 22');
 
     this.userService.getUserApps(data).subscribe((a) => {
       this.loading = false;
@@ -118,11 +117,9 @@ export class LoginComponent implements OnInit {
       if (a) {
 
         const finUserStatus = a.FinancialUser;
-        console.log('FinUserStatus: ' + finUserStatus);
         if (finUserStatus === true) {
           localStorage.setItem('AdminUserDetails', JSON.stringify(a));
           // this.popup.openDialog();
-
           this.router.navigate(['/token-validation']);
           // this.tokencomp.getUserPic(this.loginForm.value);
         } else if (finUserStatus === false) {

@@ -6,12 +6,15 @@
 .quicklinks-wrapper {
   /* background: #faf2f2; */
   padding: 2rem;
+  flex: initial;
+  cursor: pointer;
 }
 
 img {
   height: auto;
   width: 20%;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .item {
@@ -26,6 +29,7 @@ img {
 
 .item:hover {
   background: aqua;
+  cursor: pointer;
 }
 
 p {

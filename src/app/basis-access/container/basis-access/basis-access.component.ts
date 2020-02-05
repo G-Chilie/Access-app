@@ -132,7 +132,7 @@ export class BasisAccessComponent implements OnInit {
     form.appendChild(userCode);
 
     form.submit();
-
+    window.location.reload();
   }
   Back() {
     window.location.reload();
