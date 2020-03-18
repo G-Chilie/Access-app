@@ -70,19 +70,18 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('UserKey', userKey);
     this.loading = true;
     this.loginError = null;
-    console.log('USER' + JSON.stringify(this.loginForm.value));
+    // console.log('USER' + JSON.stringify(this.loginForm.value));
     localStorage.setItem('LoginFormDet', JSON.stringify(this.loginForm.value));
-
 
     // if (a) {
     this.util.encrypt(this.loginForm.value.username).subscribe(data => {
-      data ? localStorage.setItem('username', data) : console.log('data not encrypted');
+      data ? localStorage.setItem('username', data) : console.log('An error occured: data not encrypted');
     });
 
 
     this.util.encrypt(this.loginForm.value.password).subscribe(data => {
       localStorage.setItem('password', data);
-      data ? this.getEncDetails(data) : console.log('data not encrypted');
+      data ? this.getEncDetails(data) : console.log('An error occured: data not encrypted');
     });
 
 
@@ -98,13 +97,13 @@ export class LoginComponent implements OnInit {
 
   getEncDetails(data) {
     setTimeout(() => {
-      console.warn('fetch apps');
+      // console.warn('fetch apps');
       const userData = this.util.getEncryptedDetails();
-      console.log(userData);
+      // console.log('Encrypted User ' + userData);
       if (!userData) {
         this.util.getEncryptedDetails();
       }
-      userData ? this.getAdminUserDetails(userData) : console.log('No user data');
+      userData ? this.getAdminUserDetails(userData) : console.log('No user data to encrypt');
     }, 4000);
   }
 
@@ -112,7 +111,7 @@ export class LoginComponent implements OnInit {
 
     this.userService.getUserApps(data).subscribe((a) => {
       this.loading = false;
-      console.log(a);
+      // console.log(a);
 
       if (a) {
 
@@ -127,7 +126,7 @@ export class LoginComponent implements OnInit {
           // tslint:disable-next-line: no-shadowed-variable
           this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
             this.loading = false;
-            a ? this.router.navigate(['home']) : console.log('GetUserWithPic result: ' + a);
+            a ? this.router.navigate(['home']) : console.log('Failed GetUserWithPic result: ' + a);
 
             this.userService.setUserObject(a);
           });
@@ -135,7 +134,7 @@ export class LoginComponent implements OnInit {
 
           // tslint:disable-next-line: no-shadowed-variable
         } else {
-          console.log('No admin user data');
+          // console.log('No admin user data');
         }
         // a ? localStorage.setItem('AdminUserDetails', JSON.stringify(a)) : console.log('No admin user data');
         //  this.router.navigate(['/home']);

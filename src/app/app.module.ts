@@ -29,12 +29,13 @@ import { PopUpModalComponent } from './modal/pop-up-modal/pop-up-modal.component
 import { MatDialogModule, MatFormFieldModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { BasisAccessModule } from './basis-access/basis-access.module';
 import { BasisAccessComponent } from './basis-access/container/basis-access/basis-access.component';
+import { AuthComponent } from './auth/auth.component';
 
 // import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
 @NgModule({
   declarations: [
-    AppComponent, NotificationModalComponent, RouteToApplicationComponent
+    AppComponent, NotificationModalComponent, RouteToApplicationComponent, AuthComponent, OpenurlComponent
   ],
   imports: [
     BrowserModule, MatDialogModule, MatFormFieldModule, ReactiveFormsModule, FormsModule,

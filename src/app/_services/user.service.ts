@@ -106,7 +106,7 @@ export class UserService {
 
   public encryptData(dataToEncrypt) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.ENC_API}`;
-    console.log('New Data To Encrypt:' + JSON.stringify(dataToEncrypt));
+    /// console.log('New Data To Encrypt:' + JSON.stringify(dataToEncrypt));
     const data = {
       Data: dataToEncrypt.Data,
       Key: localStorage.getItem('UserKey'),
@@ -114,14 +114,14 @@ export class UserService {
       AppId: 1,
       Channel: 'AM'
     };
-    console.log(data);
+    // console.log(data);
     return this.http.post<any>(PATH, data)
       .pipe(
         tap(() => console.log('Encryption method has been triggered')),
         retry(3),
         catchError(this.util.handleError),
         map(res => {
-          console.log(res);
+          // console.log(res);
           if (res.ResponseCode === '00') {
             this.setEncryptedData(res);
             return res;
@@ -141,17 +141,17 @@ export class UserService {
       reqData.RequestID = '1122334455';
       reqData.Key = localStorage.getItem('UserKey');
       reqData.AppId = 1;
-      console.log('userDet For Apps: ' + JSON.stringify(reqData));
+      // console.log('userDet For Apps: ' + JSON.stringify(reqData));
       return this.http.post<any>(PATH, reqData).pipe(
         retry(3),
         catchError(this.util.handleError),
         map(res => {
           if (res.ResponseCode === '00') {
             this.util.Info$.next(res.ResponseDescription);
-            console.log(res.AdminUser.Applications);
+            // console.log(res.AdminUser.Applications);
             return res;
           } else {
-            console.log('An error Occured: ' + res.ResponseDescription);
+            // console.log('An error Occured: ' + res.ResponseDescription);
             swal('Oops', res.ResponseDescription + '. Please verify and try again', 'error');
             this.util.Error$.next(res.ResponseDescription);
             return null;
@@ -179,7 +179,7 @@ export class UserService {
     userDetails.Channel = environment.Channel;
     delete (userDetails.password);
 
-    console.log('Encrypted User Details:' + JSON.stringify(userDetails));
+    // console.log('Encrypted User Details:' + JSON.stringify(userDetails));
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(PATH, userDetails).pipe(
       retry(2),
@@ -191,7 +191,7 @@ export class UserService {
           return res;
         } else {
           // this.router.navigate(['login']);
-          console.log('issue with staff details: ' + res.ResponseDescription);
+          // console.log('issue with staff details: ' + res.ResponseDescription);
           return null;
         }
       })
@@ -202,7 +202,7 @@ export class UserService {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.VAL_TOKEN}`;
     // const encryptedtoken = this.util.encrypt(token)
     // tslint:disable-next-line: no-shadowed-variable
-    console.log('token to encrypt: ' + token);
+    // console.log('token to encrypt: ' + token);
     // tslint:disable-next-line: no-shadowed-variable
 
     this.util.encryptToken(token).subscribe(data => {
@@ -240,15 +240,15 @@ export class UserService {
       catchError(this.util.handleError),
 
       map(res => {
-        console.log(res);
+        // console.log(res);
         if (res.ResponseCode === '00') {
-          console.log('Successful basis setTeller attempt, response = ' + JSON.stringify(res));
+          // console.log('Successful basis setTeller attempt, response = ' + JSON.stringify(res));
           // this.setResetBasisStatus(res);
           // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
           return res;
         } else {
           // swal('Oops!', res.ResponseDescription, 'error');
-          console.log('Failed basis setTeller attempt, response = ' + JSON.stringify(res));
+          // console.log('Failed basis setTeller attempt, response = ' + JSON.stringify(res));
           return null;
         }
       })
@@ -262,13 +262,13 @@ export class UserService {
     // let encToken: any = '';
     const userID = localStorage.getItem('username');
     const key = localStorage.getItem('UserKey');
-    console.log('Enc Token:' + encryptedToken);
+    // console.log('Enc Token:' + encryptedToken);
     localStorage.setItem('EncryptedToken', encryptedToken);
     // const encTokenString = JSON.parse(encToken.Data);
     // encToken = JSON.parse(localStorage.getItem('Token Encrypted'));
 
 
-    console.log('enctokenstring: ' + encryptedToken);
+    // console.log('enctokenstring: ' + encryptedToken);
     reqObj2 = {
       UserName: userID,
       TokenValue: encryptedToken,
@@ -276,14 +276,14 @@ export class UserService {
       RequestID: this.util.generateRequestId,
       Key: key
     };
-    console.log('ReqObj: ' + JSON.stringify(reqObj2));
+    // console.log('ReqObj: ' + JSON.stringify(reqObj2));
 
     return this.http.post<any>(PATH, reqObj2).pipe(
       retry(3),
       catchError(this.util.handleError),
 
       map(res => {
-        console.log(res);
+        // console.log(res);
         if (res.ResponseCode === '00') {
           // this.setResetBasisStatus(res);
           // swal('Good job!', 'You have successfully changed your Basis password!', 'success');
@@ -299,7 +299,7 @@ export class UserService {
   public resetBasisPassword(userDetails) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.RESETBASISPASS}`;
     {
-      console.log('Data1' + userDetails);
+      // console.log('Data1' + userDetails);
       const body: any = {};
       const user = localStorage.getItem('StaffDetailsWithPic');
       const user2 = localStorage.getItem('AdminUserDetails');
@@ -313,7 +313,7 @@ export class UserService {
         BranchCode: userObj2.AdminUser.Branch,
       };
 
-      console.log('Data2' + reqObj2);
+      // console.log('Data2' + reqObj2);
       // const data = {
       //   ...userDetails,
 
@@ -321,7 +321,7 @@ export class UserService {
       if (userDetails == null) {
         swal('Oops!', 'Please supply matching passwords!', 'failure');
       }
-      console.log('User Body For ResetPass::' + JSON.stringify(reqObj2));
+      // console.log('User Body For ResetPass::' + JSON.stringify(reqObj2));
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
       return this.http.post<any>(PATH, reqObj2).pipe(
@@ -329,7 +329,7 @@ export class UserService {
         catchError(this.util.handleError),
 
         map(res => {
-          console.log(res);
+          // console.log(res);
           if (res.ResponseCode === '00') {
             this.setResetBasisStatus(res);
             swal('Oops', 'You can no longer reset your password from Access Manager. Kindly contact support', 'error');
@@ -355,24 +355,24 @@ export class UserService {
         ...userDetails,
 
       };
-      console.log(userDetails);
+      // console.log(userDetails);
       if (!data) {
         swal('Oops!', 'Please supply a correct username!', 'error');
       }
-      console.log('User Body For killMyId::' + JSON.stringify(data));
+      // console.log('User Body For killMyId::' + JSON.stringify(data));
 
       return this.http.post<any>(PATH, data).pipe(
         retry(2),
         catchError(this.util.handleError),
 
         map(res => {
-          console.log(res);
+          // console.log(res);
           if (res.ResponseCode === '00') {
             this.setKillMyId(res);
             swal('Good job!', 'You ID has successfully been removed on BASIS!', 'success');
             return res;
           } else {
-            console.log(res);
+            // console.log(res);
             swal('Oops!', res.ResponseDescription, 'error');
             return null;
           }
@@ -401,13 +401,13 @@ export class UserService {
       data.ImageType = 1,
       data.ImageData = '',
       data.AUToken = '';
-    console.log('Encrypted Sec Details:' + JSON.stringify(data));
+    // onsole.log('Encrypted Sec Details:' + JSON.stringify(data));
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(PATH, data, { headers }).pipe(
       retry(2),
       catchError(this.util.handleError),
       map((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.responseCode === '00') {
           return res.formDetails;
         } else {

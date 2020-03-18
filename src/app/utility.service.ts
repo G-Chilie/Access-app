@@ -61,7 +61,7 @@ export class UtilityService {
 
   encrypt(data) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.ENC_API}`;
-    console.log('New Data To Encrypt:' + JSON.stringify(data));
+    // console.log('New Data To Encrypt:' + JSON.stringify(data));
     const reqObj = {
       Data: data,
       Key: localStorage.getItem('UserKey'),
@@ -69,19 +69,19 @@ export class UtilityService {
       AppId: 1,
       Channel: 'AM'
     };
-    console.log(data);
+    // console.log(data);
     return this.http.post<any>(PATH, reqObj)
       .pipe(
         // tap(() => console.log('Encryption method has been triggered')),
         retry(3),
         catchError(this.handleError),
         map(res => {
-          console.log(res);
+          // console.log(res);
           if (res.ResponseCode === '00') {
             // this.Info$.next(res.responseDescription);
             return res.Data;
           } else {
-            console.log(res.ResponseDescription);
+            // console.log(res.ResponseDescription);
             // this.Error$.next(res.responseDescription);
             return null;
           }
@@ -91,7 +91,7 @@ export class UtilityService {
 
   encryptToken(data) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.ENC_API}`;
-    console.log('New Data To Encrypt:' + JSON.stringify(data));
+    // console.log('New Data To Encrypt:' + JSON.stringify(data));
     const reqObj = {
       Data: data,
       Key: localStorage.getItem('UserKey'),
@@ -99,20 +99,20 @@ export class UtilityService {
       AppId: 1,
       Channel: 'AM'
     };
-    console.log(data);
+    // console.log(data);
     return this.http.post<any>(PATH, reqObj)
       .pipe(
         // tap(() => console.log('Encryption method has been triggered')),
         retry(3),
         catchError(this.handleError),
         map(res => {
-          console.log(res);
+          // console.log(res);
           if (res.ResponseCode === '00') {
             // this.Info$.next(res.responseDescription);
             localStorage.setItem('Token Encrypted', JSON.stringify(res));
             return res;
           } else {
-            console.log(res.ResponseDescription);
+            // console.log(res.ResponseDescription);
             // this.Error$.next(res.responseDescription);
             return null;
           }
@@ -122,7 +122,7 @@ export class UtilityService {
 
   addAuthParams(body) {
     const userdetails = JSON.stringify(localStorage.getItem('userdet'));
-    console.log('ewa deolu', userdetails);
+    // console.log('ewa deolu', userdetails);
     return body;
   }
 
@@ -130,7 +130,7 @@ export class UtilityService {
     this.res = localStorage.getItem('Form Details');
     // this.res = this.userService.getUserWithPic();
     this.username = this.res.username;
-    console.log(this.username);
+    // console.log(this.username);
     return this.username;
   }
 

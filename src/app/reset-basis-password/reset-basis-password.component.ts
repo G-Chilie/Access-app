@@ -74,7 +74,7 @@ export class ResetBasisPasswordComponent implements OnInit {
     setTimeout(() => {
       this.loading = false;
       localStorage.setItem('New Password Details:', JSON.stringify(this.myForm.value));
-      console.log(logidet);
+      // console.log(logidet);
       // alert('Logging in....');
     }, 2000);
     const userDetails: any = {
@@ -86,10 +86,10 @@ export class ResetBasisPasswordComponent implements OnInit {
       swal('Oops!', 'Passwords supplied do not match. Try again!', 'error');
       return;
     }
-    console.log('New Password Details:' + JSON.stringify(userDetails.NewPassword));
+    // console.log('New Password Details:' + JSON.stringify(userDetails.NewPassword));
     this.userser.resetBasisPassword(this.myForm.value.NewPassword2).subscribe((a: ResetPasswordStatus) => {
       this.loading = false;
-      console.log(a);
+      // console.log(a);
 
     });
 

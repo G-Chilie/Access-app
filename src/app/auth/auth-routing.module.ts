@@ -31,13 +31,13 @@ const routes: Routes = [
       loadChildren: './login/login.module#LoginModule'
 
     },
-    {
+    // {
 
-      path: 'homepage',
+    //   path: 'homepage',
 
-      loadChildren: './dashboard/homepage.module#HomepageModule'
+    //   loadChildren: './dashboard/homepage.module#HomepageModule'
 
-    },
+    // },
   ]
 }
 ];

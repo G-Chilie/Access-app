@@ -104,17 +104,17 @@ export class HomepageComponent implements OnInit {
     // this.tokenvalid.submitRequest();
     // this.router.navigate(['/token-validation']);
     // this.popup.openDialog();
-    console.log(appid);
-    console.log(appUrl);
-    console.log(userdetails);
-    console.log(appImageUrl);
+    // console.log(appid);
+    // console.log(appUrl);
+    // console.log(userdetails);
+    // console.log(appImageUrl);
     const dialogRef = this.dialog.open(PopUpModalComponent, {
       width: '450px',
       data: { appUrl: appUrl, appid: appid, userdetails: userdetails, appImageUrl: appImageUrl}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       // this.animal = result;
     });
 

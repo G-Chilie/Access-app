@@ -55,7 +55,7 @@ export class TokenValidationComponent implements OnInit {
     setTimeout(() => {
 
       localStorage.setItem('Token Value:', JSON.stringify(this.validateTokenForm.value));
-      console.log(logidet);
+      // console.log(logidet);
       // alert('Logging in....');
     }, 2000);
 
@@ -66,24 +66,25 @@ export class TokenValidationComponent implements OnInit {
   }
 
   validate(recdata) {
-    console.log('Encrypted Token:' + recdata);
+    // console.log('Encrypted Token:' + recdata);
     const logindetails = JSON.parse(localStorage.getItem('LoginFormDet'));
 
-    this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {
-      this.loading = false;
-      a ? this.getUserPic(logindetails) : this.getUserPic(logindetails);
-    });
-
+    // this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {
+    //   this.loading = false;
+    //   a ? this.getUserPic(logindetails) : this.getUserPic(logindetails);
+    // });
+    this.getUserPic(logindetails);
+    // this.loading = false;
     // this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {
     //   a ? this.getUserPic(logindetails) : swal('Oops! ', a.ResponseDescription, 'error');
     // });
-
+    this.loading = false;
   }
 
   getUserPic(userDets) {
     this.userser.getUserWithPic(userDets).subscribe((a: StaffDetails) => {
       this.userser.setUserObject(a);
-      a ? this.router.navigate(['home']) : console.log('GetUserWithPic result: ' + a);
+      a ? this.router.navigate(['home']) : console.log('Failed GetUserWithPic result: ' + a);
 
     });
   }

@@ -57,10 +57,10 @@ export class KillMyIdComponent implements OnInit {
       UserName: userDetstring.username
       // NewPassword: this.password.value
     };
-    console.log('Password Details:' + JSON.stringify(userDetails.UserName));
+    // console.log('Password Details:' + JSON.stringify(userDetails.UserName));
     this.userser.killMyID(userDetails).subscribe((a: KillMyIDStatus) => {
       this.loading = false;
-      a ?  console.log(a) : swal('Oops!', a.ResponseDescription, 'error');
+      a ?  console.log('') : swal('Oops!', a.ResponseDescription, 'error');
 
     });
   }
