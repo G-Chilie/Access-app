@@ -89,6 +89,36 @@ export class UtilityService {
       );
   }
 
+  decrypt(data) {
+    const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.ENC_API}`;
+    // console.log('New Data To Encrypt:' + JSON.stringify(data));
+    const reqObj = {
+      Data: data,
+      Key: localStorage.getItem('UserKey'),
+      EncryptDecrypt: 2,
+      AppId: 1,
+      Channel: 'AM'
+    };
+    // console.log(data);
+    return this.http.post<any>(PATH, reqObj)
+      .pipe(
+        // tap(() => console.log('Encryption method has been triggered')),
+        retry(3),
+        catchError(this.handleError),
+        map(res => {
+          // console.log(res);
+          if (res.ResponseCode === '00') {
+            // this.Info$.next(res.responseDescription);
+            return res.Data;
+          } else {
+            // console.log(res.ResponseDescription);
+            // this.Error$.next(res.responseDescription);
+            return null;
+          }
+        })
+      );
+  }
+
   encryptToken(data) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.ENC_API}`;
     // console.log('New Data To Encrypt:' + JSON.stringify(data));

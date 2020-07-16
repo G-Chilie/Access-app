@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.loginError = null;
     // console.log('USER' + JSON.stringify(this.loginForm.value));
+    const encLogdet = this.util.encrypt(this.loginForm.value);
     localStorage.setItem('LoginFormDet', JSON.stringify(this.loginForm.value));
 
     // if (a) {
@@ -116,6 +117,7 @@ export class LoginComponent implements OnInit {
       if (a) {
 
         const finUserStatus = a.FinancialUser;
+        console.log('Financial user? Answer: ' + finUserStatus);
         if (finUserStatus === true) {
           localStorage.setItem('AdminUserDetails', JSON.stringify(a));
           // this.popup.openDialog();
@@ -127,7 +129,7 @@ export class LoginComponent implements OnInit {
           this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
             this.loading = false;
             a ? this.router.navigate(['home']) : console.log('Failed GetUserWithPic result: ' + a);
-
+            localStorage.setItem('LoginStatus', 'Yes');
             this.userService.setUserObject(a);
           });
 
@@ -145,6 +147,7 @@ export class LoginComponent implements OnInit {
 
   public logout() {
     localStorage.removeItem('Form Details');
+    localStorage.removeItem('LoginStatus');
     localStorage.clear();
     this.router.navigate(['/login']);
   }

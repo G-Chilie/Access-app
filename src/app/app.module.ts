@@ -30,25 +30,28 @@ import { MatDialogModule, MatFormFieldModule, MAT_DIALOG_DATA, MatDialogRef } fr
 import { BasisAccessModule } from './basis-access/basis-access.module';
 import { BasisAccessComponent } from './basis-access/container/basis-access/basis-access.component';
 import { AuthComponent } from './auth/auth.component';
-
-// import { NotificationsService } from '../../node_modules/@angular/common/http/src/angular2-notifications';
+import { PopUpModalModule } from './modal/pop-up-modal/pop-up-modal/pop-up-modal.module';
+// import { PopUpModalComponent } from '../../node_modules/@angular/common/http/src/angular2-notifications';
 
 @NgModule({
   declarations: [
     AppComponent, NotificationModalComponent, RouteToApplicationComponent, AuthComponent, OpenurlComponent
   ],
   imports: [
-    BrowserModule, MatDialogModule, MatFormFieldModule, ReactiveFormsModule, FormsModule,
+    BrowserModule, MatDialogModule, MatFormFieldModule, PopUpModalModule, ReactiveFormsModule, FormsModule,
     HttpClientModule, UiModule, NgbModule, AppRouteRoutes,
     RouterModule.forRoot([]), TokenValidationModule, BrowserAnimationsModule, BasisAccessModule
   ],
+  entryComponents: [
+    PopUpModalComponent
+ ],
   exports: [RouterModule],
   providers: [
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: [] },
     AuthGuard, PopUpModalComponent,
     ResetBasisPasswordComponent, KillMyIdComponent,
-    QuicklinksComponent, TokenValidationComponent, BasisAccessComponent, NotificationModalComponent, NgbActiveModal],
+    QuicklinksComponent, HomepageComponent, TokenValidationComponent, BasisAccessComponent, NotificationModalComponent, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

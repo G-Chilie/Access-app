@@ -6,6 +6,9 @@ import { UtilityService } from 'src/app/utility.service';
 import { FormValidators } from 'src/app/Validator/form-validator';
 import swal from 'sweetalert';
 import { ValidateUserWithToken, StaffDetails } from 'src/app/_model/user';
+import { Token } from '@angular/compiler';
+import { PopUpModalComponent } from 'src/app/modal/pop-up-modal/pop-up-modal.component';
+import { HomepageComponent } from 'src/app/dashboard/homepage/homepage.component';
 
 
 @Component({
@@ -19,7 +22,7 @@ export class TokenValidationComponent implements OnInit {
   loading = false;
   passwordvalid = '([0-9]{6})';
   constructor(private router: Router, private userser: UserService, private formBuilder: FormBuilder,
-    private userServ: UserService,
+    private userServ: UserService, private popup: PopUpModalComponent, private home: HomepageComponent,
     private util: UtilityService) { }
 
   ngOnInit() {
@@ -54,7 +57,7 @@ export class TokenValidationComponent implements OnInit {
     const logidet = this.validateTokenForm.value;
     setTimeout(() => {
 
-      localStorage.setItem('Token Value:', JSON.stringify(this.validateTokenForm.value));
+      // localStorage.setItem('Token Value:', JSON.stringify(this.validateTokenForm.value));
       // console.log(logidet);
       // alert('Logging in....');
     }, 2000);
@@ -68,24 +71,39 @@ export class TokenValidationComponent implements OnInit {
   validate(recdata) {
     // console.log('Encrypted Token:' + recdata);
     const logindetails = JSON.parse(localStorage.getItem('LoginFormDet'));
+    // logindetails = this.util.decrypt(logindetails);
+    this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {
+      const LoginStatus = localStorage.getItem('LoginStatus');
+      console.log('LoginStatus: ' + LoginStatus);
+      if (localStorage.getItem('LoginStatus') === null) {
+        // a ? this.getUserPic(logindetails) : console.log('An error occured while validating Token Details');
+        a ? this.getUserPic(logindetails) : console.log('An error ocured while validating Token');
+        // this.getUserPic(logindetails);
+        this.loading = false;
+      } else {
+        const appUrl = localStorage.getItem('ClickedUrl');
+        const appid = localStorage.getItem('ClickedApp');
+        const userdetails = localStorage.getItem('useDet');
+        const appImageUrl = localStorage.getItem('applicationImage');
+        this.home.goToUrl2(appUrl, appid, userdetails, appImageUrl);
+              // this.redirectForm();
+      // this.dialogRef.close();
+      }
 
-    // this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {
-    //   this.loading = false;
-    //   a ? this.getUserPic(logindetails) : this.getUserPic(logindetails);
-    // });
-    this.getUserPic(logindetails);
+    });
+    // this.getUserPic(logindetails);
     // this.loading = false;
     // this.userser.validate(recdata).subscribe((a: ValidateUserWithToken) => {
     //   a ? this.getUserPic(logindetails) : swal('Oops! ', a.ResponseDescription, 'error');
     // });
-    this.loading = false;
   }
 
   getUserPic(userDets) {
     this.userser.getUserWithPic(userDets).subscribe((a: StaffDetails) => {
       this.userser.setUserObject(a);
+      this.loading = false;
       a ? this.router.navigate(['home']) : console.log('Failed GetUserWithPic result: ' + a);
-
+      localStorage.setItem('LoginStatus', 'Yes');
     });
   }
 

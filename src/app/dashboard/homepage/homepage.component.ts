@@ -12,7 +12,7 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TokenValidationComponent } from '../../token-validation/container/token-validation/token-validation.component';
+// import { TokenValidationComponent } from '../../token-validation/container/token-validation/token-validation.component';
 import { PopUpModalComponent } from 'src/app/modal/pop-up-modal/pop-up-modal.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
@@ -48,7 +48,7 @@ export class HomepageComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private http: HttpClient,
-    private tokenvalid: TokenValidationComponent,
+    // private tokenvalid: TokenValidationComponent,
     private popup: PopUpModalComponent,
     public dialog: MatDialog
   ) { }
@@ -101,6 +101,17 @@ export class HomepageComponent implements OnInit {
   }
 
   goToUrl(appUrl, appid, userdetails, appImageUrl) {
+
+    localStorage.setItem('ClickedUrl', appUrl);
+    localStorage.setItem('ClickedApp', appid);
+    localStorage.setItem('useDet', userdetails);
+    localStorage.setItem('applicationImage', appImageUrl);
+    this.router.navigate(['/token-validation']);
+    // this.goToUrl2(appUrl, appid, userdetails, appImageUrl);
+
+  }
+
+  goToUrl2(appUrl, appid, userdetails, appImageUrl) {
     // this.tokenvalid.submitRequest();
     // this.router.navigate(['/token-validation']);
     // this.popup.openDialog();
