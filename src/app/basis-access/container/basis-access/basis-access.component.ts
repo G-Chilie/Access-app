@@ -19,7 +19,7 @@ export class BasisAccessComponent implements OnInit {
   // tslint:disable-next-line: max-line-length
   // appUrl = 'http://10.0.6.78:8888/forms/frmservlet?config=ref&serveruserparams=NLS_LANG=AMERICAN_AMERICA.AR8MSWIN1256&otherparams=P_WST_LAN_IND=1';
   // tslint:disable-next-line: max-line-length
-  appUrl = 'http://10.0.6.112:8888/forms/frmservlet?config=ref&serveruserparams=NLS_LANG=AMERICAN_AMERICA.AR8MSWIN1256&otherparams=P_WST_LAN_IND=1';
+  appUrl = 'http://10.0.4.156:9001/forms/frmservlet?config=ref&serveruserparams=NLS_LANG=AMERICAN_AMERICA.AR8MSWIN1256&otherparams=P_WST_LAN_IND=1+P_BANKS_APP_URL=http://10.0.4.156:9001/banks';
   // appUrl = 'http://10.0.4.61:9001/banks/';
   // appUrl = 'http://10.0.6.203/BASISAccess/CloseApp2.aspx';
   userName = localStorage.getItem('username');
