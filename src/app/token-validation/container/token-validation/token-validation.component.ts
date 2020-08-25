@@ -77,7 +77,7 @@ export class TokenValidationComponent implements OnInit {
       console.log('LoginStatus: ' + LoginStatus);
       if (localStorage.getItem('LoginStatus') === null) {
         // a ? this.getUserPic(logindetails) : console.log('An error occured while validating Token Details');
-        a ? this.getUserPic(logindetails) : console.log('An error ocured while validating Token');
+        a ? this.getUserPic(logindetails) : swal('Oops! ', 'An error ocured while validating Token', 'error');
         // this.getUserPic(logindetails);
         this.loading = false;
       } else {
@@ -102,7 +102,7 @@ export class TokenValidationComponent implements OnInit {
     this.userser.getUserWithPic(userDets).subscribe((a: StaffDetails) => {
       this.userser.setUserObject(a);
       this.loading = false;
-      a ? this.router.navigate(['home']) : console.log('Failed GetUserWithPic result: ' + a);
+      a ? this.router.navigate(['home']) : swal('Oops! ', 'An error occured wile fetching information from SAP', 'error');
       localStorage.setItem('LoginStatus', 'Yes');
     });
   }

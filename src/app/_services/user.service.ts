@@ -191,7 +191,7 @@ export class UserService {
           return res;
         } else {
           // this.router.navigate(['login']);
-          // console.log('issue with staff details: ' + res.ResponseDescription);
+          console.log('issue with getting staff details from SAP: ' + res.ResponseDescription);
           return null;
         }
       })

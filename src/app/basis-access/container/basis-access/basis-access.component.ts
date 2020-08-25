@@ -70,7 +70,7 @@ export class BasisAccessComponent implements OnInit {
       localStorage.setItem('Token Value:', JSON.stringify(this._basisValidateForm.value));
       console.log(logidet);
       // alert('Logging in....');
-    }, 2000);
+    }, 4000);
 
     this.util.encrypt(this._basisValidateForm.value.tokenString).subscribe(data => {
       data ? this.validate(data) : console.log('token data not encrypted');
