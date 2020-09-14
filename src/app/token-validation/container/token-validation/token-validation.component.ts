@@ -86,6 +86,7 @@ export class TokenValidationComponent implements OnInit {
         const appid = localStorage.getItem('ClickedApp');
         const userdetails = localStorage.getItem('useDet');
         const appImageUrl = localStorage.getItem('applicationImage');
+        // this
         this.home.goToUrl2(appUrl, appid, userdetails, appImageUrl);
         this.router.navigate(['/home']);
               // this.redirectForm();
