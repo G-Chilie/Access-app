@@ -7,12 +7,14 @@ import * as JsEncryptModule from 'jsencrypt';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StaffDetails, EncryptionDetails, ValidateUserWithToken, BasisAccessStatus } from '../_model/user';
 import swal from 'sweetalert';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   // Info$: Subject<string> = new BehaviorSubject<string>(null);
   // Error$: Subject<string> = new BehaviorSubject<string>(null);
+
+  private tokenUrl = environment.BASE_URL + environment.ADMIN_SERVICE;
   constructor(private http: HttpClient, private util: UtilityService, private router: Router) { }
 
   extEncrypt(data) {
@@ -103,6 +105,17 @@ export class UserService {
     // const loggedinuser = localStorage.getItem('FullName') ;
     return (parsedBranch);
   }
+
+
+  postAngularApps(body): Observable<any> {
+    const path = this.tokenUrl + `/Token/GenerateAccessToken`;
+    //body = this.util.addAuthParams(body);
+    console.log(body);
+    return this.http
+    .post<any>(path, body)
+    .pipe(map((res) => res), tap(r => console.log('response from generatetoken' + r)));
+  }
+
 
   public encryptData(dataToEncrypt) {
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.ENC_API}`;

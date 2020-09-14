@@ -18,8 +18,10 @@ import { HomepageComponent } from 'src/app/dashboard/homepage/homepage.component
 })
 export class TokenValidationComponent implements OnInit {
   validateTokenForm: FormGroup;
+  ngAddUrl = '';
   password: FormControl;
   loading = false;
+  tokenId:any;
   passwordvalid = '([0-9]{6})';
   constructor(private router: Router, private userser: UserService, private formBuilder: FormBuilder,
     private userServ: UserService, private popup: PopUpModalComponent, private home: HomepageComponent,
@@ -87,6 +89,13 @@ export class TokenValidationComponent implements OnInit {
         const userdetails = localStorage.getItem('useDet');
         const appImageUrl = localStorage.getItem('applicationImage');
         // this
+
+        const applicationName = localStorage.getItem('applicationName')
+        console.log(appUrl);
+        const ngappCheck = appUrl.endsWith('/login');
+        if(ngappCheck){
+          this.goToAngularApp(applicationName, appUrl);
+        }
         this.home.goToUrl2(appUrl, appid, userdetails, appImageUrl);
         this.router.navigate(['/home']);
               // this.redirectForm();
@@ -110,6 +119,33 @@ export class TokenValidationComponent implements OnInit {
       localStorage.setItem('LoginStatus', 'Yes');
     });
   }
+
+
+  goToAngularApp(applicationName, appUrl) {
+    const body:any = {
+       Username: localStorage.getItem('username'),
+       Password: localStorage.getItem('password'),
+       Application: applicationName,
+       ApplicationId: localStorage.getItem('ClickedApp'),
+       Channel: applicationName,
+       Key: localStorage.getItem('UserKey'),
+       RequestID: "GP1579617017672655934545"
+     }
+   console.log(JSON.stringify(body));
+   this.userser.postAngularApps(body).subscribe(res =>{
+    if(res.ResponseCode == '00') {
+       // this.isToken = !this.isToken
+        this.tokenId = res.TokenKey
+        this.ngAddUrl = appUrl+'/'+this.tokenId;
+        //window.open('https://www.google.com/' + this.tokenId);
+        window.open(this.ngAddUrl);
+    }
+    console.log(this.ngAddUrl);
+    console.log('angular response'+ res);
+   })
+
+
+ }
 
   Back() {
     const backCheck = localStorage.getItem('StaffDetailsWithPic');
