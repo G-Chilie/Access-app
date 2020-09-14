@@ -102,7 +102,8 @@ export class TokenValidationComponent implements OnInit {
     this.userser.getUserWithPic(userDets).subscribe((a: StaffDetails) => {
       this.userser.setUserObject(a);
       this.loading = false;
-      a ? this.router.navigate(['home']) : swal('Oops! ', 'An error occured wile fetching information from SAP', 'error');
+      // a ? this.router.navigate(['home']) : swal('Oops! ', 'An error occured wile fetching information from SAP', 'error');
+      a ? this.router.navigate(['home']) : this.router.navigate(['home']);
       localStorage.setItem('LoginStatus', 'Yes');
     });
   }

@@ -128,7 +128,8 @@ export class LoginComponent implements OnInit {
           // tslint:disable-next-line: no-shadowed-variable
           this.userService.getUserWithPic(this.loginForm.value).subscribe((a: StaffDetails) => {
             this.loading = false;
-            a ? this.router.navigate(['home']) : console.log('Failed GetUserWithPic result: ' + a);
+            // a ? this.router.navigate(['home']) : console.log('Failed GetUserWithPic result: ' + a);
+            a ? this.router.navigate(['home']) : this.router.navigate(['home']);
             localStorage.setItem('LoginStatus', 'Yes');
             this.userService.setUserObject(a);
           });
