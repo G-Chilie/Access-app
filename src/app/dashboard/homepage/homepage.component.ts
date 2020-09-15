@@ -106,7 +106,7 @@ export class HomepageComponent implements OnInit {
     localStorage.setItem('ClickedApp', appid);
     localStorage.setItem('useDet', userdetails);
     localStorage.setItem('applicationImage', appImageUrl);
-    localStorage.setItem('applicationName', applicationName)
+    localStorage.setItem('applicationName', applicationName);
     this.router.navigate(['/token-validation']);
     // this.goToUrl2(appUrl, appid, userdetails, appImageUrl);
 

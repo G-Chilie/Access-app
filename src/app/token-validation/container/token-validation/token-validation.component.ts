@@ -21,7 +21,7 @@ export class TokenValidationComponent implements OnInit {
   ngAddUrl = '';
   password: FormControl;
   loading = false;
-  tokenId:any;
+  tokenId: any;
   passwordvalid = '([0-9]{6})';
   constructor(private router: Router, private userser: UserService, private formBuilder: FormBuilder,
     private userServ: UserService, private popup: PopUpModalComponent, private home: HomepageComponent,
@@ -90,14 +90,17 @@ export class TokenValidationComponent implements OnInit {
         const appImageUrl = localStorage.getItem('applicationImage');
         // this
 
-        const applicationName = localStorage.getItem('applicationName')
+        const applicationName = localStorage.getItem('applicationName');
         console.log(appUrl);
         const ngappCheck = appUrl.endsWith('/login');
-        if(ngappCheck){
+        if (ngappCheck) {
           this.goToAngularApp(applicationName, appUrl);
+          this.router.navigate(['/home']);
+        } else {
+          this.home.goToUrl2(appUrl, appid, userdetails, appImageUrl);
+          this.router.navigate(['/home']);
         }
-        this.home.goToUrl2(appUrl, appid, userdetails, appImageUrl);
-        this.router.navigate(['/home']);
+
               // this.redirectForm();
       // this.dialogRef.close();
       }
@@ -112,6 +115,7 @@ export class TokenValidationComponent implements OnInit {
 
   getUserPic(userDets) {
     this.userser.getUserWithPic(userDets).subscribe((a: StaffDetails) => {
+      console.log('About to get userpic');
       this.userser.setUserObject(a);
       this.loading = false;
       // a ? this.router.navigate(['home']) : swal('Oops! ', 'An error occured wile fetching information from SAP', 'error');
@@ -122,27 +126,28 @@ export class TokenValidationComponent implements OnInit {
 
 
   goToAngularApp(applicationName, appUrl) {
-    const body:any = {
+    const body: any = {
        Username: localStorage.getItem('username'),
        Password: localStorage.getItem('password'),
        Application: applicationName,
        ApplicationId: localStorage.getItem('ClickedApp'),
        Channel: applicationName,
        Key: localStorage.getItem('UserKey'),
-       RequestID: "GP1579617017672655934545"
-     }
+       RequestID: 'GP1579617017672655934545'
+     };
    console.log(JSON.stringify(body));
-   this.userser.postAngularApps(body).subscribe(res =>{
-    if(res.ResponseCode == '00') {
+   this.userser.postAngularApps(body).subscribe(res => {
+    // tslint:disable-next-line: triple-equals
+    if (res.ResponseCode == '00') {
        // this.isToken = !this.isToken
-        this.tokenId = res.TokenKey
-        this.ngAddUrl = appUrl+'/'+this.tokenId;
-        //window.open('https://www.google.com/' + this.tokenId);
+        this.tokenId = res.TokenKey;
+        this.ngAddUrl = appUrl + '/' + this.tokenId;
+        // window.open('https://www.google.com/' + this.tokenId);
         window.open(this.ngAddUrl);
     }
     console.log(this.ngAddUrl);
-    console.log('angular response'+ res);
-   })
+    console.log('angular response' + res);
+   });
 
 
  }
