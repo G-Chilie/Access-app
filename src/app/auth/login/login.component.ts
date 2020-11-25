@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit {
   }
 
   getAdminUserDetails(data) {
-
+console.log('Gotten user data. Going to adminuserservice. Data Gotten: ' + data);
     this.userService.getUserApps(data).subscribe((a) => {
       this.loading = false;
       // console.log(a);
@@ -141,6 +141,9 @@ export class LoginComponent implements OnInit {
         }
         // a ? localStorage.setItem('AdminUserDetails', JSON.stringify(a)) : console.log('No admin user data');
         //  this.router.navigate(['/home']);
+      } else {
+        console.log(a.ResponseDescription);
+        swal('Oops!', a.ResponseDescription, 'error');
       }
     });
 

@@ -165,8 +165,8 @@ export class UtilityService {
   }
 
   getEncryptedDetails() {
-    const encUsername = localStorage.getItem('username');
-    const encPassword = localStorage.getItem('password');
+    const encUsername = window.localStorage.getItem('username');
+    const encPassword = window.localStorage.getItem('password');
     const data = {
       UserName: encUsername,
       Password: encPassword
@@ -174,6 +174,7 @@ export class UtilityService {
     if (encUsername && encPassword) {
       return data;
     } else {
+      console.log('An error occured getting encrypted data from storage');
       return null;
     }
   }

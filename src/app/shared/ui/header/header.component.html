@@ -10,7 +10,8 @@
         <p class="mb-0">
           You are logged in from <strong>{{ branchname }}</strong>
         </p>
-        <p>Last login date: {{ lastlogindate | date:'medium' }}</p>
+        <p>Last login date: {{ (lastlogindate !== null) ? (lastlogindate | date: 'dd/MM/yyyy') : "" }}</p>
+        
       </div>
     </div>
     <div *ngIf="!fullName" class="spinner-border spinner-border-sm" role="status">

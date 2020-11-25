@@ -109,7 +109,7 @@ export class UserService {
 
   postAngularApps(body): Observable<any> {
     const path = this.tokenUrl + `/Token/GenerateAccessToken`;
-    //body = this.util.addAuthParams(body);
+    // body = this.util.addAuthParams(body);
     console.log(body);
     return this.http
     .post<any>(path, body)
@@ -147,6 +147,7 @@ export class UserService {
   }
 
   public getUserApps(reqData) {
+    console.log('proceeding to get user apps');
     const PATH = `${environment.BASE_URL}${environment.ADMIN_SERVICE}${environment.APPS_API}`;
     if (reqData) {
       // reqData = this.util.getEncryptedDetails();

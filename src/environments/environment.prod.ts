@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
    // http://gtweb6.gtbank.com/WEBAPIs/PubEncrypt4/GTBAdminUserService/api/Staff/GetStaffWithPicture
-   BASE_URL: 'http://gtmt.gtbank.com',
-   BASE_URL_APPS: 'http://gtmt.gtbank.com',
+   BASE_URL: 'https://gtmt.gtbank.com',
+   BASE_URL_APPS: 'https://gtmt.gtbank.com',
    ADMIN_SERVICE: '/GTBAdminUserService_Pilot/api',
    APPS_API: '/Login/AccessManagerLogin',
    UPDATEUSERSEC_API: '/Login/AccessManagerLogin ',
