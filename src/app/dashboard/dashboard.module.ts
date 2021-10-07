@@ -6,9 +6,10 @@ import { DashboardRoutes } from './dashboard.routing';
 import { HomepageComponent } from './homepage/homepage.component';
 import { DashboardService } from './_services/dashboard.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BasisBranchesComponent } from './basis-branches/basis-branches.component';
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, BasisBranchesComponent],
   imports: [
     CommonModule, UiModule, DashboardRoutes, UiModule, HttpClientModule
   ],

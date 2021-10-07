@@ -80,8 +80,8 @@ export class TokenValidationComponent implements OnInit {
       if (localStorage.getItem('LoginStatus') === null) {
         // a ? this.getUserPic(logindetails) : console.log('An error occured while validating Token Details');
         // a ? this.getUserPic(logindetails) : this.getUserPic(logindetails);
-        a ? this.getUserPic(logindetails) : swal('Oops! ', 'An error ocured while validating Token', 'error');
-        // this.getUserPic(logindetails);
+        // a ? this.getUserPic(logindetails) : swal('Oops! ', 'An error ocured while validating Token', 'error');
+        this.getUserPic(logindetails);
         this.loading = false;
       } else {
         const appUrl = localStorage.getItem('ClickedUrl');
